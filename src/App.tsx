@@ -1,8 +1,12 @@
 import React from 'react';
 import axios from "axios";
+import {createRequestToken} from "./API/authAPI";
 
-const request = () => {
-  axios.get('https://api.themoviedb.org/3/movie/550?api_key=06738fd5d9c4c2cfaabec88c04400226&language=de').then(res => console.log(res))
+const history = useHis  
+
+const request = async () => {
+    const res = await createRequestToken()
+    console.log(res)
 }
 
 function App() {
