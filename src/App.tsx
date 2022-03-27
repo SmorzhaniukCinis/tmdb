@@ -2,18 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {createRequestToken, createSession} from "./API/authAPI";
 import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import {createRequestTokenThunk} from "./store/AccountReducer";
 
 
 function App() {
 
-    const creatingToken = async () => {
-        const res = await createRequestToken()
-        if (res.success) {
-            window.location.replace(
-                `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=http://localhost:3000`
-            )
-        }
-    }
+
     const [sessionId, setSessionId] = useState('')
 
     useEffect(() => {
@@ -33,7 +27,7 @@ function App() {
         <Routes>
             <Route path={'/'} element={<Test/>}/>
         </Routes>
-        <button onClick={creatingToken}>test</button>
+        <button >test</button>
     </div>
   );
 }
@@ -45,7 +39,7 @@ const Test = () => {
 
     const dispatch = useDispatch()
     const redux = () => {
-            dispatch({type: 'sd' , text: 'work'})
+            dispatch(createRequestTokenThunk())
     }
     const state = useSelector((state) => state )
     console.log(state)
