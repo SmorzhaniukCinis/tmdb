@@ -1,18 +1,22 @@
-import axios from "axios";
 import {instance} from "./index";
 
-const accountAPI = {
-    getDetails : async (sessionId:string) => {
-        const res = await instance.get(`account&session_id=${sessionId}` ,)
-        return res.data
-    }
+type getDetailsType = {
+    "avatar": {
+        "gravatar": {
+            "hash": string
+        }
+    },
+    "id": number,
+    "iso_639_1": string
+    "iso_3166_1": string
+    "name": string
+    "include_adult": boolean
+    "username": string
 }
 
-
-
-
-// export const getDetails = async () => {
-//     debugger
-//     const response = await $host.post('api/user/registration' , {email, password, role: 'ADMIN'})
-//     return response
-// }
+export const accountAPI = {
+    getDetails : async (sessionId:string):Promise<getDetailsType> => {
+        const {data} = await instance.get<getDetailsType>(`account?session_id=${sessionId}`)
+        return data
+    }
+}
