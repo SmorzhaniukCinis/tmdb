@@ -4,7 +4,21 @@ import {accountAPI} from "../API/accountAPI/accoutAPI";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 
-const initialState = {}
+const initialState = {
+    data: {
+        avatar: {
+            gravatar: {
+                hash: null
+            }
+        },
+        id: null,
+        iso_639_1: null,
+        iso_3166_1: null,
+        name: null,
+        include_adult: null,
+        username: null
+    }
+}
 
 type initialStateType = typeof initialState
 
