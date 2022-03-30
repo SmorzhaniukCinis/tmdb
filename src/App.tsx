@@ -1,24 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {createRequestToken, createSession} from "./API/authAPI";
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {createRequestTokenThunk} from "./store/AccountReducer";
+import {createRequestTokenThunk, createSessionId} from "./store/AccountReducer";
 
 
 function App() {
-
-
-    const [sessionId, setSessionId] = useState('')
-
+    const dispatch = useDispatch()
     useEffect(() => {
         const url = new URL(window.location.href)
         let approved =  url.searchParams.get('approved')
         let request_token = url.searchParams.get('request_token')
         if(approved && request_token != null) {
-            createSession(request_token).then(res => res.success
-                ? setSessionId(res.session_id)
-                :null
-            )
+            debugger
+            dispatch(createSessionId(request_token))
         }
     } , [])
 

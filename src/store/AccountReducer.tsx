@@ -1,25 +1,41 @@
-import {createRequestToken} from "../API/authAPI";
+import {Dispatch} from "redux";
+import {ActionTypes} from "./store";
+import {authAPI} from "../API/authAPI";
+
+const SET_SESSION_ID = "SET_SESSION_ID"
 
 const initialState = {
-    test: 'hello'
+    sessionId: '',
 }
 
-export const AccountReducer = (state= initialState, action:any) => {
-  switch (action.type) {
-      case "sd":
-          return {...state, test : action.text}
-      default: return state
-  }
+type initialStateType = typeof initialState
+
+export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
+    switch (action.type) {
+        case SET_SESSION_ID:
+            return {...state, sessionId: action.sessionId}
+        default:
+            return state
+    }
 }
 
-export const createRequestTokenThunk = () =>  async (dispatch:any) => {
-    debugger
-    const res:any = await createRequestToken()
+export const accountActions = {
+    setSessionId: (sessionId: string) => ({type: SET_SESSION_ID, sessionId} as const),
+}
+
+export const createRequestTokenThunk = () => async (dispatch: Dispatch<ActionTypes>) => {
+    const res: any = await authAPI.createRequestToken()
     if (res.success) {
         window.location.replace(
             `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=http://localhost:3000`
         )
-        dispatch({type: 'sd', test: 'success'})
+    }
+}
+export const createSessionId = (request_token: string) => async (dispatch: Dispatch<ActionTypes>) => {
+    debugger
+    const res: any = await authAPI.createSession(request_token)
+    if (res.success) {
+        dispatch(accountActions.setSessionId(res.session_id))
     }
 }
 

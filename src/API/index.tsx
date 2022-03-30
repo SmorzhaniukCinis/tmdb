@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const key = '06738fd5d9c4c2cfaabec88c04400226'
+const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNjczOGZkNWQ5YzRjMmNmYWFiZWM4OGMwNDQwMDIyNiIsInN1YiI6IjYyM2VlN2U5ZDEwMGI2MDA1Y2EwZWRhOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uisv08FEbNTPWi4jcAUVDzxbDK1QX8CSLVMxNR5HFE8'
 export const instance = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
+    headers: {Authorization: `Bearer ${token}`}
 
 })
