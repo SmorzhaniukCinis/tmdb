@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {ActionTypes} from "./store";
-import {authAPI} from "../API/authAPI";
+import {authAPI} from "../API/authAPI/authAPI";
 
 const SET_SESSION_ID = "auth/SET_SESSION_ID"
 

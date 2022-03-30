@@ -1,14 +1,7 @@
-import {instance} from "./index";
+import {instance} from "../index";
+import {createRequestTokenType, createSessionType} from "./authTypes";
 
-type createRequestTokenType = {
-    "success": boolean,
-    "expires_at": string
-    "request_token": string
-}
-type createSessionType = {
-    "success": boolean
-    "session_id": string
-}
+
 
 export const authAPI = {
     createRequestToken: async ():Promise<createRequestTokenType> => {

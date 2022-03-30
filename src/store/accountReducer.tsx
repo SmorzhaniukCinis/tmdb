@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
-import {accountAPI} from "../API/accoutAPI";
+import {accountAPI} from "../API/accountAPI/accoutAPI";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 
