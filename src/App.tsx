@@ -1,8 +1,11 @@
 import React, {useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Link, Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createRequestTokenThunk, createSessionId} from "./store/authReducer";
 import {accountActions, getAccountInfo} from "./store/accountReducer";
+// @ts-ignore
+import Profile from "./Pages/Profile";
+import NavBar from "./components/NavBar";
 
 
 function App() {
@@ -18,10 +21,11 @@ function App() {
 
   return (
     <div>
+        <NavBar/>
         <Routes>
-            <Route path={'/'} element={<Test/>}/>
+            <Route path={'/'} element={<Home/>}/>
+            <Route path={'/profile'} element={<Profile/>}/>
         </Routes>
-        <button >test</button>
     </div>
   );
 }
@@ -29,7 +33,7 @@ function App() {
 
 
 
-const Test = () => {
+const Home = () => {
 
     const dispatch = useDispatch()
     const redux = () => {
