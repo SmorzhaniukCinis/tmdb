@@ -6,3 +6,6 @@ export const instance = axios.create({
     headers: {Authorization: `Bearer ${token}`}
 
 })
+export const instanceForPicture = axios.create({
+    baseURL: 'https://image.tmdb.org/t/p/'
+})
