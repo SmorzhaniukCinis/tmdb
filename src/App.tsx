@@ -5,7 +5,7 @@ import {authentication, createRequestTokenThunk, createSessionId} from "./store/
 import {accountActions, getAccountInfo} from "./store/accountReducer";
 // @ts-ignore
 import Profile from "./Pages/Profile";
-import NavBar from "./components/NavBar";
+import {NavBar} from "./components/NavBar";
 import {Auth} from "./Pages/Auth";
 
 
@@ -20,14 +20,124 @@ function App() {
         }
     } , [])
 
-  return (
+
+    return (
     <div>
+         {/*@ts-ignore*/}
         <NavBar/>
         <Routes>
             <Route path={'/'} element={<Home/>}/>
             <Route path={'/account'} element={<Profile/>}/>
             <Route path={'/authentication'} element={<Auth/>}/>
         </Routes>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
+            <div>d</div>
     </div>
   );
 }
