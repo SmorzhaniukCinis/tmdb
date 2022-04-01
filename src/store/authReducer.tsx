@@ -37,4 +37,8 @@ export const createSessionId = (request_token: string) => async (dispatch: Dispa
         dispatch(authActions.setSessionId(res.session_id))
     }
 }
+export const authentication = (request_token: string) => async (dispatch: Dispatch<ActionTypes>) => {
+    const res = await authAPI.createSessionWithLogin(request_token)
+    console.log(res)
+}
 

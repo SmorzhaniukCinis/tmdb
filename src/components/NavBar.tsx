@@ -47,12 +47,15 @@ const NavBar = () => {
 
 
     return (
-        <div style={{display: 'flex', justifyContent: 'space-around', width: 200}}>
+        <div style={{display: 'flex', justifyContent: 'space-around', width: 300}}>
             <div>
                 <Link to={'/'}>home  </Link>
             </div>
             <div>
-                <Link to={'/profile'}>profile  </Link>
+                <Link to={'/account'}>profile  </Link>
+            </div>
+            <div>
+                <Link to={'/authentication'}>authentication  </Link>
             </div>
             {imageURL
                 ? <Avatar src={imageURL} />
