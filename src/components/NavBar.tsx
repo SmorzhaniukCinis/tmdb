@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import {CssBaseline} from "@mui/material";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {ProfileMenu} from "./ProfileMenu";
 import {NawMenu} from "./NavMenu";
 
@@ -28,28 +28,37 @@ function HideOnScroll(props: Props) {
     );
 }
 
-
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#1976d2',
+        },
+    },
+});
 export const NavBar = (props: { window?: () => Window }) => {
     return (
         <React.Fragment>
             <CssBaseline/>
             <HideOnScroll {...props}>
-                <AppBar>
-                    <Container maxWidth="xl">
-                        <Toolbar disableGutters>
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                component="div"
-                                sx={{mr: 2, display: {xs: 'none', md: 'flex'}}}
-                            >
-                                TMDB
-                            </Typography>
-                            <NawMenu/>
-                            <ProfileMenu/>
-                        </Toolbar>
-                    </Container>
-                </AppBar>
+                <ThemeProvider theme={darkTheme}>
+                    <AppBar>
+                        <Container maxWidth="xl">
+                            <Toolbar disableGutters>
+                                <Typography
+                                    variant="h6"
+                                    noWrap
+                                    component="div"
+                                    sx={{mr: 2, display: {xs: 'none', md: 'flex'}}}
+                                >
+                                    TMDB
+                                </Typography>
+                                <NawMenu/>
+                                <ProfileMenu/>
+                            </Toolbar>
+                        </Container>
+                    </AppBar>
+                </ThemeProvider>
             </HideOnScroll>
             <Toolbar/>
         </React.Fragment>

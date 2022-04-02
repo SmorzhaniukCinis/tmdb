@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import React from "react";
+import {Link} from "react-router-dom";
 
 export const NawMenu = () => {
     return (
@@ -8,7 +9,9 @@ export const NawMenu = () => {
             <Button
                 sx={{my: 2, color: 'white', display: 'block'}}
             >
-                home
+               <Link to={'/'} style={{color: 'white' , textDecoration: 'none'}}>
+                   Home
+               </Link>
             </Button>
         </Box>
     )
