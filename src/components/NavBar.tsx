@@ -70,9 +70,6 @@ function HideOnScroll(props: Props) {
     );
 }
 
-const pages = ['Products', 'Pricing', 'Blog', 'DFA'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout', 'Logout'];
-
 export const NavBar = (props: Props) => {
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -85,13 +82,25 @@ export const NavBar = (props: Props) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+
+
+
+
+
+    const details = useSelector(getDetails)
+
+     const getImage = (size: string, path: string | null) => {
+         if (path != null) {
+             return `https://image.tmdb.org/t/p/${size + path}`
+         } else return undefined
+     }
+     const imageURL = getImage('w200', details.avatar.tmdb.avatar_path)
 
     return (
         <React.Fragment>
@@ -110,7 +119,6 @@ export const NavBar = (props: Props) => {
                             </Typography>
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                                     <Button
-                                        onClick={handleCloseNavMenu}
                                         sx={{ my: 2, color: 'white', display: 'block' }}
                                     >
                                         home
@@ -120,7 +128,12 @@ export const NavBar = (props: Props) => {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        {imageURL
+                                                     ? <Avatar src={imageURL} />
+                                                     : details.name
+                                                         ? <Avatar {...stringAvatar(details.name)} />
+                                                         : <Avatar src={undefined} /> }
+
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -139,11 +152,9 @@ export const NavBar = (props: Props) => {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center">{setting}</Typography>
+                                        <MenuItem onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center">profile</Typography>
                                         </MenuItem>
-                                    ))}
                                 </Menu>
                             </Box>
                         </Toolbar>
@@ -151,56 +162,6 @@ export const NavBar = (props: Props) => {
                 </AppBar>
             </HideOnScroll>
             <Toolbar />
-            <Container>
-                <Box sx={{ my: 2 }}>
-                    {[...new Array(12)]
-                        .map(
-                            () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                        )
-                        .join('\n')}
-                </Box>
-            </Container>
         </React.Fragment>
     );
 }
-
-
-
-// export const NavBar = () => {
-//
-//     const details = useSelector(getDetails)
-//
-//     const getImage = (size: string, path: string | null) => {
-//         if (path != null) {
-//             return `https://image.tmdb.org/t/p/${size + path}`
-//         } else return undefined
-//     }
-//     const imageURL = getImage('w200', details.avatar.tmdb.avatar_path)
-//
-//
-//
-
-
-    // return (
-    //     <div style={{display: 'flex', justifyContent: 'space-around', width: 300}}>
-    //         <div>
-    //             <Link to={'/'}>home  </Link>
-    //         </div>
-    //         <div>
-    //             <Link to={'/account'}>profile  </Link>
-    //         </div>
-    //         <div>
-    //             <Link to={'/authentication'}>authentication  </Link>
-    //         </div>
-    //         {imageURL
-    //             ? <Avatar src={imageURL} />
-    //             : details.name
-    //                 ? <Avatar {...stringAvatar(details.name)} />
-    //                 : <Avatar src={undefined} /> }
-    //
-    //     </div>
-    // );
-

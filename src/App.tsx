@@ -23,8 +23,23 @@ function App() {
 
     return (
     <div>
-         {/*@ts-ignore*/}
+
         <NavBar/>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
+        <div>ds</div>
         <Routes>
             <Route path={'/'} element={<Home/>}/>
             <Route path={'/account'} element={<Profile/>}/>
