@@ -92,14 +92,15 @@ export const ProfileMenu = () => {
                 onClose={handleCloseUserMenu}
             >
                 {!sessionId
-                    ?   <MenuItem onClick={handleCloseUserMenu}>
-                        <Link to={'/profile'}>
-                            <Typography textAlign="center">Profile</Typography>
-                        </Link>
-                    </MenuItem>
-                    : <div>sdf</div>
+                    ?   <div>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                            <Link to={'/profile'}>
+                                <Typography textAlign="center">Profile</Typography>
+                            </Link>
+                        </MenuItem>
+                    </div>
+                    :   <div>Login</div>
                 }
-
             </Menu>
         </Box>
     )
