@@ -92,25 +92,25 @@ export const ProfileMenu = () => {
                 onClose={handleCloseUserMenu}
             >
                 {!sessionId
-                    ?   <>
+                    ?   <div>
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to={'/profile'} style={{color: 'white', textDecorationLine: 'none'}}>
+                                <Link to={'/profile'} style={{color: 'inherit', textDecorationLine: 'none'}}>
                                     <Typography textAlign="center">Profile</Typography>
                                 </Link>
                             </MenuItem>
-                        <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to={'/auth'} style={{color: 'white', textDecorationLine: 'none'}}>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Link to={'/auth'} style={{color: 'inherit', textDecorationLine: 'none'}}>
                                     <Typography textAlign="center">Logout</Typography>
                                 </Link>
                             </MenuItem>
-                        </>
-                    :   <>
+                        </div>
+                    :   <div>
                         <MenuItem onClick={handleCloseUserMenu}>
                             <Link to={'/'}>
                                 <Typography textAlign="center">Login</Typography>
                             </Link>
                         </MenuItem>
-                        </>
+                        </div>
                 }
             </Menu>
         </Box>

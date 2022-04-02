@@ -7,9 +7,9 @@ export const NawMenu = () => {
     return (
         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             <Button
-                sx={{my: 2, color: 'white', display: 'block'}}
+                sx={{my: 2, color: 'inherit', display: 'block'}}
             >
-               <Link to={'/'} style={{color: 'white' , textDecoration: 'none'}}>
+               <Link to={'/'} style={{color: 'inherit' , textDecoration: 'none'}}>
                    Home
                </Link>
             </Button>

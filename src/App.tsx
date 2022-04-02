@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {authentication, createRequestTokenThunk, createSessionId} from "./store/authReducer";
@@ -7,6 +7,7 @@ import {getAccountInfo} from "./store/accountReducer";
 import Profile from "./Pages/Profile";
 import {NavBar} from "./components/NavBar";
 import {Auth} from "./Pages/Auth";
+import {createTheme, ThemeProvider} from "@mui/material";
 
 
 function App() {
@@ -20,9 +21,27 @@ function App() {
         }
     } , [])
 
+    const darkTheme = createTheme({
+        palette: {
+            mode: 'dark',
+            primary: {
+                main: '#1976d2',
+            },
+        },
+    });
+    const lightTheme = createTheme({
+        palette: {
+            mode: 'light',
+            primary: {
+                main:'#94a1ab',
+            },
+        },
+    });
+    const [isDarkTheme, setIdDarkTheme] = useState(true)
 
     return (
     <div>
+        <ThemeProvider theme={darkTheme}>
 
         <NavBar />
         <div>ds1</div>
@@ -153,6 +172,7 @@ function App() {
             <div>d</div>
             <div>d</div>
             <div>d</div>
+    </ThemeProvider>
     </div>
   );
 }

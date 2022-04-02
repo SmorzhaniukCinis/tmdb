@@ -28,20 +28,12 @@ function HideOnScroll(props: Props) {
     );
 }
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-        primary: {
-            main: '#1976d2',
-        },
-    },
-});
+
 export const NavBar = (props: { window?: () => Window }) => {
     return (
         <React.Fragment>
             <CssBaseline/>
             <HideOnScroll {...props}>
-                <ThemeProvider theme={darkTheme}>
                     <AppBar>
                         <Container maxWidth="xl">
                             <Toolbar disableGutters>
@@ -58,7 +50,6 @@ export const NavBar = (props: { window?: () => Window }) => {
                             </Toolbar>
                         </Container>
                     </AppBar>
-                </ThemeProvider>
             </HideOnScroll>
             <Toolbar/>
         </React.Fragment>
