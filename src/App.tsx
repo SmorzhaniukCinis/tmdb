@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {Link, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {authentication, createRequestTokenThunk, createSessionId} from "./store/authReducer";
-import {accountActions, getAccountInfo} from "./store/accountReducer";
+import {getAccountInfo} from "./store/accountReducer";
 // @ts-ignore
 import Profile from "./Pages/Profile";
 import {NavBar} from "./components/NavBar";
@@ -24,7 +24,7 @@ function App() {
     return (
     <div>
 
-        <NavBar/>
+        <NavBar />
         <div>ds</div>
         <div>ds</div>
         <div>ds</div>

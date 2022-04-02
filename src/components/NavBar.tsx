@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import {CssBaseline} from "@mui/material";
+import {getSessionId} from "../store/Selectors/authSelectors";
 
 
 function stringToColor(string: string) {
@@ -70,19 +70,14 @@ function HideOnScroll(props: Props) {
     );
 }
 
-export const NavBar = (props: Props) => {
 
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    export const NavBar = (props: { window?: ()=> Window }) => {
+
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
-
-
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -94,6 +89,7 @@ export const NavBar = (props: Props) => {
 
 
     const details = useSelector(getDetails)
+    const sessionId = useSelector(getSessionId)
 
      const getImage = (size: string, path: string | null) => {
          if (path != null) {
@@ -128,7 +124,7 @@ export const NavBar = (props: Props) => {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        {imageURL
+                                        {sessionId
                                                      ? <Avatar src={imageURL} />
                                                      : details.name
                                                          ? <Avatar {...stringAvatar(details.name)} />
