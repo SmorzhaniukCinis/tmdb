@@ -1,7 +1,7 @@
-import {useSelector} from "react-redux";
-import {getDetails} from "../store/Selectors/accountSelectors";
+import {useDispatch, useSelector} from "react-redux";
+import {getDetails, getIsDarkTheme} from "../store/Selectors/accountSelectors";
 import {getSessionId} from "../store/Selectors/authSelectors";
-import React from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -10,6 +10,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import {Link} from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import {MaterialUISwitch} from "../materialUI/switchButtonStyle";
+import {accountActions} from "../store/accountReducer";
 
 
 function stringToColor(string: string) {
@@ -41,10 +43,15 @@ function stringAvatar(name: string) {
     };
 }
 
+
+
+
 export const ProfileMenu = () => {
 
     const details = useSelector(getDetails)
     const sessionId = useSelector(getSessionId)
+    const isDarkTheme = useSelector(getIsDarkTheme)
+    const dispatch = useDispatch()
 
     const getImage = (size: string, path: string | null) => {
         if (path != null) {
@@ -62,6 +69,12 @@ export const ProfileMenu = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+
+
+    function changeTheme(e:any) {
+        dispatch(accountActions.setDarkTheme(!isDarkTheme))
+    }
 
     return(
         <Box sx={{flexGrow: 0}}>
@@ -103,6 +116,7 @@ export const ProfileMenu = () => {
                                     <Typography textAlign="center">Logout</Typography>
                                 </Link>
                             </MenuItem>
+
                         </div>
                     :   <div>
                         <MenuItem onClick={handleCloseUserMenu}>
@@ -112,6 +126,9 @@ export const ProfileMenu = () => {
                         </MenuItem>
                         </div>
                 }
+                <MenuItem>
+                    <MaterialUISwitch sx={{ m: 1 }} value={isDarkTheme} onClick={changeTheme} />
+                </MenuItem>
             </Menu>
         </Box>
     )

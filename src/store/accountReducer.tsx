@@ -3,7 +3,7 @@ import {ActionTypes, RootStateType} from "./store";
 import {accountAPI} from "../API/accountAPI/accoutAPI";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
-const SET_AVATAR = "account/SET_AVATAR"
+const SET_DARK_THEME = "account/SET_DARK_THEME"
 
 const initialState = {
     data: {
@@ -22,7 +22,7 @@ const initialState = {
         include_adult: null,
         username: null
     },
-    avatar: null
+    isDarkTheme: false
 }
 
 type initialStateType = typeof initialState
@@ -30,17 +30,17 @@ type initialStateType = typeof initialState
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case SET_ACCOUNT_DETAILS:
-            return {...state, data: action.res}
-        case SET_AVATAR:
-            return {...state, avatar: action.res}
+            return {...state, data: action.payload}
+        case SET_DARK_THEME:
+            return {...state, isDarkTheme: action.payload}
         default:
             return state
     }
 }
 
 export const accountActions = {
-    setAccountDetails: (res:any) => ({type: SET_ACCOUNT_DETAILS, res} as const),
-    setAvatar: (res:any) => ({type: SET_AVATAR, res} as const),
+    setAccountDetails: (payload:any) => ({type: SET_ACCOUNT_DETAILS, payload} as const),
+    setDarkTheme: (payload:any) => ({type: SET_DARK_THEME, payload} as const),
 }
 
 export const getAccountInfo = () =>
