@@ -6,3 +6,6 @@ export const getSessionId = (state:RootStateType) => {
 export const getIsLoadingForStep1 = (state:RootStateType) => {
     return state.auth.loadingForStep1
 }
+export const getRequestToken = (state:RootStateType) => {
+    return state.auth.requestToken
+}
