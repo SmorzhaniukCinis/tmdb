@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {authentication, createRequestTokenThunk} from "../store/authReducer";
+import {authentication, createRequestToken} from "../store/authReducer";
 import {getAccountInfo} from "../store/accountReducer";
 import React from "react";
 import App from "../App";
@@ -8,7 +8,7 @@ export const Home = () => {
 
     const dispatch = useDispatch()
     const redux = () => {
-        dispatch(createRequestTokenThunk())
+        dispatch(createRequestToken())
     }
     const state = useSelector((state) => state )
     console.log(state)

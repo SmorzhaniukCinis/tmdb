@@ -104,7 +104,7 @@ export const ProfileMenu = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                {!sessionId
+                {sessionId
                     ?   <div>
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Link to={'/profile'} style={{color: 'inherit', textDecorationLine: 'none'}}>
@@ -112,7 +112,7 @@ export const ProfileMenu = () => {
                                 </Link>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to={'/auth'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                                <Link to={'/authFake'} style={{color: 'inherit', textDecorationLine: 'none'}}>
                                     <Typography textAlign="center">Logout</Typography>
                                 </Link>
                             </MenuItem>
@@ -120,7 +120,7 @@ export const ProfileMenu = () => {
                         </div>
                     :   <div>
                         <MenuItem onClick={handleCloseUserMenu}>
-                            <Link to={'/'}>
+                            <Link style={{color: 'inherit', textDecorationLine: 'none'}} to={'/authentication'}>
                                 <Typography textAlign="center">Login</Typography>
                             </Link>
                         </MenuItem>

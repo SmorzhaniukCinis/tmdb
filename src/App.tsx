@@ -1,55 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {createSessionId} from "./store/authReducer";
-// @ts-ignore
+import {useSelector} from "react-redux";
 import Profile from "./Pages/Profile";
 import {NavBar} from "./components/NavBar";
-import {Auth} from "./Pages/Auth";
-import {createTheme, ThemeProvider} from "@mui/material";
+import Auth from "./Pages/Auth";
+import {Container, ThemeProvider} from "@mui/material";
 import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
+import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 
 
 function App() {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        const url = new URL(window.location.href)
-        let approved = url.searchParams.get('approved')
-        let request_token = url.searchParams.get('request_token')
-        if (approved && request_token != null) {
-            dispatch(createSessionId(request_token))
-        }
-    }, [])
 
-    const darkTheme = createTheme({
-        palette: {
-            mode: 'dark',
-            primary: {
-                main: '#1976d2',
-            },
-        },
-    });
-    const lightTheme = createTheme({
-        palette: {
-            mode: 'light',
-            primary: {
-                main: '#0c304d',
-            },
-        },
-    });
-    
+
+
     const isDarkTheme = useSelector(getIsDarkTheme)
 
     return (
         <div>
-            <ThemeProvider theme={isDarkTheme?darkTheme:lightTheme}>
+            <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
                 <NavBar/>
-                <Routes>
-                    <Route path={'/'} element={<Home/>}/>
-                    <Route path={'/account'} element={<Profile/>}/>
-                    <Route path={'/authentication'} element={<Auth/>}/>
-                </Routes>
+                <Container fixed style={{marginTop: 40}}>
+                    <Routes>
+                        <Route path={'/'} element={<Home/>}/>
+                        <Route path={'/account'} element={<Profile/>}/>
+                        <Route path={'/authentication'} element={<Auth/>}/>
+                    </Routes>
+                </Container>
             </ThemeProvider>
         </div>
     );
