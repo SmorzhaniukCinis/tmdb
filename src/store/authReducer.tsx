@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {ActionTypes} from "./store";
+import {ActionTypes, RootStateType} from "./store";
 import {authAPI} from "../API/authAPI/authAPI";
+import {formDataType} from "../components/auth-step1";
 
 const SET_SESSION_ID = "auth/SET_SESSION_ID"
 const SET_LOADING_FOR_STEP1 = "auth/SET_LOADING_FOR_STEP1"
@@ -33,6 +34,7 @@ export const authActions = {
     setRequestToken: (token:string) => ({type: SET_REQUEST_TOKEN, token} as const)
 }
 
+
 export const createRequestToken = () => async (dispatch: Dispatch<ActionTypes>) => {
     const res  = await authAPI.createRequestToken()
     if (res.success) {
@@ -46,8 +48,8 @@ export const createSessionId = (request_token: string) => async (dispatch: Dispa
         dispatch(authActions.setSessionId(res.session_id))
     }
 }
-export const authentication = (request_token: string) => async (dispatch: Dispatch<ActionTypes>) => {
-    const res = await authAPI.createSessionWithLogin(request_token)
-    console.log(res)
+export const authentication = (formData:formDataType) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    const res = await authAPI.createSessionWithLogin( getState().auth.requestToken, formData)
+        console.log(res)
 }
 

@@ -18,15 +18,7 @@ export const AuthStepX = () => {
         console.log(data)
     });
 
-    const dispatch = useDispatch()
-    useEffect(() => {
-        // const url = new URL(window.location.href)
-        // let approved = url.searchParams.get('approved')
-        // let request_token = url.searchParams.get('request_token')
-        // if (approved && request_token != null) {
-        //     dispatch(createSessionId(request_token))
-        // }
-    }, [])
+
 
     return (
         <Box sx={{ '& button': { m: 3 } }}>
