@@ -17,3 +17,10 @@
 .successButton {
     margin-top: 120px;
 }
+.errorMessage {
+    font-size: 14px;
+    color: red;
+}
+.errorImage {
+    margin-right: 10px;
+}

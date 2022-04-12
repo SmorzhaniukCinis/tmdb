@@ -14,23 +14,21 @@ export const authAPI = {
         })
         return data
     },
-    createSessionWithLogin: async (token: string, formData: formDataType) => {
-        let data
-        try {
-            data = await instance.post<createSessionWithLoginType>(`authentication/token/validate_with_login`,
-                {
-                    "username": formData.username,
-                    "password": formData.password,
-                    "request_token": token
-                })
-            return data
-        }
-        catch (e) {
-            // @ts-ignore
-            console.log(e.name + e.message)
-        }
-        return data
-    }
+
+     createSessionWithLogin: async (token: string, formData: formDataType): Promise<createSessionWithLoginType> => {
+         try {
+             const {data} = await instance.post<createSessionWithLoginType>(`authentication/token/validate_with_login`,
+                 {
+                     "username": formData.username,
+                     "password": formData.password,
+                     "request_token": token
+                 })
+             return data
+         }
+         catch (e:any) {
+             return e.response.data
+         }
+     }
 }
 
 

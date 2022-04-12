@@ -9,3 +9,9 @@ export const getIsLoadingForStep1 = (state:RootStateType) => {
 export const getRequestToken = (state:RootStateType) => {
     return state.auth.requestToken
 }
+export const getIsAuth = (state:RootStateType) => {
+    return state.auth.isAuth
+}
+export const getErrorMessage = (state:RootStateType) => {
+    return state.auth.errorMessage
+}

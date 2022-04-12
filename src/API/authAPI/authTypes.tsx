@@ -8,7 +8,10 @@ export type createSessionType = {
     "session_id": string
 }
 export type createSessionWithLoginType = {
-    "success": boolean,
+    "success": boolean
     "expires_at": string
     "request_token": string
+    "status_code": number
+    "status_message": string
 }
+
