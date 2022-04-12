@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Step, Stepper} from '@mui/material';
+import {Box, Step, StepLabel, Stepper, Typography} from '@mui/material';
 import {Step1} from "../components/auth-step1";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoadingForStep1, getRequestToken} from "../store/Selectors/authSelectors";
 import {createRequestToken} from "../store/authReducer";
 
-const steps = ['step1', "step2"]
+const steps = ['Enter your password and username', "step2"]
 
 
 const Auth = () => {
@@ -37,7 +37,17 @@ const Auth = () => {
     return (
         <Box>
             <Stepper activeStep={activeStep}>
-                {steps.map(step => <Step key={step}>{step}</Step>)}
+                {steps.map((label, index) => {
+                    const stepProps: { completed?: boolean } = {};
+                    const labelProps: {
+                        optional?: React.ReactNode;
+                    } = {};
+                    return (
+                        <Step key={label} {...stepProps}>
+                            <StepLabel {...labelProps}>{label}</StepLabel>
+                        </Step>
+                    );
+                })}
             </Stepper>
 
             {
