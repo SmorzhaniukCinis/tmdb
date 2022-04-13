@@ -3,7 +3,7 @@ import {Box, TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
 import s from '../styles/auth.module.css'
 import {LoadingButton} from "@mui/lab";
-import {authentication} from "../store/authReducer";
+import {authentication, createRequestToken} from "../store/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {getErrorMessage, getIsAuth, getIsLoadingForStep1} from "../store/Selectors/authSelectors";
 import errorIcon from '../assets/errorIcon.png'
@@ -25,6 +25,7 @@ export const Step1 = ({nextStep}: props) => {
 
     const {register, handleSubmit, formState: {errors}} = useForm<formDataType>();
     const onSubmit = handleSubmit(data => {
+        dispatch(createRequestToken())
         dispatch(authentication(data))
     });
 
@@ -69,20 +70,3 @@ export const Step1 = ({nextStep}: props) => {
 };
 
 
-// export const Step1 = () => {
-//
-//     const dispatch = useDispatch()
-//     const token = useSelector(getRequestToken)
-//
-//
-//
-//
-//     return (
-//         <div>
-//             <p>fa;lajfl;ajfddjfla</p>
-//             <a target={'_blank'} href={
-//                 `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/authentication`
-//             }>dsa</a>
-//         </div>
-//     );
-// };

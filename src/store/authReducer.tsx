@@ -62,6 +62,7 @@ export const createSessionId = (request_token: string) => async (dispatch: Dispa
 export const authentication = (formData:formDataType) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     dispatch(authActions.setLoadingForStep1(true))
     const res = await authAPI.createSessionWithLogin( getState().auth.requestToken, formData)
+    console.log(res)
         if(res.success) {
             dispatch(authActions.setAuthentication(true))
             dispatch(authActions.setLoadingForStep1(false))
