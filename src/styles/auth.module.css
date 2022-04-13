@@ -24,3 +24,14 @@
 .errorImage {
     margin-right: 10px;
 }
+.PermissionText {
+    margin-top: 70px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.PermissionLinkBox {
+    text-align: center;
+}
+.Link {
+    text-transform: capitalize;
+}

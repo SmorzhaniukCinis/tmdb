@@ -1,6 +1,7 @@
 import React from 'react';
 import {Step1} from "./auth-step1";
 import {Step2} from "./auth-step2";
+import {Step3} from "./auth-step3";
 
 type props = {
     activeStep: number
@@ -14,7 +15,7 @@ export const StepContainer = ({activeStep, nextStep}:props) => {
         case 1:
             return <Step2/>
         case 3:
-            return <div>step3</div>
+            return <Step3/>
         default:
             return null
     }
