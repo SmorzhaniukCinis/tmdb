@@ -5,7 +5,7 @@ import s from '../styles/auth.module.css'
 import {LoadingButton} from "@mui/lab";
 import {authentication, createRequestToken} from "../store/authReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {getErrorMessage, getIsAuth, getIsLoadingForStep1} from "../store/Selectors/authSelectors";
+import {getErrorMessage, getIsAuth, getIsLoadingForSteps} from "../store/Selectors/authSelectors";
 import errorIcon from '../assets/errorIcon.png'
 
 export type formDataType = {
@@ -19,7 +19,7 @@ export const Step1 = ({nextStep}: props) => {
 
     const dispatch = useDispatch()
 
-    const isLoading = useSelector(getIsLoadingForStep1)
+    const isLoading = useSelector(getIsLoadingForSteps)
     const isAuth = useSelector(getIsAuth)
     const errorMessage = useSelector(getErrorMessage)
 

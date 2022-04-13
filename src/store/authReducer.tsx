@@ -12,7 +12,7 @@ const SET_MESSAGE_ERROR = "auth/SET_MESSAGE_ERROR"
 const initialState = {
     requestToken: '',
     sessionId: '',
-    loadingForStep1: false,
+    loadingForSteps: false,
     isAuth: false,
     errorMessage: ''
 }
@@ -26,7 +26,7 @@ export const AuthReducer = (state = initialState, action: ActionTypes): initialS
         case SET_SESSION_ID:
             return {...state, sessionId: action.sessionId}
         case SET_LOADING_FOR_STEP1:
-            return {...state, loadingForStep1: action.isLoading}
+            return {...state, loadingForSteps: action.isLoading}
         case SET_REQUEST_TOKEN:
             return {...state, requestToken: action.token}
         case SET_AUTHENTICATION:
@@ -40,7 +40,7 @@ export const AuthReducer = (state = initialState, action: ActionTypes): initialS
 
 export const authActions = {
     setSessionId: (sessionId: string) => ({type: SET_SESSION_ID, sessionId} as const),
-    setLoadingForStep1: (isLoading:boolean) => ({type: SET_LOADING_FOR_STEP1, isLoading} as const),
+    setLoadingForSteps: (isLoading:boolean) => ({type: SET_LOADING_FOR_STEP1, isLoading} as const),
     setRequestToken: (token:string) => ({type: SET_REQUEST_TOKEN, token} as const),
     setAuthentication: (isAuth:boolean) => ({type: SET_AUTHENTICATION, isAuth} as const),
     setMessageError: (message:string) => ({type: SET_MESSAGE_ERROR, message} as const),
@@ -53,22 +53,25 @@ export const createRequestToken = () => async (dispatch: Dispatch<ActionTypes>) 
        dispatch(authActions.setRequestToken(res.request_token))
     }
 }
-export const createSessionId = (request_token: string) => async (dispatch: Dispatch<ActionTypes>) => {
-    const res = await authAPI.createSession(request_token)
+export const createSessionId = () => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    dispatch(authActions.setLoadingForSteps(true))
+    const token = getState().auth.requestToken
+    const res = await authAPI.createSession(token)
     if (res.success) {
         dispatch(authActions.setSessionId(res.session_id))
+        dispatch(authActions.setLoadingForSteps(false))
     }
 }
 export const authentication = (formData:formDataType) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
-    dispatch(authActions.setLoadingForStep1(true))
+    dispatch(authActions.setLoadingForSteps(true))
     const res = await authAPI.createSessionWithLogin( getState().auth.requestToken, formData)
     console.log(res)
         if(res.success) {
             dispatch(authActions.setAuthentication(true))
-            dispatch(authActions.setLoadingForStep1(false))
+            dispatch(authActions.setLoadingForSteps(false))
         } else if(res.status_code === 30) {
             dispatch(authActions.setMessageError(res.status_message))
-            dispatch(authActions.setLoadingForStep1(false))
+            dispatch(authActions.setLoadingForSteps(false))
         }
 }
 
