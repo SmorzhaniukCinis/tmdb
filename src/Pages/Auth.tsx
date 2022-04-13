@@ -4,24 +4,25 @@ import {StepContainer} from "../components/StepContainer";
 import {authActions} from "../store/authReducer";
 import {useDispatch} from "react-redux";
 
-const steps = ['Enter your password and username', "step2", 'step3']
+const steps = ['Enter your password and username', "Give your permission", 'Done!']
 
 
 const Auth = () => {
 
-    const [activeStep, setActiveStep] = useState(0)
+    let [activeStep, setActiveStep] = useState(0)
     const dispatch = useDispatch()
 
 
     const nextStep = () => {
         setActiveStep(activeStep + 1)
     }
+
     useEffect(() => {
         const url = new URL(window.location.href)
         let approved = url.searchParams.get('approved')
         let request_token = url.searchParams.get('request_token')
         if (approved && request_token) {
-            setActiveStep(3)
+            setActiveStep(2)
             dispatch(authActions.setRequestToken(request_token))
         }
     }, [])
@@ -41,10 +42,7 @@ const Auth = () => {
                     );
                 })}
             </Stepper>
-            <StepContainer activeStep={activeStep} nextStep={nextStep}/>
-            <Box>
-                <button onClick={nextStep}>next</button>
-            </Box>
+            <StepContainer  activeStep={activeStep} nextStep={nextStep}/>
         </Box>
     );
 };

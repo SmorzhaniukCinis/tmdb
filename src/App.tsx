@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Profile from "./Pages/Profile";
 import {NavBar} from "./components/NavBar";
 import Auth from "./Pages/Auth";
@@ -8,9 +8,20 @@ import {Container, ThemeProvider} from "@mui/material";
 import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
+import {authActions} from "./store/authReducer";
 
 
 function App() {
+
+    const dispatch = useDispatch()
+
+    useEffect(()=> {
+        const sessionId = localStorage.getItem('sessionId')
+        if(sessionId) {
+            dispatch(authActions.setSessionId(sessionId))
+            dispatch(authActions.setAuthentication(true))
+        }
+    }, [])
 
 
 

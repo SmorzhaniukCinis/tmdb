@@ -59,6 +59,7 @@ export const createSessionId = () => async (dispatch: Dispatch<ActionTypes>, get
     const res = await authAPI.createSession(token)
     if (res.success) {
         dispatch(authActions.setSessionId(res.session_id))
+        localStorage.setItem('sessionId', res.session_id)
         dispatch(authActions.setLoadingForSteps(false))
     }
 }

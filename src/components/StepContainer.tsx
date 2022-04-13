@@ -8,13 +8,13 @@ type props = {
     nextStep: ()=> void
 }
 
-export const StepContainer = ({activeStep, nextStep}:props) => {
+export const StepContainer = ({activeStep, nextStep, }:props) => {
     switch (activeStep) {
         case 0:
             return <Step1 nextStep={nextStep}/>
         case 1:
-            return <Step2/>
-        case 3:
+            return <Step2 />
+        case 2:
             return <Step3/>
         default:
             return null

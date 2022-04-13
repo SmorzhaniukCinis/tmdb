@@ -28,10 +28,10 @@ export const Step3 = () => {
                         {
                             isDarkTheme
                                 ? <Link className={s.darkDoneButtonBox} to={'/home'}>
-                                    Done!
+                                    Done !
                                 </Link>
                                 : <Link className={s.doneButtonBox} to={'/'}>
-                                    Done!
+                                    Done !
                                 </Link>
                         }
 

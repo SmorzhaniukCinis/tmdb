@@ -1,15 +1,12 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {getRequestToken} from "../store/Selectors/authSelectors";
 import s from '../styles/auth.module.css'
 import {Button, Link} from "@mui/material";
 
 export const Step2 = () => {
 
-    const dispatch = useDispatch()
     const token = useSelector(getRequestToken)
-
-
 
     return (
         <div>
