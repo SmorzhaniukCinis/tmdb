@@ -107,7 +107,7 @@ export const ProfileMenu = () => {
                 {sessionId
                     ?   <div>
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to={'/profile'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                                <Link to={'/account'} style={{color: 'inherit', textDecorationLine: 'none'}}>
                                     <Typography textAlign="center">Profile</Typography>
                                 </Link>
                             </MenuItem>

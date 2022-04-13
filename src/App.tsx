@@ -9,6 +9,7 @@ import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 import {authActions} from "./store/authReducer";
+import {getCreatedList} from "./store/accountReducer";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
                 <NavBar/>
                 <Container fixed style={{marginTop: 40}}>
+
                     <Routes>
                         <Route path={'/'} element={<Home/>}/>
                         <Route path={'/account'} element={<Profile/>}/>

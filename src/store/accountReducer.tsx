@@ -6,7 +6,7 @@ const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 const SET_DARK_THEME = "account/SET_DARK_THEME"
 
 const initialState = {
-    data: {
+    details: {
         avatar: {
             gravatar: {
                 hash: null
@@ -30,7 +30,7 @@ type initialStateType = typeof initialState
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case SET_ACCOUNT_DETAILS:
-            return {...state, data: action.payload}
+            return {...state, details: action.payload}
         case SET_DARK_THEME:
             return {...state, isDarkTheme: action.payload}
         default:
@@ -39,14 +39,18 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
 }
 
 export const accountActions = {
-    setAccountDetails: (payload:any) => ({type: SET_ACCOUNT_DETAILS, payload} as const),
-    setDarkTheme: (payload:any) => ({type: SET_DARK_THEME, payload} as const),
+    setAccountDetails: (payload: any) => ({type: SET_ACCOUNT_DETAILS, payload} as const),
+    setDarkTheme: (payload: any) => ({type: SET_DARK_THEME, payload} as const),
 }
 
-export const getAccountInfo = () =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
-        const state = getState()
-        const res = await accountAPI.getDetails(state.auth.sessionId)
-        dispatch(accountActions.setAccountDetails(res))
-    }
+export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await accountAPI.getDetails(sessionId)
+    dispatch(accountActions.setAccountDetails(res))
+}
+export const getCreatedList = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await accountAPI.getCreatedList(sessionId)
+    console.log(res)
+}
 
