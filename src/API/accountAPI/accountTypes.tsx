@@ -1,4 +1,4 @@
-export type getDetailsType = {
+export type DetailsType = {
     "avatar": {
         "gravatar": {
             "hash": string
@@ -14,6 +14,23 @@ export type getDetailsType = {
     "include_adult": boolean
     "username": string
 }
+
+type test = {
+    avatar: {
+        gravatar: {
+            hash: string;
+        }; tmdb:
+            {
+                avatar_path: string;
+            };
+    }; id: number;
+    iso_639_1: string;
+    iso_3166_1: string;
+    name: string;
+    include_adult: string;
+    username: string; }
+
+
 export type List = {
     "description": string
     "favorite_count": number
@@ -25,7 +42,7 @@ export type List = {
     "poster_path": null | string
 }
 
-export type getCreatedList = {
+export type CreatedListType = {
     "page": number
     "results": Array<List>
     "total_pages": number
@@ -42,7 +59,7 @@ export type FavoriteMovie = {
     "overview": string
     "release_date": string
     "poster_path": null | string,
-    "popularity":number
+    "popularity": number
     "title": string
     "video": boolean
     "vote_average": number
