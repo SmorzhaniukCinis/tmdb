@@ -6,13 +6,9 @@ import {getSessionId} from "../store/Selectors/authSelectors";
 
 const Profile = () => {
     const dispatch = useDispatch()
-    const sessionId = useSelector(getSessionId)
-    useEffect(() => {
-        if(sessionId)
-        dispatch(getAccountInfo())
-    },[sessionId])
+
     const details = useSelector(getUserDetails)
-console.log(details)
+
     return (
         <div>
             profile

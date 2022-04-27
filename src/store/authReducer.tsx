@@ -69,12 +69,16 @@ export const createGuestSessionId = () => async (dispatch: Dispatch<ActionTypes>
     const res = await authAPI.createGuestSession()
     dispatch(authActions.setGuestSessionId(res.guest_session_id))
 }
+
 export const deleteSessionId = () => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     const sessionId = getState().auth.sessionId
     const res = await authAPI.deleteSession(sessionId)
     if (res.success) {
      console.log('work)')
     }
+    localStorage.removeItem('sessionId')
+    dispatch(authActions.setSessionId(''))
+    dispatch(authActions.setAuthentication(false))
 }
 export const authentication = (formData:formDataType) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     dispatch(authActions.setLoadingForSteps(true))

@@ -9,7 +9,8 @@ import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 import {authActions} from "./store/authReducer";
-import {getCreatedList} from "./store/accountReducer";
+import {getAccountInfo, getCreatedList} from "./store/accountReducer";
+import {getSessionId} from "./store/Selectors/authSelectors";
 
 
 function App() {
@@ -23,6 +24,13 @@ function App() {
             dispatch(authActions.setAuthentication(true))
         }
     }, [])
+
+    const sessionId = useSelector(getSessionId)
+
+    useEffect(() => {
+        if (sessionId)
+            dispatch(getAccountInfo())
+    }, [sessionId])
 
 
 

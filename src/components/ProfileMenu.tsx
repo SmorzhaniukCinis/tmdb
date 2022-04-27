@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getDetails, getIsDarkTheme} from "../store/Selectors/accountSelectors";
 import {getSessionId} from "../store/Selectors/authSelectors";
-import React, {useState} from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {MaterialUISwitch} from "../materialUI/switchButtonStyle";
 import {accountActions} from "../store/accountReducer";
+import {LogoutWindow} from "./LogoutWindow";
 
 
 function stringToColor(string: string) {
@@ -44,8 +45,6 @@ function stringAvatar(name: string) {
 }
 
 
-
-
 export const ProfileMenu = () => {
 
     const details = useSelector(getDetails)
@@ -70,13 +69,24 @@ export const ProfileMenu = () => {
         setAnchorElUser(null);
     };
 
-
-
-    function changeTheme(e:any) {
+    function changeTheme(e: any) {
         dispatch(accountActions.setDarkTheme(!isDarkTheme))
     }
 
-    return(
+
+//logic for login window
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+    return (
         <Box sx={{flexGrow: 0}}>
             <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
@@ -105,31 +115,34 @@ export const ProfileMenu = () => {
                 onClose={handleCloseUserMenu}
             >
                 {sessionId
-                    ?   <div>
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to={'/account'} style={{color: 'inherit', textDecorationLine: 'none'}}>
-                                    <Typography textAlign="center">Profile</Typography>
-                                </Link>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Link to={'/authFake'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                    ? <div>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                            <Link to={'/account'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                                <Typography textAlign="center">Profile</Typography>
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                                <span onClick={handleClickOpen} style={{color: 'inherit', textDecorationLine: 'none'}}>
                                     <Typography textAlign="center">Logout</Typography>
-                                </Link>
-                            </MenuItem>
+                                </span>
+                        </MenuItem>
 
-                        </div>
-                    :   <div>
+                    </div>
+                    : <div>
                         <MenuItem onClick={handleCloseUserMenu}>
                             <Link style={{color: 'inherit', textDecorationLine: 'none'}} to={'/authentication'}>
                                 <Typography textAlign="center">Login</Typography>
                             </Link>
                         </MenuItem>
-                        </div>
+                    </div>
                 }
                 <MenuItem>
-                    <MaterialUISwitch sx={{ m: 1 }} value={isDarkTheme} onClick={changeTheme} />
+                    <MaterialUISwitch sx={{m: 1}} value={isDarkTheme} onClick={changeTheme}/>
                 </MenuItem>
             </Menu>
+
+            {open ? <LogoutWindow open={open} handleClose={handleClose}/> : null}
+
         </Box>
     )
 }
