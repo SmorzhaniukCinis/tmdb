@@ -58,11 +58,10 @@ export const ProfileMenu = () => {
             return `https://image.tmdb.org/t/p/${size + path}`
         } else return undefined
     }
-
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
     const imageURL = getImage('w200', details.avatar.tmdb.avatar_path)
 
+//logic for profile menu
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -117,17 +116,31 @@ export const ProfileMenu = () => {
             >
                 {sessionId
                     ? <div>
+                        <Link to={'/account'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                            <MenuItem onClick={handleCloseUserMenu}>
+
+                                <Typography textAlign="center">
+                                    {details.name}
+                                    <div><span style={{fontSize: '10px', opacity: '70%'}}>View profile</span></div>
+                                </Typography>
+
+                            </MenuItem>
+                        </Link>
+                        <hr style={{width: '90%', margin: '0px 6px 0 6px'}}/>
+                        <Link to={'/myLists'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                            <MenuItem onClick={handleCloseUserMenu}>
+
+                                <Typography textAlign="center">Lists</Typography>
+
+                            </MenuItem>
+                        </Link>
+                        <hr style={{width: '90%', margin: '0px 6px 0 6px'}}/>
                         <MenuItem onClick={handleCloseUserMenu}>
-                            <Link to={'/account'} style={{color: 'inherit', textDecorationLine: 'none'}}>
-                                <Typography textAlign="center">Profile</Typography>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem onClick={handleCloseUserMenu}>
-                                <span onClick={handleClickOpen} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                                <span onClick={handleClickOpen}
+                                      style={{width: '100%', color: 'inherit', textDecorationLine: 'none'}}>
                                     <Typography textAlign="center">Logout</Typography>
                                 </span>
                         </MenuItem>
-
                     </div>
                     : <div>
                         <MenuItem onClick={handleCloseUserMenu}>

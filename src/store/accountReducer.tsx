@@ -83,6 +83,7 @@ export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getS
 export const getCreatedList = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getCreatedList(sessionId)
+    console.log(res)
     dispatch(accountActions.setCreatedLists(res))
 }
 

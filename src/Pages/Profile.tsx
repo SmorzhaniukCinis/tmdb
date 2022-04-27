@@ -1,20 +1,21 @@
-import React, {useEffect} from 'react';
-import {accountActions, getAccountInfo} from "../store/accountReducer";
+import React from 'react';
+import {getCreatedList} from "../store/accountReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserDetails} from "../store/Selectors/accountSelectors";
-import {getSessionId} from "../store/Selectors/authSelectors";
+import {getCreatedLists, getDetails} from "../store/Selectors/accountSelectors";
+import {Button} from "@mui/material";
 
 const Profile = () => {
     const dispatch = useDispatch()
 
-    const details = useSelector(getUserDetails)
+    const details = useSelector(getDetails)
+    const createdLists = useSelector(getCreatedLists)
+    console.log(createdLists)
 
     return (
         <div>
-            profile
-            {
-                details?.name
-            }
+            <Button variant={'outlined'} onClick={()=> {
+                dispatch(getCreatedList())
+            }}>getCreatedList</Button>
         </div>
     );
 };

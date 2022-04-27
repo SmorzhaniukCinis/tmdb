@@ -6,6 +6,6 @@ export const getDetails = (state:RootStateType) => {
 export const getIsDarkTheme = (state:RootStateType) => {
   return state.account.isDarkTheme
 }
-export const getUserDetails = (state:RootStateType) => {
-  return state.account.details
+export const getCreatedLists = (state:RootStateType) => {
+  return state.account.createdLists
 }
