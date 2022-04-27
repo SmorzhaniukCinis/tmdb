@@ -8,13 +8,28 @@ const SET_DARK_THEME = "account/SET_DARK_THEME"
 const SET_CREATED_LISTS = "account/SET_CREATED_LISTS"
 
 const initialState: initialStateType = {
-    details: null,
+    details: {
+        avatar: {
+            gravatar: {
+                hash: ''
+            },
+            tmdb: {
+                avatar_path:""
+            }
+        },
+        id: null,
+        iso_639_1: null,
+        iso_3166_1: null,
+        name: null,
+        include_adult: null,
+        username: null
+    }  ,
     isDarkTheme: false,
     createdLists: null
 }
 
 type initialStateType = {
-    details: DetailsType | null
+    details: DetailsType
     isDarkTheme: boolean,
     createdLists: CommonResType<createdList> | null
 }

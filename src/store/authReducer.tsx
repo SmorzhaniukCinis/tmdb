@@ -8,17 +8,16 @@ const SET_LOADING_FOR_STEP1 = "auth/SET_LOADING_FOR_STEP1"
 const SET_REQUEST_TOKEN = "auth/SET_REQUEST_TOKEN"
 const SET_AUTHENTICATION = "auth/SET_AUTHENTICATION"
 const SET_MESSAGE_ERROR = "auth/SET_MESSAGE_ERROR"
+const SET_GUEST_SESSION_ID = "auth/SET_GUEST_SESSION_ID"
 
 const initialState = {
     requestToken: '',
     sessionId: '',
     loadingForSteps: false,
     isAuth: false,
-    errorMessage: ''
+    errorMessage: '',
+    guestSessionId: ''
 }
-
-
-
 type initialStateType = typeof initialState
 
 export const AuthReducer = (state = initialState, action: ActionTypes): initialStateType => {
@@ -33,6 +32,8 @@ export const AuthReducer = (state = initialState, action: ActionTypes): initialS
             return {...state, isAuth: action.isAuth}
         case SET_MESSAGE_ERROR:
             return {...state, errorMessage: action.message}
+        case SET_GUEST_SESSION_ID:
+            return {...state, guestSessionId: action.id}
         default:
             return state
     }
@@ -40,6 +41,7 @@ export const AuthReducer = (state = initialState, action: ActionTypes): initialS
 
 export const authActions = {
     setSessionId: (sessionId: string) => ({type: SET_SESSION_ID, sessionId} as const),
+    setGuestSessionId: (id: string) => ({type: SET_GUEST_SESSION_ID, id} as const),
     setLoadingForSteps: (isLoading:boolean) => ({type: SET_LOADING_FOR_STEP1, isLoading} as const),
     setRequestToken: (token:string) => ({type: SET_REQUEST_TOKEN, token} as const),
     setAuthentication: (isAuth:boolean) => ({type: SET_AUTHENTICATION, isAuth} as const),
@@ -61,6 +63,17 @@ export const createSessionId = () => async (dispatch: Dispatch<ActionTypes>, get
         dispatch(authActions.setSessionId(res.session_id))
         localStorage.setItem('sessionId', res.session_id)
         dispatch(authActions.setLoadingForSteps(false))
+    }
+}
+export const createGuestSessionId = () => async (dispatch: Dispatch<ActionTypes>) => {
+    const res = await authAPI.createGuestSession()
+    dispatch(authActions.setGuestSessionId(res.guest_session_id))
+}
+export const deleteSessionId = () => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await authAPI.deleteSession(sessionId)
+    if (res.success) {
+     console.log('work)')
     }
 }
 export const authentication = (formData:formDataType) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {

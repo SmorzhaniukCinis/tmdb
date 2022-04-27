@@ -3,16 +3,16 @@ export type DetailsType = {
         "gravatar": {
             "hash": string
         },
-        tmdb?: {
+        tmdb: {
             avatar_path: string
         }
     },
-    "id": number,
-    "iso_639_1": string
-    "iso_3166_1": string
-    "name": string
-    "include_adult": boolean
-    "username": string
+    "id": number | null,
+    "iso_639_1": string | null
+    "iso_3166_1": string | null
+    "name": string | null
+    "include_adult": boolean | null
+    "username": string | null
 }
 
 export type CommonResType<T> = {

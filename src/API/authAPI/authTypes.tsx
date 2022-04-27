@@ -14,4 +14,9 @@ export type createSessionWithLoginType = {
     "status_code": number
     "status_message": string
 }
+export type createGuestSession = {
+    "success": boolean,
+    "guest_session_id": string,
+    "expires_at": string
+}
 

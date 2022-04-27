@@ -17,7 +17,7 @@ console.log(details)
         <div>
             profile
             {
-                details.name
+                details?.name
             }
         </div>
     );
