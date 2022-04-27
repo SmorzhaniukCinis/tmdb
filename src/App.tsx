@@ -9,7 +9,7 @@ import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 import {authActions} from "./store/authReducer";
-import {getAccountInfo, getCreatedList} from "./store/accountReducer";
+import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 
 
@@ -23,14 +23,17 @@ function App() {
             dispatch(authActions.setSessionId(sessionId))
             dispatch(authActions.setAuthentication(true))
         }
-    }, [])
+    }, [dispatch])
 
     const sessionId = useSelector(getSessionId)
 
     useEffect(() => {
         if (sessionId)
             dispatch(getAccountInfo())
-    }, [sessionId])
+        else {
+            dispatch(accountActions.deleteAccountDetails())
+        }
+    }, [dispatch, sessionId])
 
 
 

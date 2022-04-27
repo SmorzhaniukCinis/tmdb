@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {CssBaseline} from "@mui/material";
 import {ProfileMenu} from "./ProfileMenu";
 import {NawMenu} from "./NavMenu";
 

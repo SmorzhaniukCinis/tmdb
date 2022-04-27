@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getDetails, getIsDarkTheme} from "../store/Selectors/accountSelectors";
-import {getSessionId} from "../store/Selectors/authSelectors";
+import {getIsAuth, getSessionId} from "../store/Selectors/authSelectors";
 import React from "react";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
@@ -50,10 +50,11 @@ export const ProfileMenu = () => {
     const details = useSelector(getDetails)
     const sessionId = useSelector(getSessionId)
     const isDarkTheme = useSelector(getIsDarkTheme)
+    const isAuth = useSelector(getIsAuth)
     const dispatch = useDispatch()
 
     const getImage = (size: string, path: string | null) => {
-        if (path != null) {
+        if (path) {
             return `https://image.tmdb.org/t/p/${size + path}`
         } else return undefined
     }
@@ -69,7 +70,7 @@ export const ProfileMenu = () => {
         setAnchorElUser(null);
     };
 
-    function changeTheme(e: any) {
+    function changeTheme() {
         dispatch(accountActions.setDarkTheme(!isDarkTheme))
     }
 
@@ -90,7 +91,7 @@ export const ProfileMenu = () => {
         <Box sx={{flexGrow: 0}}>
             <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    {imageURL
+                    {isAuth || imageURL
                         ? <Avatar src={imageURL}/>
                         : details.name
                             ? <Avatar {...stringAvatar(details.name)} />
