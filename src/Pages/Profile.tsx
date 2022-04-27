@@ -1,13 +1,10 @@
 import React from 'react';
-import {getCreatedList} from "../store/accountReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {getCreatedLists, getDetails} from "../store/Selectors/accountSelectors";
-import {Button} from "@mui/material";
+import {useSelector} from "react-redux";
+import {getDetails} from "../store/Selectors/accountSelectors";
 import {getImage} from "../Common/getImage";
 import s from '../styles/Profile.module.css'
 
 const Profile = () => {
-    const dispatch = useDispatch()
 
     const details = useSelector(getDetails)
 

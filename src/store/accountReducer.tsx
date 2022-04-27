@@ -8,6 +8,8 @@ const SET_DARK_THEME = "account/SET_DARK_THEME"
 const SET_CREATED_LISTS = "account/SET_CREATED_LISTS"
 const DELETE_ACCOUNT_DETAILS = "account/DELETE_ACCOUNT_DETAILS"
 
+
+
 const initialState: initialStateType = {
     details: {
         avatar: {
@@ -26,13 +28,18 @@ const initialState: initialStateType = {
         username: null
     }  ,
     isDarkTheme: false,
-    createdLists: null
+    createdLists: {
+        page: 0,
+        results:[],
+        total_pages: 0,
+        total_results: 0
+    }
 }
 
 type initialStateType = {
     details: DetailsType
     isDarkTheme: boolean,
-    createdLists: CommonResType<createdList> | null
+    createdLists: CommonResType<createdList>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {

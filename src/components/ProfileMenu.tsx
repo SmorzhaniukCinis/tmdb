@@ -116,8 +116,8 @@ export const ProfileMenu = () => {
                             <MenuItem onClick={handleCloseUserMenu}>
 
                                 <Typography textAlign="center">
-                                    {details.name}
-                                    <div><span style={{fontSize: '10px', opacity: '70%'}}>View profile</span></div>
+                                    {details.name}<br/>
+                                    <span style={{fontSize: '10px', opacity: '70%'}}>View profile</span>
                                 </Typography>
 
                             </MenuItem>
