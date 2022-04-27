@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import {MaterialUISwitch} from "../materialUI/switchButtonStyle";
 import {accountActions} from "../store/accountReducer";
 import {LogoutWindow} from "./LogoutWindow";
+import {getImage} from "../Common/getImage";
 
 
 function stringToColor(string: string) {
@@ -53,12 +54,7 @@ export const ProfileMenu = () => {
     const isAuth = useSelector(getIsAuth)
     const dispatch = useDispatch()
 
-    const getImage = (size: string, path: string | null) => {
-        if (path) {
-            return `https://image.tmdb.org/t/p/${size + path}`
-        } else return undefined
-    }
-    const imageURL = getImage('w200', details.avatar.tmdb.avatar_path)
+    const profileImageURL = getImage('w200', details.avatar.tmdb.avatar_path)
 
 //logic for profile menu
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -90,8 +86,8 @@ export const ProfileMenu = () => {
         <Box sx={{flexGrow: 0}}>
             <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    {isAuth || imageURL
-                        ? <Avatar src={imageURL}/>
+                    {isAuth || profileImageURL
+                        ? <Avatar src={profileImageURL}/>
                         : details.name
                             ? <Avatar {...stringAvatar(details.name)} />
                             : <Avatar src={undefined}/>}

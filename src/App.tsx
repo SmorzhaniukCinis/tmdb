@@ -11,6 +11,7 @@ import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 import {authActions} from "./store/authReducer";
 import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
+import MyLists from "./Pages/MyLists";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
                     <Routes>
                         <Route path={'/'} element={<Home/>}/>
                         <Route path={'/account'} element={<Profile/>}/>
+                        <Route path={'/myLists'} element={<MyLists/>}/>
                         <Route path={'/authentication'} element={<Auth/>}/>
                     </Routes>
                 </Container>

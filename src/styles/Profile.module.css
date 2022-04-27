@@ -1,0 +1,14 @@
+.profilePhoto {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    box-shadow: white 0 0 20px 1px ;
+}
+.profileContainer {
+    display: flex;
+}
+.userName {
+    font-size: 24px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
