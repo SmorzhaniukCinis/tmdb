@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCreatedLists} from "../store/Selectors/accountSelectors";
 import {getCreatedList} from "../store/accountReducer";
 import {getIsAuth} from "../store/Selectors/authSelectors";
-import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Card, CardActions, CardContent, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {getImage} from "../Common/getImage";
 
@@ -21,20 +21,22 @@ const MyLists = () => {
 
     return (
         <div>
-            {createdLists.results.map(list => <Accordion key={list.id}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                >
-                    <Typography>{list.name}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        {list.description}
+            {createdLists.results.map(list => <Card variant="outlined" sx={{ minWidth: 275 , mb: 3}}>
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                        {list.name}
                     </Typography>
-                </AccordionDetails>
-            </Accordion>)}
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        {list.description || 'No description'}
+                    </Typography>
+                    <Typography variant="body1">
+                        {list.item_count} items
+                    </Typography>
+                    <Typography variant="body1">
+                        {list.list_type}
+                    </Typography>
+                </CardContent>
+            </Card>)}
         </div>
     );
 };
