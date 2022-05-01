@@ -2,16 +2,20 @@
     display: grid;
     grid-template-columns: 2.5fr 10fr;
     background:
-            linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)) no-repeat;
+            linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)) no-repeat;
     background-size: 100%;
 }
 .witheCardWrapper {
     display: grid;
     grid-template-columns: 2.5fr 10fr;
     background:
-            linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3)) no-repeat;
+            linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.1)) no-repeat;
     background-size: 100%;
 }
-
-.CardImage {
+.voteAverage {
+    font-size: 18px;
+    cursor: pointer;
+}
+.language {
+    text-transform: uppercase;
 }

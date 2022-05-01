@@ -18,30 +18,35 @@ const Favorite = () => {
         if (isAuth)
             dispatch(getFavoriteMovie())
     }, [dispatch, isAuth])
-    console.log(favoriteMovie)
-
-
 
     return (
         <div>
             {favoriteMovie.results.map(movie =>
                 <Card key={movie.id} variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
-                    <div style={{background: `url(${getImage('original', movie.backdrop_path)})`, backgroundSize: '100%'}}>
+                    <div style={{
+                        background: `url(${getImage('original', movie.backdrop_path)})`,
+                        backgroundSize: '100%'
+                    }}>
                         <CardContent className={isDarkTheme ? s.blackCardWrapper : s.witheCardWrapper}>
                             <div>
                                 <img height={'300px'} src={getImage('w200', movie.poster_path)} alt=""/>
                             </div>
                             <div>
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h4" component="div">
                                     {movie.original_title}
                                 </Typography>
-                                <Typography sx={{mb: 1.5}} color="text.secondary">
-                                    s
+                                <Typography>
+                                    {movie.release_date}&nbsp;
+                                    <span className={s.language}>({movie.original_language})</span>
                                 </Typography>
-                                <Typography variant="body2">
-                                    well meaning and kindly.
-                                    <br/>
-                                    {'"a benevolent smile"'}
+                                <Typography sx={{mb: 1.5}} textOverflow={'test'}>
+                                    Users score:&nbsp;
+                                    <abbr className={s.votes} title={`Votes: ${movie.vote_count}`}>
+                                        <span className={s.voteAverage}>{movie.vote_average}</span>
+                                    </abbr>
+                                </Typography>
+                                <Typography sx={{width: '60%'}} variant="body2">
+                                    {movie.overview}
                                 </Typography>
                             </div>
                         </CardContent>
