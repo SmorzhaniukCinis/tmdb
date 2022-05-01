@@ -21,7 +21,7 @@ const MyLists = () => {
 
     return (
         <div>
-            {createdLists.results.map(list => <Card variant="outlined" sx={{ minWidth: 275 , mb: 3}}>
+            {createdLists.results.map(list => <Card key={list.id} variant="outlined" sx={{ minWidth: 275 , mb: 3}}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         {list.name}

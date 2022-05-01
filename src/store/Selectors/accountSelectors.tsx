@@ -9,3 +9,6 @@ export const getIsDarkTheme = (state:RootStateType) => {
 export const getCreatedLists = (state:RootStateType) => {
   return state.account.createdLists
 }
+export const getFavoriteMovieSelector = (state:RootStateType) => {
+  return state.account.favoriteMovie
+}

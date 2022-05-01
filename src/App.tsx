@@ -12,6 +12,7 @@ import {authActions} from "./store/authReducer";
 import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
+import Favorite from "./Pages/Favorite";
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
                         <Route path={'/account'} element={<Profile/>}/>
                         <Route path={'/myLists'} element={<MyLists/>}/>
                         <Route path={'/authentication'} element={<Auth/>}/>
+                        <Route path={'/favorite'} element={<Favorite/>}/>
                     </Routes>
                 </Container>
             </ThemeProvider>

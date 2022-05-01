@@ -1,11 +1,12 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
 import {accountAPI} from "../API/accountAPI/accoutAPI";
-import {CommonResType, createdList, DetailsType} from "../API/accountAPI/accountTypes";
+import {CommonResType, createdList, DetailsType, FavoriteMovie} from "../API/accountAPI/accountTypes";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 const SET_DARK_THEME = "account/SET_DARK_THEME"
 const SET_CREATED_LISTS = "account/SET_CREATED_LISTS"
+const SET_FAVORITE_MOVIE = "account/SET_FAVORITE_MOVIE"
 const DELETE_ACCOUNT_DETAILS = "account/DELETE_ACCOUNT_DETAILS"
 
 
@@ -33,6 +34,12 @@ const initialState: initialStateType = {
         results:[],
         total_pages: 0,
         total_results: 0
+    },
+    favoriteMovie: {
+        page: 0,
+        results:[],
+        total_pages: 0,
+        total_results: 0
     }
 }
 
@@ -40,6 +47,7 @@ type initialStateType = {
     details: DetailsType
     isDarkTheme: boolean,
     createdLists: CommonResType<createdList>
+    favoriteMovie: CommonResType<FavoriteMovie>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
@@ -67,6 +75,8 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
             return {...state, isDarkTheme: action.payload}
         case SET_CREATED_LISTS:
             return {...state, createdLists: action.createdLists}
+        case SET_FAVORITE_MOVIE:
+            return {...state, favoriteMovie: action.favoriteMovie}
         default:
             return state
     }
@@ -80,6 +90,10 @@ export const accountActions = {
         type: SET_CREATED_LISTS,
         createdLists
     } as const),
+    setFavoriteMovie: (favoriteMovie: CommonResType<FavoriteMovie>) => ({
+        type: SET_FAVORITE_MOVIE,
+        favoriteMovie
+    } as const),
 }
 
 export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
@@ -90,7 +104,11 @@ export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getS
 export const getCreatedList = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getCreatedList(sessionId)
-    console.log(res)
     dispatch(accountActions.setCreatedLists(res))
+}
+export const getFavoriteMovie = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await accountAPI.getFavoriteMovie(sessionId)
+    dispatch(accountActions.setFavoriteMovie(res))
 }
 

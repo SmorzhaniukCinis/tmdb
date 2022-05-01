@@ -125,9 +125,12 @@ export const ProfileMenu = () => {
                         <hr style={{width: '90%', margin: '0px 6px 0 6px'}}/>
                         <Link to={'/myLists'} style={{color: 'inherit', textDecorationLine: 'none'}}>
                             <MenuItem onClick={handleCloseUserMenu}>
-
                                 <Typography textAlign="center">Lists</Typography>
-
+                            </MenuItem>
+                        </Link>
+                        <Link to={'/favorite'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Favorite</Typography>
                             </MenuItem>
                         </Link>
                         <hr style={{width: '90%', margin: '0px 6px 0 6px'}}/>
