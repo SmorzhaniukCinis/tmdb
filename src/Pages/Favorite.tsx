@@ -1,18 +1,27 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getFavoriteMovie} from "../store/accountReducer";
-import {getFavoriteMovieSelector, getIsDarkTheme} from "../store/Selectors/accountSelectors";
+import {getFavoriteMovieSelector} from "../store/Selectors/accountSelectors";
 import {getIsAuth} from "../store/Selectors/authSelectors";
-import {Card, CardContent, Typography} from "@mui/material";
-import {getImage} from "../Common/getImage";
-import s from '../styles/favoritePage.module.css'
+import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import {FavoriteMovieComponent} from "../components/FavoriteMovie";
+import {FavoriteTV} from "../components/FavoriteTV";
 
-const Favorite = () => {
+export const Favorite = () => {
 
     const dispatch = useDispatch()
     const favoriteMovie = useSelector(getFavoriteMovieSelector)
     const isAuth = useSelector(getIsAuth)
-    const isDarkTheme = useSelector(getIsDarkTheme)
+
+
+    const [typeOfContent, setTypeOfContent] = React.useState('movie');
+
+    const handleChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string,
+    ) => {
+        setTypeOfContent(newAlignment);
+    };
 
     useEffect(() => {
         if (isAuth)
@@ -21,41 +30,24 @@ const Favorite = () => {
 
     return (
         <div>
-            {favoriteMovie.results.map(movie =>
-                <Card key={movie.id} variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
-                    <div style={{
-                        background: `url(${getImage('original', movie.backdrop_path)})`,
-                        backgroundSize: '100%'
-                    }}>
-                        <CardContent className={isDarkTheme ? s.blackCardWrapper : s.witheCardWrapper}>
-                            <div>
-                                <img height={'300px'} src={getImage('w200', movie.poster_path)} alt=""/>
-                            </div>
-                            <div>
-                                <Typography variant="h4" component="div">
-                                    {movie.original_title}
-                                </Typography>
-                                <Typography>
-                                    {movie.release_date}&nbsp;
-                                    <span className={s.language}>({movie.original_language})</span>
-                                </Typography>
-                                <Typography sx={{mb: 1.5}} textOverflow={'test'}>
-                                    Users score:&nbsp;
-                                    <abbr className={s.votes} title={`Votes: ${movie.vote_count}`}>
-                                        <span className={s.voteAverage}>{movie.vote_average}</span>
-                                    </abbr>
-                                </Typography>
-                                <Typography sx={{width: '60%'}} variant="body2">
-                                    {movie.overview}
-                                </Typography>
-                            </div>
-                        </CardContent>
-                    </div>
+            <ToggleButtonGroup
+                sx={{marginLeft:'40px'}}
+                color="primary"
+                value={typeOfContent}
+                exclusive
+                onChange={handleChange}
+            >
+                <ToggleButton sx={{width:'100px'}} value="movie">Movie</ToggleButton>
+                <ToggleButton sx={{width:'100px'}} value="TV">TV</ToggleButton>
+            </ToggleButtonGroup>
 
-                </Card>
-            )}
+            { typeOfContent==='movie'
+                ?favoriteMovie.results.map(movie =>
+                <FavoriteMovieComponent movie={movie}/>
+            )
+            :<FavoriteTV/>
+            }
+
         </div>
     );
 };
-
-export default Favorite;

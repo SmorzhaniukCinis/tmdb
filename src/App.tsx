@@ -12,7 +12,7 @@ import {authActions} from "./store/authReducer";
 import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
-import Favorite from "./Pages/Favorite";
+import {Favorite} from "./Pages/Favorite";
 
 
 function App() {
