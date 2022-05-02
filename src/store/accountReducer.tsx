@@ -1,7 +1,14 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
 import {accountAPI} from "../API/accountAPI/accoutAPI";
-import {CommonResType, createdList, DetailsType, FavoriteMovie, FavoriteTVShow} from "../API/accountAPI/accountTypes";
+import {
+    CommonResType,
+    createdList,
+    DetailsType,
+    FavoriteMovie,
+    FavoriteTVShow,
+    ratedMovies, ratedTVShow
+} from "../API/accountAPI/accountTypes";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 const SET_DARK_THEME = "account/SET_DARK_THEME"
@@ -9,6 +16,8 @@ const SET_CREATED_LISTS = "account/SET_CREATED_LISTS"
 const SET_FAVORITE_MOVIE = "account/SET_FAVORITE_MOVIE"
 const SET_FAVORITE_TV_SHOW = "account/SET_FAVORITE_TV_SHOW"
 const DELETE_ACCOUNT_DETAILS = "account/DELETE_ACCOUNT_DETAILS"
+const SET_RATING_MOVIE = "account/SET_RATING_MOVIE"
+const SET_RATING_TV_SHOW = "account/SET_RATING_TV_SHOW"
 
 
 const initialState: initialStateType = {
@@ -46,6 +55,18 @@ const initialState: initialStateType = {
         results: [],
         total_pages: 0,
         total_results: 0
+    },
+    ratingMovie: {
+        page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0
+    },
+    ratingTVShow: {
+        page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0
     }
 }
 
@@ -55,6 +76,8 @@ type initialStateType = {
     createdLists: CommonResType<createdList>
     favoriteMovie: CommonResType<FavoriteMovie>
     favoriteTVShow: CommonResType<FavoriteTVShow>
+    ratingTVShow: CommonResType<ratedTVShow>
+    ratingMovie: CommonResType<ratedMovies>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
@@ -88,6 +111,10 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
             return {...state, favoriteMovie: action.favoriteMovie}
         case SET_FAVORITE_TV_SHOW:
             return {...state, favoriteTVShow: action.favoriteTV}
+        case SET_RATING_TV_SHOW:
+            return {...state, ratingTVShow: action.shows}
+        case SET_RATING_MOVIE:
+            return {...state, ratingMovie: action.movies}
         default:
             return state
     }
@@ -108,6 +135,14 @@ export const accountActions = {
     setFavoriteTVShow: (favoriteTV: CommonResType<FavoriteTVShow>) => ({
         type: SET_FAVORITE_TV_SHOW,
         favoriteTV
+    } as const),
+    setRatingTVShow: (shows: CommonResType<ratedTVShow>) => ({
+        type: SET_RATING_TV_SHOW,
+        shows
+    } as const),
+    setRatingMovie: (movies: CommonResType<ratedMovies>) => ({
+        type: SET_RATING_MOVIE,
+        movies
     } as const),
 }
 
@@ -130,5 +165,13 @@ export const getFavoriteTVShow = () => async (dispatch: Dispatch<ActionTypes>, g
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getFavoriteTVShow(sessionId)
     dispatch(accountActions.setFavoriteTVShow(res))
+}
+
+export const getRatingMoviesAndTVShows = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const movie = await accountAPI.getRatedMovies(sessionId)
+    const TVShow = await accountAPI.getRatedTVShow(sessionId)
+    dispatch(accountActions.setRatingMovie(movie))
+    dispatch(accountActions.setRatingTVShow(TVShow))
 }
 

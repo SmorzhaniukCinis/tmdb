@@ -47,6 +47,26 @@ export type FavoriteMovie = {
     "vote_average": number
     "vote_count": number
 }
+export type ratedMovies = {
+    "adult": boolean,
+    "backdrop_path": string,
+    "genre_ids": [
+        number
+
+    ],
+    "id": number,
+    "original_language": string
+    "original_title": string,
+    "overview": string
+    "release_date": string,
+    "poster_path": null | string,
+    "popularity": number
+    "title": string
+    "video": boolean,
+    "vote_average": number
+    "vote_count": number
+    "rating": number
+}
 export type FavoriteTVShow = {
     "backdrop_path": null | string,
     "first_air_date": string
@@ -68,26 +88,7 @@ export type FavoriteTVShow = {
 }
 
 
-export type ratedMovies = {
-    "adult": boolean,
-    "backdrop_path": string,
-    "genre_ids": [
-        number
 
-    ],
-    "id": number,
-    "original_language": string
-    "original_title": string,
-    "overview": string
-    "release_date": string,
-    "poster_path": null | string,
-    "popularity": number
-    "title": string
-    "video": boolean,
-    "vote_average": number
-    "vote_count": number
-    "rating": number
-}
 export type ratedTVShow = {
     "backdrop_path": null | string,
     "first_air_date": string

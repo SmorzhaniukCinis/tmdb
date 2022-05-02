@@ -133,6 +133,11 @@ export const ProfileMenu = () => {
                                 <Typography textAlign="center">Favorite</Typography>
                             </MenuItem>
                         </Link>
+                        <Link to={'/ratings'} style={{color: 'inherit', textDecorationLine: 'none'}}>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Ratings</Typography>
+                            </MenuItem>
+                        </Link>
                         <hr style={{width: '90%', margin: '0px 6px 0 6px'}}/>
                         <MenuItem onClick={handleCloseUserMenu}>
                                 <span onClick={handleClickOpen}

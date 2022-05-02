@@ -12,7 +12,8 @@ import {authActions} from "./store/authReducer";
 import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
-import {Favorite} from "./Pages/Favorite";
+import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
+import {Ratings} from "./Pages/Ratings";
 
 
 function App() {
@@ -52,7 +53,8 @@ function App() {
                         <Route path={'/account'} element={<Profile/>}/>
                         <Route path={'/myLists'} element={<MyLists/>}/>
                         <Route path={'/authentication'} element={<Auth/>}/>
-                        <Route path={'/favorite'} element={<Favorite/>}/>
+                        <Route path={'/favorite'} element={<ProfileListWrapper/>}/>
+                        <Route path={'/ratings'} element={<ProfileListWrapper/>}/>
                     </Routes>
                 </Container>
             </ThemeProvider>

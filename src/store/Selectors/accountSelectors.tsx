@@ -15,3 +15,9 @@ export const getFavoriteMovieSelector = (state:RootStateType) => {
 export const getFavoriteTVShowSelector = (state:RootStateType) => {
   return state.account.favoriteTVShow
 }
+export const getRatingMovieSelector = (state:RootStateType) => {
+  return state.account.ratingMovie
+}
+export const getRatingTVShowSelector = (state:RootStateType) => {
+  return state.account.ratingTVShow
+}
