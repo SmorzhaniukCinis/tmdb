@@ -56,6 +56,7 @@ function App() {
                         <Route path={'/favorite'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratings'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
+                        <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                     </Routes>
                 </Container>
             </ThemeProvider>

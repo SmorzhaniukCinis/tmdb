@@ -24,3 +24,12 @@ export const getRatingTVShowSelector = (state:RootStateType) => {
 export const getRatedSeries = (state:RootStateType) => {
   return state.account.ratedSeries
 }
+export const getIsLoading = (state:RootStateType) => {
+  return state.account.isLoading
+}
+export const getMovieWatchList = (state:RootStateType) => {
+  return state.account.movieWatchList
+}
+export const getTVShowWatchList = (state:RootStateType) => {
+  return state.account.TVShowWatchList
+}

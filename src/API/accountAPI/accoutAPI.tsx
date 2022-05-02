@@ -4,7 +4,7 @@ import {
     createdList,
     DetailsType,
     FavoriteMovie,
-    FavoriteTVShow, markAsFavorite,
+    FavoriteTVShow, markAsFavorite, MovieWatchList,
     ratedMovies,
     ratedTVEpisodes,
     ratedTVShow,
@@ -47,7 +47,12 @@ export const accountAPI = {
             .get<CommonResType<ratedTVEpisodes>>(`account/${accountId}/rated/tv/episodes?session_id=${sessionId}`)
         return data
     },
-    getMovieWatchList: async (sessionId: string, accountId?: string): Promise<CommonResType<TVShowWatchList>> => {
+    getMovieWatchList: async (sessionId: string, accountId?: string): Promise<CommonResType<MovieWatchList>> => {
+        const {data} = await instance
+            .get<CommonResType<MovieWatchList>>(`account/${accountId}/watchlist/movies?session_id=${sessionId}`)
+        return data
+    },
+    getTVShowWatchList: async (sessionId: string, accountId?: string): Promise<CommonResType<TVShowWatchList>> => {
         const {data} = await instance
             .get<CommonResType<TVShowWatchList>>(`account/${accountId}/watchlist/tv?session_id=${sessionId}`)
         return data

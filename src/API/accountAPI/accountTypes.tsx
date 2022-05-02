@@ -129,9 +129,7 @@ export type ratedTVEpisodes = {
 export type MovieWatchList = {
     "adult": boolean,
     "backdrop_path": null | string,
-    "genre_ids": [
-        number
-    ],
+    "genre_ids": Array<number>
     "id": number,
     "original_language": string,
     "original_title": string,
@@ -143,25 +141,23 @@ export type MovieWatchList = {
     "video": boolean,
     "vote_average":number
     "vote_count": number
+    rating?: number
 }
 export type TVShowWatchList = {
-    "backdrop_path": null,
-    "first_air_date": "2013-09-26",
-    "genre_ids": [
-        35
-    ],
-    "id": 58932,
-    "original_language": "en",
-    "original_name": "The Crazy Ones",
-    "overview": "The Crazy Ones is an American situation comedy series created by David E. Kelley that stars Robin Williams and Sarah Michelle Gellar. The single-camera project premiered on CBS on September 26, 2013, as part of the 2013–14 American television season as a Thursday night 9 pm entry. Bill D'Elia, Dean Lorey, Jason Winer, John Montgomery and Mark Teitelbaum serve as executive producers for 20th Century Fox Television.",
-    "origin_country": [
-        "US"
-    ],
-    "poster_path": null,
-    "popularity": 0.075407,
-    "name": "The Crazy Ones",
-    "vote_average": 5.3,
-    "vote_count": 4
+    "backdrop_path": null | string,
+    "first_air_date": string
+    "genre_ids": Array<number>
+    "id": number
+    "original_language": string
+    "original_name": string
+    "overview": string
+    "origin_country": Array<string>
+    "poster_path": null | string,
+    "popularity": number
+    "name": string
+    "vote_average": number
+    "vote_count": number
+    rating?: number
 }
 export type markAsFavorite = {
     "status_code": number

@@ -7,9 +7,14 @@ import {
     DetailsType,
     FavoriteMovie,
     FavoriteTVShow,
-    ratedMovies, ratedTVEpisodes, ratedTVShow
+    MovieWatchList,
+    ratedMovies,
+    ratedTVEpisodes,
+    ratedTVShow,
+    TVShowWatchList
 } from "../API/accountAPI/accountTypes";
 
+const SET_LOADING = "account/SET_LOADING"
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 const SET_DARK_THEME = "account/SET_DARK_THEME"
 const SET_CREATED_LISTS = "account/SET_CREATED_LISTS"
@@ -19,9 +24,12 @@ const DELETE_ACCOUNT_DETAILS = "account/DELETE_ACCOUNT_DETAILS"
 const SET_RATING_MOVIE = "account/SET_RATING_MOVIE"
 const SET_RATING_TV_SHOW = "account/SET_RATING_TV_SHOW"
 const SET_RATED_TV_EPISODES = "account/SET_RATED_TV_EPISODES"
+const SET_MOVIE_WATCH_LIST = "account/SET_MOVIE_WATCH_LIST"
+const SET_TV_SHOW_WATCH_LIST = "account/SET_TV_SHOW_WATCH_LIST"
 
 
 const initialState: initialStateType = {
+    isLoading: false,
     details: {
         avatar: {
             gravatar: {
@@ -74,10 +82,24 @@ const initialState: initialStateType = {
         results: [],
         total_pages: 0,
         total_results: 0
+    },
+    movieWatchList: {
+        page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0
+    },
+    TVShowWatchList: {
+        page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0
     }
+
 }
 
 type initialStateType = {
+    isLoading: boolean
     details: DetailsType
     isDarkTheme: boolean,
     createdLists: CommonResType<createdList>
@@ -86,12 +108,16 @@ type initialStateType = {
     ratingTVShow: CommonResType<ratedTVShow>
     ratingMovie: CommonResType<ratedMovies>
     ratedSeries: CommonResType<ratedTVEpisodes>
+    movieWatchList: CommonResType<MovieWatchList>
+    TVShowWatchList: CommonResType<TVShowWatchList>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case SET_ACCOUNT_DETAILS:
             return {...state, details: action.payload}
+        case SET_LOADING:
+            return {...state, isLoading: action.isLoading}
         case DELETE_ACCOUNT_DETAILS:
             return {
                 ...state, details: {
@@ -125,12 +151,17 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
             return {...state, ratingMovie: action.movies}
         case SET_RATED_TV_EPISODES:
             return {...state, ratedSeries: action.series}
+        case SET_MOVIE_WATCH_LIST:
+            return {...state, movieWatchList: action.movies}
+        case SET_TV_SHOW_WATCH_LIST:
+            return {...state, TVShowWatchList: action.series}
         default:
             return state
     }
 }
 
 export const accountActions = {
+    setIsLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
     setAccountDetails: (payload: DetailsType) => ({type: SET_ACCOUNT_DETAILS, payload} as const),
     deleteAccountDetails: () => ({type: DELETE_ACCOUNT_DETAILS} as const),
     setDarkTheme: (payload: boolean) => ({type: SET_DARK_THEME, payload} as const),
@@ -158,6 +189,14 @@ export const accountActions = {
         type: SET_RATED_TV_EPISODES,
         series
     } as const),
+    setMovieWatchList: (movies: CommonResType<MovieWatchList>) => ({
+        type: SET_MOVIE_WATCH_LIST,
+        movies
+    } as const),
+    setTVEpisodesWatchList: (series: CommonResType<TVShowWatchList>) => ({
+        type: SET_TV_SHOW_WATCH_LIST,
+        series
+    } as const),
 }
 
 export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
@@ -166,33 +205,52 @@ export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getS
     dispatch(accountActions.setAccountDetails(res))
 }
 export const getCreatedList = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getCreatedList(sessionId)
     dispatch(accountActions.setCreatedLists(res))
+    dispatch(accountActions.setIsLoading(false))
 }
 export const getFavoriteMovie = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getFavoriteMovie(sessionId)
     dispatch(accountActions.setFavoriteMovie(res))
+    dispatch(accountActions.setIsLoading(false))
 }
 export const getFavoriteTVShow = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getFavoriteTVShow(sessionId)
     dispatch(accountActions.setFavoriteTVShow(res))
+    dispatch(accountActions.setIsLoading(false))
 }
 
 export const getRatingMoviesAndTVShows = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
     const movie = await accountAPI.getRatedMovies(sessionId)
     const TVShow = await accountAPI.getRatedTVShow(sessionId)
     dispatch(accountActions.setRatingMovie(movie))
     dispatch(accountActions.setRatingTVShow(TVShow))
+    dispatch(accountActions.setIsLoading(false))
+}
+export const getMoviesAndTVShowsWatchList = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    dispatch(accountActions.setIsLoading(true))
+    const sessionId = getState().auth.sessionId
+    const movie = await accountAPI.getMovieWatchList(sessionId)
+    const TVShow = await accountAPI.getTVShowWatchList(sessionId)
+    dispatch(accountActions.setMovieWatchList(movie))
+    dispatch(accountActions.setTVEpisodesWatchList(TVShow))
+    dispatch(accountActions.setIsLoading(false))
 }
 export const getRatedTVEpisodes = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getRatedTVEpisodes(sessionId)
     console.log(res)
     dispatch(accountActions.setRatingTVEpisodes(res))
+    dispatch(accountActions.setIsLoading(false))
 }
 
 
