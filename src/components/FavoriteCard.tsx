@@ -5,6 +5,7 @@ import s from "../styles/ProfileListWrapper.module.css";
 import {FavoriteMovie, FavoriteTVShow} from "../API/accountAPI/accountTypes";
 import {useSelector} from "react-redux";
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
+import {Rating} from "@mui/lab";
 
 type props = {
     originalTitle: string
@@ -15,14 +16,15 @@ type props = {
     posterPath: string | null
     voteAverage: number
     voteCount: number
+    rating: number | undefined
 }
 
-export const FavoriteCard:React.FC<props> = (props:props) => {
+export const FavoriteCard: React.FC<props> = (props: props) => {
 
     const isDarkTheme = useSelector(getIsDarkTheme)
 
     return (
-        <Card  variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
+        <Card variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
             <div style={{
                 background: `url(${getImage('original', props.backdropPath)})`,
                 backgroundSize: '100%'
@@ -39,6 +41,13 @@ export const FavoriteCard:React.FC<props> = (props:props) => {
                             {props.releaseDate}&nbsp;
                             <span className={s.language}>({props.language})</span>
                         </Typography>
+                        {
+                            props.rating
+                                ?<Typography>
+                                    <Rating name="half-rating" defaultValue={props.rating / 2} precision={0.5}/>
+                                </Typography>
+                                : null
+                        }
                         <Typography sx={{mb: 1.5}} textOverflow={'test'}>
                             Users score:&nbsp;
                             <abbr title={`Votes: ${props.voteCount}`}>

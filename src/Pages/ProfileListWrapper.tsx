@@ -84,13 +84,13 @@ export const ProfileListWrapper = () => {
                                   language={movie.original_language}
                                   originalTitle={movie.original_title} posterPath={movie.poster_path}
                                   overview={movie.overview} voteAverage={movie.vote_average}
-                                  voteCount={movie.vote_count} releaseDate={movie.release_date}/>
+                                  voteCount={movie.vote_count} rating={movie.rating} releaseDate={movie.release_date}/>
                 )
                 : currentTVShow?.results.map(show =>
                     <FavoriteCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
                                   originalTitle={show.name} posterPath={show.poster_path}
                                   overview={show.overview} voteAverage={show.vote_average}
-                                  voteCount={show.vote_count} releaseDate={show.first_air_date}/>
+                                  voteCount={show.vote_count} rating={show.rating} releaseDate={show.first_air_date}/>
                 )
             }
 
