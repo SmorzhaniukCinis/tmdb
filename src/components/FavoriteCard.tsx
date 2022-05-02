@@ -2,44 +2,52 @@ import React from 'react';
 import {getImage} from "../Common/getImage";
 import {Card, CardContent, Typography} from "@mui/material";
 import s from "../styles/favoritePage.module.css";
-import {FavoriteMovie} from "../API/accountAPI/accountTypes";
+import {FavoriteMovie, FavoriteTVShow} from "../API/accountAPI/accountTypes";
 import {useSelector} from "react-redux";
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
 
 type props = {
-    movie: FavoriteMovie
+    originalTitle: string
+    releaseDate: string
+    overview: string
+    backdropPath: string | null
+    language: string
+    posterPath: string | null
+    voteAverage: number
+    voteCount: number
+    id: number
 }
 
-export const FavoriteMovieComponent:React.FC<props> = ({movie}:props) => {
+export const FavoriteCard:React.FC<props> = (props:props) => {
 
     const isDarkTheme = useSelector(getIsDarkTheme)
 
     return (
-        <Card key={movie.id} variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
+        <Card key={props.id} variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
             <div style={{
-                background: `url(${getImage('original', movie.backdrop_path)})`,
+                background: `url(${getImage('original', props.backdropPath)})`,
                 backgroundSize: '100%'
             }}>
                 <CardContent className={isDarkTheme ? s.blackCardWrapper : s.witheCardWrapper}>
                     <div>
-                        <img height={'300px'} src={getImage('w200', movie.poster_path)} alt=""/>
+                        <img height={'300px'} src={getImage('w200', props.posterPath)} alt=""/>
                     </div>
                     <div>
                         <Typography variant="h4" component="div">
-                            {movie.original_title}
+                            {props.originalTitle}
                         </Typography>
                         <Typography>
-                            {movie.release_date}&nbsp;
-                            <span className={s.language}>({movie.original_language})</span>
+                            {props.releaseDate}&nbsp;
+                            <span className={s.language}>({props.language})</span>
                         </Typography>
                         <Typography sx={{mb: 1.5}} textOverflow={'test'}>
                             Users score:&nbsp;
-                            <abbr title={`Votes: ${movie.vote_count}`}>
-                                <span className={s.voteAverage}>{movie.vote_average}</span>
+                            <abbr title={`Votes: ${props.voteCount}`}>
+                                <span className={s.voteAverage}>{props.voteAverage}</span>
                             </abbr>
                         </Typography>
                         <Typography sx={{width: '60%'}} variant="body2">
-                            {movie.overview}
+                            {props.overview}
                         </Typography>
                     </div>
                 </CardContent>

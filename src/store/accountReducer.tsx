@@ -1,14 +1,14 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
 import {accountAPI} from "../API/accountAPI/accoutAPI";
-import {CommonResType, createdList, DetailsType, FavoriteMovie} from "../API/accountAPI/accountTypes";
+import {CommonResType, createdList, DetailsType, FavoriteMovie, FavoriteTVShow} from "../API/accountAPI/accountTypes";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 const SET_DARK_THEME = "account/SET_DARK_THEME"
 const SET_CREATED_LISTS = "account/SET_CREATED_LISTS"
 const SET_FAVORITE_MOVIE = "account/SET_FAVORITE_MOVIE"
+const SET_FAVORITE_TV_SHOW = "account/SET_FAVORITE_TV_SHOW"
 const DELETE_ACCOUNT_DETAILS = "account/DELETE_ACCOUNT_DETAILS"
-
 
 
 const initialState: initialStateType = {
@@ -18,7 +18,7 @@ const initialState: initialStateType = {
                 hash: ''
             },
             tmdb: {
-                avatar_path:""
+                avatar_path: ""
             }
         },
         id: null,
@@ -27,17 +27,23 @@ const initialState: initialStateType = {
         name: null,
         include_adult: null,
         username: null
-    }  ,
+    },
     isDarkTheme: false,
     createdLists: {
         page: 0,
-        results:[],
+        results: [],
         total_pages: 0,
         total_results: 0
     },
     favoriteMovie: {
         page: 0,
-        results:[],
+        results: [],
+        total_pages: 0,
+        total_results: 0
+    },
+    favoriteTVShow: {
+        page: 0,
+        results: [],
         total_pages: 0,
         total_results: 0
     }
@@ -48,6 +54,7 @@ type initialStateType = {
     isDarkTheme: boolean,
     createdLists: CommonResType<createdList>
     favoriteMovie: CommonResType<FavoriteMovie>
+    favoriteTVShow: CommonResType<FavoriteTVShow>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
@@ -55,13 +62,14 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
         case SET_ACCOUNT_DETAILS:
             return {...state, details: action.payload}
         case DELETE_ACCOUNT_DETAILS:
-            return {...state, details: {
+            return {
+                ...state, details: {
                     avatar: {
                         gravatar: {
                             hash: ''
                         },
                         tmdb: {
-                            avatar_path:""
+                            avatar_path: ""
                         }
                     },
                     id: null,
@@ -70,13 +78,16 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
                     name: null,
                     include_adult: null,
                     username: null
-                }}
+                }
+            }
         case SET_DARK_THEME:
             return {...state, isDarkTheme: action.payload}
         case SET_CREATED_LISTS:
             return {...state, createdLists: action.createdLists}
         case SET_FAVORITE_MOVIE:
             return {...state, favoriteMovie: action.favoriteMovie}
+        case SET_FAVORITE_TV_SHOW:
+            return {...state, favoriteTVShow: action.favoriteTV}
         default:
             return state
     }
@@ -94,6 +105,10 @@ export const accountActions = {
         type: SET_FAVORITE_MOVIE,
         favoriteMovie
     } as const),
+    setFavoriteTVShow: (favoriteTV: CommonResType<FavoriteTVShow>) => ({
+        type: SET_FAVORITE_TV_SHOW,
+        favoriteTV
+    } as const),
 }
 
 export const getAccountInfo = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
@@ -110,5 +125,10 @@ export const getFavoriteMovie = () => async (dispatch: Dispatch<ActionTypes>, ge
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getFavoriteMovie(sessionId)
     dispatch(accountActions.setFavoriteMovie(res))
+}
+export const getFavoriteTVShow = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await accountAPI.getFavoriteTVShow(sessionId)
+    dispatch(accountActions.setFavoriteTVShow(res))
 }
 

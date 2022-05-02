@@ -12,3 +12,6 @@ export const getCreatedLists = (state:RootStateType) => {
 export const getFavoriteMovieSelector = (state:RootStateType) => {
   return state.account.favoriteMovie
 }
+export const getFavoriteTVShowSelector = (state:RootStateType) => {
+  return state.account.favoriteTVShow
+}
