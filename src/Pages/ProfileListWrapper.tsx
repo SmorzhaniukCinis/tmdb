@@ -9,7 +9,7 @@ import {
 import {getIsAuth} from "../store/Selectors/authSelectors";
 import {FavoriteCard} from "../components/FavoriteCard";
 import {Link, useLocation} from "react-router-dom";
-import {Button, ToggleButton, ToggleButtonGroup} from '@mui/material'
+import {Button, ToggleButton, ToggleButtonGroup, Typography} from '@mui/material'
 import {CommonResType, FavoriteMovie, FavoriteTVShow, ratedMovies, ratedTVShow} from "../API/accountAPI/accountTypes";
 import style from '../styles/ProfileListWrapper.module.css'
 
@@ -29,6 +29,7 @@ export const ProfileListWrapper = () => {
     const [currentPage, setCurrentPage] = React.useState<'favorite' | 'ratings'>('favorite');
     const [currentMovie, setCurrentMovie] = React.useState<CommonResType<ratedMovies> | CommonResType<FavoriteMovie>>();
     const [currentTVShow, setCurrentTVShow] = React.useState<CommonResType<ratedTVShow> | CommonResType<FavoriteTVShow>>();
+    const [title, setTitle] = React.useState<'Favorites' | 'Ratings'>();
 
 
     const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: 'movie' | 'TV',) => {
@@ -42,10 +43,12 @@ export const ProfileListWrapper = () => {
         if (isAuth) {
             if (location.pathname === '/favorite') {
                 setCurrentPage('favorite')
+                setTitle('Favorites')
                 dispatch(getFavoriteMovie())
                 dispatch(getFavoriteTVShow())
             } else if (location.pathname === '/ratings') {
                 setCurrentPage('ratings')
+                setTitle('Ratings')
                 dispatch(getRatingMoviesAndTVShows())
             }
         }
@@ -64,6 +67,7 @@ export const ProfileListWrapper = () => {
 
     return (
         <div>
+
             <ToggleButtonGroup
                 sx={{marginLeft: '40px'}}
                 color="primary"
@@ -71,6 +75,9 @@ export const ProfileListWrapper = () => {
                 exclusive
                 onChange={handleChange}
             >
+                <Typography className={style.title} variant={'h5'}>
+                    {`My ${title}`}
+                </Typography>
                 <ToggleButton sx={{width: '100px'}} value="movie">Movie</ToggleButton>
                 <ToggleButton sx={{width: '100px'}} value="TV">TV</ToggleButton>
             </ToggleButtonGroup>

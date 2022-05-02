@@ -47,3 +47,8 @@
 .EpisodeDetails {
     margin-right: 15px;
 }
+.title {
+    position: relative;
+    top: 7px;
+    margin-right: 20px;
+}
