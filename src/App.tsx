@@ -13,7 +13,8 @@ import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
 import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
-import {Ratings} from "./Pages/Ratings";
+import {accountAPI} from "./API/accountAPI/accoutAPI";
+import {RatedSeries} from "./Pages/RatedSeries";
 
 
 function App() {
@@ -47,7 +48,6 @@ function App() {
             <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
                 <NavBar/>
                 <Container fixed style={{marginTop: 40}}>
-
                     <Routes>
                         <Route path={'/'} element={<Home/>}/>
                         <Route path={'/account'} element={<Profile/>}/>
@@ -55,6 +55,7 @@ function App() {
                         <Route path={'/authentication'} element={<Auth/>}/>
                         <Route path={'/favorite'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratings'} element={<ProfileListWrapper/>}/>
+                        <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
                     </Routes>
                 </Container>
             </ThemeProvider>

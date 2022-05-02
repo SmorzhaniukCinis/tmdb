@@ -7,10 +7,11 @@ import {
     getRatingMovieSelector, getRatingTVShowSelector
 } from "../store/Selectors/accountSelectors";
 import {getIsAuth} from "../store/Selectors/authSelectors";
-import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import {FavoriteCard} from "../components/FavoriteCard";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import {Button, ToggleButton, ToggleButtonGroup} from '@mui/material'
 import {CommonResType, FavoriteMovie, FavoriteTVShow, ratedMovies, ratedTVShow} from "../API/accountAPI/accountTypes";
+import style from '../styles/ProfileListWrapper.module.css'
 
 
 export const ProfileListWrapper = () => {
@@ -24,20 +25,20 @@ export const ProfileListWrapper = () => {
     const location = useLocation()
 
 
-    const [typeOfContent, setTypeOfContent] = React.useState('movie');
+    const [typeOfContent, setTypeOfContent] = React.useState<'movie' | 'TV'>('movie');
     const [currentPage, setCurrentPage] = React.useState<'favorite' | 'ratings'>('favorite');
     const [currentMovie, setCurrentMovie] = React.useState<CommonResType<ratedMovies> | CommonResType<FavoriteMovie>>();
     const [currentTVShow, setCurrentTVShow] = React.useState<CommonResType<ratedTVShow> | CommonResType<FavoriteTVShow>>();
 
 
-    const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string,) => {
-        setTypeOfContent(newAlignment);
+    const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: 'movie' | 'TV',) => {
+        if (newAlignment) {
+            setTypeOfContent(newAlignment);
+        }
     };
 
 
-
     useEffect(() => {
-        debugger
         if (isAuth) {
             if (location.pathname === '/favorite') {
                 setCurrentPage('favorite')
@@ -52,16 +53,14 @@ export const ProfileListWrapper = () => {
     }, [dispatch, isAuth, location.pathname])
 
     useEffect(() => {
-        debugger
         if (currentPage === 'favorite') {
             setCurrentMovie(favoriteMovie)
             setCurrentTVShow(favoriteTVShow)
-        } else if(currentPage === 'ratings') {
+        } else if (currentPage === 'ratings') {
             setCurrentMovie(ratedMovie)
             setCurrentTVShow(ratedTVShow)
         }
     }, [favoriteMovie, favoriteTVShow, ratedMovie, ratedTVShow])
-
 
     return (
         <div>
@@ -76,20 +75,23 @@ export const ProfileListWrapper = () => {
                 <ToggleButton sx={{width: '100px'}} value="TV">TV</ToggleButton>
             </ToggleButtonGroup>
 
-            { typeOfContent === 'movie'
-                    ? currentMovie?.results.map(movie =>
-                        <FavoriteCard id={movie.id} backdropPath={movie.backdrop_path}
-                                      language={movie.original_language}
-                                      originalTitle={movie.original_title} posterPath={movie.poster_path}
-                                      overview={movie.overview} voteAverage={movie.vote_average}
-                                      voteCount={movie.vote_count} releaseDate={movie.release_date}/>
-                    )
-                    : currentTVShow?.results.map(show =>
-                        <FavoriteCard id={show.id} backdropPath={show.backdrop_path} language={show.original_language}
-                                      originalTitle={show.name} posterPath={show.poster_path}
-                                      overview={show.overview} voteAverage={show.vote_average}
-                                      voteCount={show.vote_count} releaseDate={show.first_air_date}/>
-                    )
+            {currentPage === 'ratings' && typeOfContent === 'TV' ?
+                <Button className={style.ratedSeriesButton}><Link className={style.ratedSeriesLink} to={'/ratedSeries'}>Go to rated series</Link></Button> : null}
+
+            {typeOfContent === 'movie'
+                ? currentMovie?.results.map(movie =>
+                    <FavoriteCard key={movie.id} backdropPath={movie.backdrop_path}
+                                  language={movie.original_language}
+                                  originalTitle={movie.original_title} posterPath={movie.poster_path}
+                                  overview={movie.overview} voteAverage={movie.vote_average}
+                                  voteCount={movie.vote_count} releaseDate={movie.release_date}/>
+                )
+                : currentTVShow?.results.map(show =>
+                    <FavoriteCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
+                                  originalTitle={show.name} posterPath={show.poster_path}
+                                  overview={show.overview} voteAverage={show.vote_average}
+                                  voteCount={show.vote_count} releaseDate={show.first_air_date}/>
+                )
             }
 
         </div>

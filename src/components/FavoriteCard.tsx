@@ -1,7 +1,7 @@
 import React from 'react';
 import {getImage} from "../Common/getImage";
 import {Card, CardContent, Typography} from "@mui/material";
-import s from "../styles/favoritePage.module.css";
+import s from "../styles/ProfileListWrapper.module.css";
 import {FavoriteMovie, FavoriteTVShow} from "../API/accountAPI/accountTypes";
 import {useSelector} from "react-redux";
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
@@ -15,7 +15,6 @@ type props = {
     posterPath: string | null
     voteAverage: number
     voteCount: number
-    id: number
 }
 
 export const FavoriteCard:React.FC<props> = (props:props) => {
@@ -23,7 +22,7 @@ export const FavoriteCard:React.FC<props> = (props:props) => {
     const isDarkTheme = useSelector(getIsDarkTheme)
 
     return (
-        <Card key={props.id} variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
+        <Card  variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
             <div style={{
                 background: `url(${getImage('original', props.backdropPath)})`,
                 backgroundSize: '100%'

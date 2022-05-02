@@ -21,3 +21,6 @@ export const getRatingMovieSelector = (state:RootStateType) => {
 export const getRatingTVShowSelector = (state:RootStateType) => {
   return state.account.ratingTVShow
 }
+export const getRatedSeries = (state:RootStateType) => {
+  return state.account.ratedSeries
+}

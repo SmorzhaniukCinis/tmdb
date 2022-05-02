@@ -7,7 +7,7 @@ import {
     DetailsType,
     FavoriteMovie,
     FavoriteTVShow,
-    ratedMovies, ratedTVShow
+    ratedMovies, ratedTVEpisodes, ratedTVShow
 } from "../API/accountAPI/accountTypes";
 
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
@@ -18,6 +18,7 @@ const SET_FAVORITE_TV_SHOW = "account/SET_FAVORITE_TV_SHOW"
 const DELETE_ACCOUNT_DETAILS = "account/DELETE_ACCOUNT_DETAILS"
 const SET_RATING_MOVIE = "account/SET_RATING_MOVIE"
 const SET_RATING_TV_SHOW = "account/SET_RATING_TV_SHOW"
+const SET_RATED_TV_EPISODES = "account/SET_RATED_TV_EPISODES"
 
 
 const initialState: initialStateType = {
@@ -67,6 +68,12 @@ const initialState: initialStateType = {
         results: [],
         total_pages: 0,
         total_results: 0
+    },
+    ratedSeries: {
+        page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0
     }
 }
 
@@ -78,6 +85,7 @@ type initialStateType = {
     favoriteTVShow: CommonResType<FavoriteTVShow>
     ratingTVShow: CommonResType<ratedTVShow>
     ratingMovie: CommonResType<ratedMovies>
+    ratedSeries: CommonResType<ratedTVEpisodes>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
@@ -115,6 +123,8 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
             return {...state, ratingTVShow: action.shows}
         case SET_RATING_MOVIE:
             return {...state, ratingMovie: action.movies}
+        case SET_RATED_TV_EPISODES:
+            return {...state, ratedSeries: action.series}
         default:
             return state
     }
@@ -143,6 +153,10 @@ export const accountActions = {
     setRatingMovie: (movies: CommonResType<ratedMovies>) => ({
         type: SET_RATING_MOVIE,
         movies
+    } as const),
+    setRatingTVEpisodes: (series: CommonResType<ratedTVEpisodes>) => ({
+        type: SET_RATED_TV_EPISODES,
+        series
     } as const),
 }
 
@@ -174,4 +188,11 @@ export const getRatingMoviesAndTVShows = () => async (dispatch: Dispatch<ActionT
     dispatch(accountActions.setRatingMovie(movie))
     dispatch(accountActions.setRatingTVShow(TVShow))
 }
+export const getRatedTVEpisodes = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await accountAPI.getRatedTVEpisodes(sessionId)
+    console.log(res)
+    dispatch(accountActions.setRatingTVEpisodes(res))
+}
+
 
