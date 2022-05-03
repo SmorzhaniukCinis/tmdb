@@ -89,7 +89,6 @@ export const ProfileListWrapper = () => {
         }
     }, [favoriteMovie, favoriteTVShow, ratedMovie, ratedTVShow, movieWatchList, TVShowWatchList, currentPage])
 
-    console.log(TVShowWatchList)
     if (isLoading) {
         return (
             <div>
@@ -106,27 +105,28 @@ export const ProfileListWrapper = () => {
     } else {
         return (
             <div>
-
-                <ToggleButtonGroup
-                    sx={{marginLeft: '40px'}}
-                    color="primary"
-                    value={typeOfContent}
-                    exclusive
-                    onChange={handleChange}
-                >
+                <div className={style.HeadTitle}>
                     <Typography className={style.title} variant={'h5'}>
                         {`My ${title}`}
                     </Typography>
-                    <ToggleButton sx={{width: '100px'}} value="movie">Movie</ToggleButton>
-                    <ToggleButton sx={{width: '100px'}} value="TV">TV</ToggleButton>
-                </ToggleButtonGroup>
+                    <ToggleButtonGroup
+                        sx={{marginLeft: '40px'}}
+                        color="primary"
+                        value={typeOfContent}
+                        exclusive
+                        onChange={handleChange}
+                    >
+                        <ToggleButton sx={{width: '100px'}} value="movie">Movie</ToggleButton>
+                        <ToggleButton sx={{width: '100px'}} value="TV">TV</ToggleButton>
+                    </ToggleButtonGroup>
+                    {currentPage === 'ratings' && typeOfContent === 'TV' ?
+                        <Button className={style.ratedSeriesButton}>
+                            <Link className={style.ratedSeriesLink} href={'/ratedSeries'}>
+                                Go to rated series
+                            </Link>
+                        </Button> : null}
+                </div>
 
-                {currentPage === 'ratings' && typeOfContent === 'TV' ?
-                    <Button className={style.ratedSeriesButton}>
-                        <Link className={style.ratedSeriesLink} href={'/ratedSeries'}>
-                            Go to rated series
-                        </Link>
-                    </Button> : null}
 
                 {typeOfContent === 'movie'
                     ? currentMovie?.results.map(movie =>
@@ -134,14 +134,14 @@ export const ProfileListWrapper = () => {
                                       language={movie.original_language}
                                       originalTitle={movie.original_title} posterPath={movie.poster_path}
                                       overview={movie.overview} voteAverage={movie.vote_average}
-                                      voteCount={movie.vote_count} rating={movie.rating}
+                                      voteCount={movie.vote_count} rating={movie.rating} id={movie.id} type={'movie'}
                                       releaseDate={movie.release_date}/>
                     )
                     : currentTVShow?.results.map(show =>
                         <FavoriteCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
                                       originalTitle={show.name} posterPath={show.poster_path}
                                       overview={show.overview} voteAverage={show.vote_average}
-                                      voteCount={show.vote_count} rating={show.rating}
+                                      voteCount={show.vote_count} rating={show.rating} id={show.id} type={'tv'}
                                       releaseDate={show.first_air_date}/>
                     )
                 }

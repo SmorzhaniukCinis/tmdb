@@ -52,13 +52,6 @@
 .EpisodeDetails {
     margin-right: 15px;
 }
-
-.title {
-    position: relative;
-    top: 7px;
-    right: 20px;
-}
-
 .titleWrapper {
     display: flex;
     margin-bottom: 20px;
@@ -68,4 +61,12 @@
     position: relative;
     bottom: 5px;
     left: 20px;
+}
+.HeadTitle {
+    display: flex;
+}
+.title {
+    position: relative;
+    top: 7px;
+    left: 17px;
 }

@@ -159,7 +159,7 @@ export type TVShowWatchList = {
     "vote_count": number
     rating?: number
 }
-export type markAsFavorite = {
+export type favoriteAndWatchListRes = {
     "status_code": number
     "status_message": string
 }

@@ -248,9 +248,21 @@ export const getRatedTVEpisodes = () => async (dispatch: Dispatch<ActionTypes>, 
     dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
     const res = await accountAPI.getRatedTVEpisodes(sessionId)
-    console.log(res)
     dispatch(accountActions.setRatingTVEpisodes(res))
     dispatch(accountActions.setIsLoading(false))
 }
+export const addToFavorite = (id: number, type: 'movie' | 'tv', isFavorite: boolean) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+        const sessionId = getState().auth.sessionId
+        const res = await accountAPI.markAsFavorite(sessionId, isFavorite, id, type)
+        console.log(res)
+    }
+export const addToWatchList = (id: number, type: 'movie' | 'tv', isWatchlist: boolean) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+        const sessionId = getState().auth.sessionId
+        const res = await accountAPI.addToWatchList(sessionId, isWatchlist, id, type)
+        console.log(res)
+    }
+
 
 

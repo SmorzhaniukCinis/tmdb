@@ -4,7 +4,7 @@ import {
     createdList,
     DetailsType,
     FavoriteMovie,
-    FavoriteTVShow, markAsFavorite, MovieWatchList,
+    FavoriteTVShow, favoriteAndWatchListRes, MovieWatchList,
     ratedMovies,
     ratedTVEpisodes,
     ratedTVShow,
@@ -57,21 +57,23 @@ export const accountAPI = {
             .get<CommonResType<TVShowWatchList>>(`account/${accountId}/watchlist/tv?session_id=${sessionId}`)
         return data
     },
-    markAsFavorite: async (sessionId: string, accountId?: string): Promise<markAsFavorite> => {
+    markAsFavorite: async (sessionId: string, isFavorite: boolean, id: number, type: 'movie' | 'tv', accountId?: string)
+        : Promise<favoriteAndWatchListRes> => {
         const {data} = await instance
-            .post<markAsFavorite>(`account/{account_id}/favorite?session_id=${sessionId}`, {
-                media_type: '',
-                media_id: 0,
-                favorite: false
+            .post<favoriteAndWatchListRes>(`account/{account_id}/favorite?session_id=${sessionId}`, {
+                media_type: type,
+                media_id: id,
+                favorite: isFavorite
             })
         return data
     },
-    addToWatchList: async (sessionId: string, accountId?: string): Promise<markAsFavorite> => {
+    addToWatchList: async (sessionId: string, isWatchlist: boolean, id: number, type: 'movie' | 'tv', accountId?: string)
+        : Promise<favoriteAndWatchListRes> => {
         const {data} = await instance
-            .post<markAsFavorite>(`account/{account_id}/watchlist?session_id=${sessionId}`, {
-                media_type: '',
-                media_id: 0,
-                favorite: false
+            .post<favoriteAndWatchListRes>(`account/{account_id}/watchlist?session_id=${sessionId}`, {
+                media_type: type,
+                media_id: id,
+                watchlist: isWatchlist
             })
         return data
     },
