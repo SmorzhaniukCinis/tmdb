@@ -1,11 +1,16 @@
 import React from 'react';
 import {getImage} from "../Common/getImage";
-import {Card, CardContent, Typography} from "@mui/material";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 import s from "../styles/ProfileListWrapper.module.css";
-import {FavoriteMovie, FavoriteTVShow} from "../API/accountAPI/accountTypes";
 import {useSelector} from "react-redux";
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
-import {Rating} from "@mui/lab";
+import {Rating, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/lab";
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 type props = {
     originalTitle: string
@@ -19,12 +24,20 @@ type props = {
     rating: number | undefined
 }
 
+const actions = [
+    { icon: <FavoriteIcon />, name: 'Share' },
+    { icon: <AssignmentTurnedInIcon />, name: 'test' },
+];
 export const FavoriteCard: React.FC<props> = (props: props) => {
 
     const isDarkTheme = useSelector(getIsDarkTheme)
 
+
+
+
     return (
         <Card variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
+            <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
             <div style={{
                 background: `url(${getImage('original', props.backdropPath)})`,
                 backgroundSize: '100%'
@@ -60,7 +73,21 @@ export const FavoriteCard: React.FC<props> = (props: props) => {
                     </div>
                 </CardContent>
             </div>
-
+                <SpeedDial
+                    ariaLabel="SpeedDial basic example"
+                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                    icon={<SpeedDialIcon />}
+                >
+                    {actions.map((action) => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            // @ts-ignore
+                            tooltipTitle={action.name}
+                        />
+                    ))}
+                </SpeedDial>
+            </Box>
         </Card>
     );
 };
