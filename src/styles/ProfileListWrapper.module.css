@@ -70,3 +70,35 @@
     top: 7px;
     left: 17px;
 }
+.totalItemCount {
+    margin-left: 5px;
+    font-size: 12px;
+    opacity: 70%;
+}
+.myListTitle {
+    padding-bottom: 10px;
+}
+.myListResultCount {
+    opacity: 70%;
+    font-size: 16px;
+    padding-left: 8px;
+}
+.listWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.listItem {
+    margin-right: 20px;
+}
+.listItemDark {
+    background: #272727;
+    text-align: center;
+}
+.listItemLight {
+    background: #efebeb;
+    text-align: center;
+}
+.listName:hover {
+    cursor: pointer;
+    opacity: 80%;
+}

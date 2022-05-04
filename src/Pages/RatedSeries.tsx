@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import s from '../styles/ProfileListWrapper.module.css'
-import {Backdrop, CircularProgress, Link, Typography} from "@mui/material";
+import {Backdrop, CircularProgress, Link, Pagination, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getRatedSeries} from "../store/Selectors/accountSelectors";
 import {getRatedTVEpisodes} from "../store/accountReducer";
@@ -16,11 +16,14 @@ export const RatedSeries = () => {
 
     useEffect(()=> {
         if (isAuth) {
-            dispatch(getRatedTVEpisodes())
+            dispatch(getRatedTVEpisodes(1))
         }
     },[dispatch, isAuth])
 
-    console.log(series)
+    const [page, setPage] = React.useState(1);
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
 
 
     if(isLoading) {
@@ -53,6 +56,9 @@ export const RatedSeries = () => {
                 <div>
                     {series.results.map(item => <EpisodeItem item={item} key={item.id}/>)}
                 </div>
+                {(series?.total_pages && series?.total_pages > 1)
+                    ? <Pagination page={page} onChange={handleChangePage} count={series?.total_pages}/>
+                    : null}
             </div>
         );
     }

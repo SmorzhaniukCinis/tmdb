@@ -22,39 +22,39 @@ export const accountAPI = {
             .get<CommonResType<createdList>>(`account/${accountId}/lists?session_id=${sessionId}`)
         return data
     },
-    getFavoriteMovie: async (sessionId: string, accountId?: string): Promise<CommonResType<FavoriteMovie>> => {
+    getFavoriteMovie: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<FavoriteMovie>> => {
         const {data} = await instance
-            .get<CommonResType<FavoriteMovie>>(`account/${accountId}/favorite/movies?session_id=${sessionId}`)
+            .get<CommonResType<FavoriteMovie>>(`account/${accountId}/favorite/movies?session_id=${sessionId}&page=${page}`)
         return data
     },
-    getFavoriteTVShow: async (sessionId: string, accountId?: string): Promise<CommonResType<FavoriteTVShow>> => {
+    getFavoriteTVShow: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<FavoriteTVShow>> => {
         const {data} = await instance
-            .get<CommonResType<FavoriteTVShow>>(`account/${accountId}/favorite/tv?session_id=${sessionId}`)
+            .get<CommonResType<FavoriteTVShow>>(`account/${accountId}/favorite/tv?session_id=${sessionId}&page=${page}`)
         return data
     },
-    getRatedMovies: async (sessionId: string, accountId?: string): Promise<CommonResType<ratedMovies>> => {
+    getRatedMovies: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<ratedMovies>> => {
         const {data} = await instance
-            .get<CommonResType<ratedMovies>>(`account/${accountId}/rated/movies?session_id=${sessionId}`)
+            .get<CommonResType<ratedMovies>>(`account/${accountId}/rated/movies?session_id=${sessionId}&page=${page}`)
         return data
     },
-    getRatedTVShow: async (sessionId: string, accountId?: string): Promise<CommonResType<ratedTVShow>> => {
+    getRatedTVShow: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<ratedTVShow>> => {
         const {data} = await instance
-            .get<CommonResType<ratedTVShow>>(`account/${accountId}/rated/tv?session_id=${sessionId}`)
+            .get<CommonResType<ratedTVShow>>(`account/${accountId}/rated/tv?session_id=${sessionId}&page=${page}`)
         return data
     },
-    getRatedTVEpisodes: async (sessionId: string, accountId?: string): Promise<CommonResType<ratedTVEpisodes>> => {
+    getRatedTVEpisodes: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<ratedTVEpisodes>> => {
         const {data} = await instance
-            .get<CommonResType<ratedTVEpisodes>>(`account/${accountId}/rated/tv/episodes?session_id=${sessionId}`)
+            .get<CommonResType<ratedTVEpisodes>>(`account/${accountId}/rated/tv/episodes?session_id=${sessionId}&page=${page}`)
         return data
     },
-    getMovieWatchList: async (sessionId: string, accountId?: string): Promise<CommonResType<MovieWatchList>> => {
+    getMovieWatchList: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<MovieWatchList>> => {
         const {data} = await instance
-            .get<CommonResType<MovieWatchList>>(`account/${accountId}/watchlist/movies?session_id=${sessionId}`)
+            .get<CommonResType<MovieWatchList>>(`account/${accountId}/watchlist/movies?session_id=${sessionId}&page=${page}`)
         return data
     },
-    getTVShowWatchList: async (sessionId: string, accountId?: string): Promise<CommonResType<TVShowWatchList>> => {
+    getTVShowWatchList: async (sessionId: string, page?:number, accountId?: string): Promise<CommonResType<TVShowWatchList>> => {
         const {data} = await instance
-            .get<CommonResType<TVShowWatchList>>(`account/${accountId}/watchlist/tv?session_id=${sessionId}`)
+            .get<CommonResType<TVShowWatchList>>(`account/${accountId}/watchlist/tv?session_id=${sessionId}&page=${page}`)
         return data
     },
     markAsFavorite: async (sessionId: string, isFavorite: boolean, id: number, type: 'movie' | 'tv', accountId?: string)

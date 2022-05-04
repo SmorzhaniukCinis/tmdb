@@ -12,3 +12,10 @@ export const instance = axios.create({
 export const instanceForPicture = axios.create({
     baseURL: 'https://image.tmdb.org/t/p/'
 })
+export const instanceV4 = axios.create({
+    baseURL: 'https://api.themoviedb.org/4/',
+    headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=utf-8'
+    }
+})

@@ -14,7 +14,16 @@ import {
 import {getIsAuth} from "../store/Selectors/authSelectors";
 import {FavoriteCard} from "../components/FavoriteCard";
 import {useLocation} from "react-router-dom";
-import {Backdrop, Button, CircularProgress, Link, ToggleButton, ToggleButtonGroup, Typography} from '@mui/material'
+import {
+    Backdrop,
+    Button,
+    CircularProgress,
+    Link,
+    Pagination,
+    ToggleButton,
+    ToggleButtonGroup,
+    Typography
+} from '@mui/material'
 import {
     CommonResType,
     FavoriteMovie,
@@ -23,7 +32,7 @@ import {
     ratedMovies,
     ratedTVShow, TVShowWatchList
 } from "../API/accountAPI/accountTypes";
-import style from '../styles/ProfileListWrapper.module.css'
+import s from '../styles/ProfileListWrapper.module.css'
 
 
 export const ProfileListWrapper = () => {
@@ -42,6 +51,7 @@ export const ProfileListWrapper = () => {
 
     const [typeOfContent, setTypeOfContent] = React.useState<'movie' | 'TV'>('movie');
     const [currentPage, setCurrentPage] = React.useState<'favorite' | 'ratings' | 'watchList'>('favorite');
+    const [itemCount, setItemCount] = React.useState<[number, number]>([0,0]);
     const [currentMovie, setCurrentMovie] =
         React.useState<CommonResType<ratedMovies> | CommonResType<MovieWatchList> | CommonResType<FavoriteMovie>>();
     const [currentTVShow, setCurrentTVShow] =
@@ -54,6 +64,13 @@ export const ProfileListWrapper = () => {
             setTypeOfContent(newAlignment);
         }
     };
+    ///////pagination//////
+    const [page, setPage] = React.useState(1);
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
+    ///////////
+
 
 
     useEffect(() => {
@@ -61,33 +78,38 @@ export const ProfileListWrapper = () => {
             if (location.pathname === '/favorite') {
                 setCurrentPage('favorite')
                 setTitle('Favorites')
-                dispatch(getFavoriteMovie())
-                dispatch(getFavoriteTVShow())
+                dispatch(getFavoriteMovie(page))
+                dispatch(getFavoriteTVShow(page))
             } else if (location.pathname === '/ratings') {
                 setCurrentPage('ratings')
                 setTitle('Ratings')
-                dispatch(getRatingMoviesAndTVShows())
+                dispatch(getRatingMoviesAndTVShows(page))
             } else if (location.pathname === '/watchList') {
                 setCurrentPage('watchList')
                 setTitle('Watchlist')
-                dispatch(getMoviesAndTVShowsWatchList())
+                dispatch(getMoviesAndTVShowsWatchList(page))
             }
         }
 
-    }, [dispatch, isAuth, location.pathname])
+    }, [dispatch, isAuth, location.pathname, page])
 
     useEffect(() => {
         if (currentPage === 'favorite') {
             setCurrentMovie(favoriteMovie)
             setCurrentTVShow(favoriteTVShow)
+            setItemCount([favoriteMovie.total_results, favoriteTVShow.total_results])
         } else if (currentPage === 'ratings') {
             setCurrentMovie(ratedMovie)
             setCurrentTVShow(ratedTVShow)
+            setItemCount([ratedMovie.total_results, ratedTVShow.total_results])
         } else if (currentPage === "watchList") {
             setCurrentMovie(movieWatchList)
             setCurrentTVShow(TVShowWatchList)
+            setItemCount([movieWatchList.total_results, TVShowWatchList.total_results])
         }
     }, [favoriteMovie, favoriteTVShow, ratedMovie, ratedTVShow, movieWatchList, TVShowWatchList, currentPage])
+
+
 
     if (isLoading) {
         return (
@@ -105,8 +127,8 @@ export const ProfileListWrapper = () => {
     } else {
         return (
             <div>
-                <div className={style.HeadTitle}>
-                    <Typography className={style.title} variant={'h5'}>
+                <div className={s.HeadTitle}>
+                    <Typography className={s.title} variant={'h5'}>
                         {`My ${title}`}
                     </Typography>
                     <ToggleButtonGroup
@@ -116,12 +138,12 @@ export const ProfileListWrapper = () => {
                         exclusive
                         onChange={handleChange}
                     >
-                        <ToggleButton sx={{width: '100px'}} value="movie">Movie</ToggleButton>
-                        <ToggleButton sx={{width: '100px'}} value="TV">TV</ToggleButton>
+                        <ToggleButton sx={{width: '100px'}} value="movie">Movie <span className={s.totalItemCount}>{itemCount[0]}</span> </ToggleButton>
+                        <ToggleButton sx={{width: '100px'}} value="TV">TV <span className={s.totalItemCount}>{itemCount[1]}</span></ToggleButton>
                     </ToggleButtonGroup>
                     {currentPage === 'ratings' && typeOfContent === 'TV' ?
-                        <Button className={style.ratedSeriesButton}>
-                            <Link className={style.ratedSeriesLink} href={'/ratedSeries'}>
+                        <Button className={s.ratedSeriesButton}>
+                            <Link className={s.ratedSeriesLink} href={'/ratedSeries'}>
                                 Go to rated series
                             </Link>
                         </Button> : null}
@@ -129,21 +151,36 @@ export const ProfileListWrapper = () => {
 
 
                 {typeOfContent === 'movie'
-                    ? currentMovie?.results.map(movie =>
-                        <FavoriteCard key={movie.id} backdropPath={movie.backdrop_path}
-                                      language={movie.original_language}
-                                      originalTitle={movie.original_title} posterPath={movie.poster_path}
-                                      overview={movie.overview} voteAverage={movie.vote_average}
-                                      voteCount={movie.vote_count} rating={movie.rating} id={movie.id} type={'movie'}
-                                      releaseDate={movie.release_date}/>
-                    )
-                    : currentTVShow?.results.map(show =>
-                        <FavoriteCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
-                                      originalTitle={show.name} posterPath={show.poster_path}
-                                      overview={show.overview} voteAverage={show.vote_average}
-                                      voteCount={show.vote_count} rating={show.rating} id={show.id} type={'tv'}
-                                      releaseDate={show.first_air_date}/>
-                    )
+                    ? <div>
+                        {currentMovie?.results.map(movie =>
+                            <FavoriteCard key={movie.id} backdropPath={movie.backdrop_path}
+                                          language={movie.original_language}
+                                          originalTitle={movie.original_title} posterPath={movie.poster_path}
+                                          overview={movie.overview} voteAverage={movie.vote_average}
+                                          voteCount={movie.vote_count} rating={movie.rating} id={movie.id}
+                                          type={'movie'}
+                                          releaseDate={movie.release_date}/>
+                        )}
+                        {
+                            (currentMovie?.total_pages && currentMovie?.total_pages > 1)
+                                ? <Pagination page={page} onChange={handleChangePage} count={currentMovie?.total_pages} />
+                                :null
+                        }
+                    </div>
+                    : <div>
+                        {currentTVShow?.results.map(show =>
+                                <FavoriteCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
+                                              originalTitle={show.name} posterPath={show.poster_path}
+                                              overview={show.overview} voteAverage={show.vote_average}
+                                              voteCount={show.vote_count} rating={show.rating} id={show.id} type={'tv'}
+                                              releaseDate={show.first_air_date}/>
+                            )}
+                        {
+                            (currentTVShow?.total_pages && currentTVShow?.total_pages > 1)
+                                ? <Pagination page={page} onChange={handleChangePage} count={currentTVShow?.total_pages} />
+                                :null
+                        }
+                    </div>
                 }
 
             </div>

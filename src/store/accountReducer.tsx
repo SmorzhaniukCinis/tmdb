@@ -211,43 +211,43 @@ export const getCreatedList = () => async (dispatch: Dispatch<ActionTypes>, getS
     dispatch(accountActions.setCreatedLists(res))
     dispatch(accountActions.setIsLoading(false))
 }
-export const getFavoriteMovie = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const getFavoriteMovie = (page?:number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
-    const res = await accountAPI.getFavoriteMovie(sessionId)
+    const res = await accountAPI.getFavoriteMovie(sessionId, page)
     dispatch(accountActions.setFavoriteMovie(res))
     dispatch(accountActions.setIsLoading(false))
 }
-export const getFavoriteTVShow = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const getFavoriteTVShow = (page?:number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
-    const res = await accountAPI.getFavoriteTVShow(sessionId)
+    const res = await accountAPI.getFavoriteTVShow(sessionId, page)
     dispatch(accountActions.setFavoriteTVShow(res))
     dispatch(accountActions.setIsLoading(false))
 }
 
-export const getRatingMoviesAndTVShows = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const getRatingMoviesAndTVShows = (page?:number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
-    const movie = await accountAPI.getRatedMovies(sessionId)
-    const TVShow = await accountAPI.getRatedTVShow(sessionId)
+    const movie = await accountAPI.getRatedMovies(sessionId, page)
+    const TVShow = await accountAPI.getRatedTVShow(sessionId, page)
     dispatch(accountActions.setRatingMovie(movie))
     dispatch(accountActions.setRatingTVShow(TVShow))
     dispatch(accountActions.setIsLoading(false))
 }
-export const getMoviesAndTVShowsWatchList = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const getMoviesAndTVShowsWatchList = (page?:number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
-    const movie = await accountAPI.getMovieWatchList(sessionId)
-    const TVShow = await accountAPI.getTVShowWatchList(sessionId)
+    const movie = await accountAPI.getMovieWatchList(sessionId, page)
+    const TVShow = await accountAPI.getTVShowWatchList(sessionId, page)
     dispatch(accountActions.setMovieWatchList(movie))
     dispatch(accountActions.setTVEpisodesWatchList(TVShow))
     dispatch(accountActions.setIsLoading(false))
 }
-export const getRatedTVEpisodes = () => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const getRatedTVEpisodes = (page?:number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     dispatch(accountActions.setIsLoading(true))
     const sessionId = getState().auth.sessionId
-    const res = await accountAPI.getRatedTVEpisodes(sessionId)
+    const res = await accountAPI.getRatedTVEpisodes(sessionId, page)
     dispatch(accountActions.setRatingTVEpisodes(res))
     dispatch(accountActions.setIsLoading(false))
 }

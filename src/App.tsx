@@ -8,13 +8,14 @@ import {Container, ThemeProvider} from "@mui/material";
 import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
-import {authActions} from "./store/authReducer";
+import {authActions, createGuestSessionId} from "./store/authReducer";
 import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
 import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
 import {accountAPI} from "./API/accountAPI/accoutAPI";
 import {RatedSeries} from "./Pages/RatedSeries";
+import {ListDetails} from "./Pages/listDetails";
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
         if(sessionId) {
             dispatch(authActions.setSessionId(sessionId))
             dispatch(authActions.setAuthentication(true))
+        } else {
+            dispatch(createGuestSessionId())
         }
     }, [dispatch])
 
@@ -57,6 +60,7 @@ function App() {
                         <Route path={'/ratings'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
+                        <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                     </Routes>
                 </Container>
             </ThemeProvider>
