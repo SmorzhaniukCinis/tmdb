@@ -33,6 +33,7 @@ import {
     ratedTVShow, TVShowWatchList
 } from "../API/accountAPI/accountTypes";
 import s from '../styles/ProfileListWrapper.module.css'
+import Loading from "../components/Loading";
 
 
 export const ProfileListWrapper = () => {
@@ -112,17 +113,7 @@ export const ProfileListWrapper = () => {
 
 
     if (isLoading) {
-        return (
-            <div>
-                <Backdrop
-                    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                    open={true}
-                >
-                    <CircularProgress color="inherit"/>
-                </Backdrop>
-            </div>
-
-        )
+        return <Loading/>
 
     } else {
         return (

@@ -24,10 +24,6 @@ type props = {
 }
 
 
-// const actions = [
-//     {icon: <FavoriteIcon onClick={markAsFavorite()}/>, name: 'Share'},
-//     {icon: <AssignmentTurnedInIcon/>, name: 'test'},
-// ];
 
 export const FavoriteCard: React.FC<props> = (props: props) => {
 
