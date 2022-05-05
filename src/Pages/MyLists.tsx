@@ -49,12 +49,17 @@ const MyLists = () => {
     } else {
         return (
             <div>
-                <Typography variant={'h5'} className={s.myListTitle}>
-                    My lists
-                    <span className={s.myListResultCount}>
+                <div className={s.myListTitleWrapper}>
+                    <Typography variant={'h5'} className={s.myListTitle}>
+                        My lists
+                        <span className={s.myListResultCount}>
                         {createdLists.total_results}
                     </span>
-                </Typography>
+                    </Typography>
+                    <Button sx={{marginLeft:'30px', marginBottom:'10px'}} variant={'contained'}>
+                        <Link sx={{color: 'inherit', textDecoration: 'none', }} href={'/newList'}>Create new list</Link>
+                    </Button>
+                </div>
                 <div className={s.listWrapper}>
                     {createdLists.results.map(list => <Card className={s.listItem} key={list.id} variant="outlined" >
                         <CardContent className={isDarkTheme ? s.listItemDark: s.listItemLight}>

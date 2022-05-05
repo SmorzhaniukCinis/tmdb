@@ -16,6 +16,8 @@ import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
 import {accountAPI} from "./API/accountAPI/accoutAPI";
 import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
+import NewList from "./Pages/NewList";
+import NewListStep1 from "./components/NewListStep1";
 
 
 function App() {
@@ -61,6 +63,9 @@ function App() {
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
+                        <Route path={'/newList'} element={<NewList/>}>
+                            <Route index element={<NewListStep1/>}/>
+                        </Route>
                     </Routes>
                 </Container>
             </ThemeProvider>

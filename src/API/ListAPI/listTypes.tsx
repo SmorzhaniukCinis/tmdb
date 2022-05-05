@@ -46,3 +46,17 @@ export type listType = {
     "name": string
     "comments": {[key: string]:string}
 }
+
+export type createListRes = {
+    "status_message": string
+    "id": number
+    "success": boolean
+    "status_code": number
+}
+export type createListData = {
+    name: string,
+    description: string,
+    isPublic: boolean,
+    iso_639_1: string,
+    iso_3166_1: string
+}
