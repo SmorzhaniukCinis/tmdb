@@ -11,7 +11,9 @@ const ListContent = () => {
 
     return (
         <Paper elevation={7} className={s.ItemsBlock}>
-            {listDetails?.results.map(item =>
+
+            {listDetails?.results.length >= 1
+                ? listDetails?.results.map(item =>
                 <Card key={item.id} sx={{maxWidth: 290, m: '10px'}}>
                     <CardActionArea>
                         <CardMedia
@@ -42,7 +44,9 @@ const ListContent = () => {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-            )}
+            )
+            :<Typography sx={{textAlign: 'center', margin: '20px'}} variant={'h5'}>No item</Typography>
+            }
 
         </Paper>
     );

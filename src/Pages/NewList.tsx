@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Outlet, useParams} from "react-router-dom";
+import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 import {Backdrop, Card, CircularProgress, Divider, List, ListItem, ListItemText} from "@mui/material";
 import s from '../styles/newList.module.css'
 import {GetList} from "../store/listReducer";
@@ -18,6 +18,8 @@ const NewList = () => {
     const params = useParams()
     const dispatch = useDispatch()
     const isLoading = useSelector(getIsLoading)
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         if (params.isEditing && params.listId) {
@@ -25,9 +27,28 @@ const NewList = () => {
         }
     }, [])
 
+    useEffect(()=> {
+        if (location.pathname === '/newList/step2') {
+            setActiveStep(2)
+        }
+    },[location])
+
+
     const stepHandler = (step: number) => {
         setActiveStep(step)
+        switch (step) {
+            case 1:
+                navigate('/newList')
+                break
+            case 2:
+                navigate('/newList/step2')
+                break
+            case 3:
+                navigate('/newList/step3')
+                break
+        }
     }
+
 
     if (isLoading) {
         return (
@@ -47,16 +68,18 @@ const NewList = () => {
             <div className={s.mainWrapper}>
                 <Card variant={'outlined'} sx={{width: '240px', height: '165px'}}>
                     <List sx={style} component="nav" aria-label="mailbox folders">
-                        <ListItem sx={activeStep === 1 ? {color: 'blueviolet'} : null} button
+                        <ListItem disabled={activeStep > 1} sx={activeStep === 1 ? {color: 'blueviolet'} : null} button
                                   onClick={() => stepHandler(1)}>
                             <ListItemText primary="Step 1: List Details"/>
                         </ListItem>
                         <Divider/>
-                        <ListItem sx={activeStep === 2 ? {color: 'blueviolet'} : null} button divider
+                        <ListItem disabled={location.pathname === '/newList'}
+                                  sx={activeStep === 2 ? {color: 'blueviolet'} : null} button divider
                                   onClick={() => stepHandler(2)}>
                             <ListItemText primary="Step 2: Add Items"/>
                         </ListItem>
-                        <ListItem sx={activeStep === 3 ? {color: 'blueviolet'} : null} button
+                        <ListItem disabled={location.pathname === '/newList'}
+                                  sx={activeStep === 3 ? {color: 'blueviolet'} : null} button
                                   onClick={() => stepHandler(3)}>
                             <ListItemText primary="Step 3: Choose Image"/>
                         </ListItem>

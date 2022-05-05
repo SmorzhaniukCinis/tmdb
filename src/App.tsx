@@ -68,6 +68,8 @@ function App() {
                         </Route>
                         <Route path={'/newList'} element={<NewList/>}>
                             <Route index element={<NewListStep1/>}/>
+                            <Route path={'/newList/step2'} element={<div>step 2</div>}/>
+                            <Route path={'/newList/step3'} element={<div>step 3</div>}/>
                         </Route>
                     </Routes>
                 </Container>

@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {CreateList, EditList, GetList} from "../store/listReducer";
 import {getList} from "../store/Selectors/listSelectors";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 type Inputs = {
     listName: string,
@@ -19,6 +19,7 @@ const NewListStep1 = () => {
     const dispatch = useDispatch()
     const listDescription = useSelector(getList)
     const params = useParams()
+    const navigate = useNavigate()
 
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -32,6 +33,7 @@ const NewListStep1 = () => {
             dispatch(GetList(listDescription?.id))
         } else {
             dispatch(CreateList(listData))
+            navigate('/newList/step2')
         }
 
     }
@@ -77,8 +79,8 @@ console.log(listDescription?.name)
                     <ToggleButton value={false}>No</ToggleButton>
                 </ToggleButtonGroup>
             </div>
-            <Button type="submit" variant={'outlined'} sx={{marginTop: '20px'}}>
-                Next step
+            <Button type="submit" variant={'outlined'} color={'success'} sx={{marginTop: '20px'}}>
+                Save
             </Button>
         </form>
     );
