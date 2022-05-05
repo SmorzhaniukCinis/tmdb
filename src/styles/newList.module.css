@@ -1,3 +1,6 @@
 .mainWrapper {
     display: flex;
 }
+.step1Wrapper {
+    margin-left: 20px;
+}

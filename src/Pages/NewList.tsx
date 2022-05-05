@@ -23,7 +23,7 @@ const NewList = () => {
 
     return (
         <div className={s.mainWrapper}>
-            <Card variant={'outlined'} sx={{width: '240px'}}>
+            <Card variant={'outlined'} sx={{width: '240px', height: '165px'}}>
                 <List sx={style} component="nav" aria-label="mailbox folders">
                     <ListItem sx={activeStep === 1?{ color: 'blueviolet' }: null} button  onClick={()=>stepHandler(1)}>
                         <ListItemText primary="Step 1: List Details"/>
