@@ -36,9 +36,11 @@ export const GetList = (id: number) => async (dispatch: Dispatch<ActionTypes>, g
 }
 export const CreateList = (listDetails:createListData) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     dispatch(listActions.setLoading(true))
-    const list = await listAPI.createList(listDetails)
-    if (list.success) {
+    const res = await listAPI.createList(listDetails)
+    if (res.success) {
+        console.log(res)
         dispatch(listActions.setLoading(false))
+
     }
 }
 

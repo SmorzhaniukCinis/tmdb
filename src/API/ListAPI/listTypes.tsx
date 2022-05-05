@@ -55,8 +55,8 @@ export type createListRes = {
 }
 export type createListData = {
     name: string,
-    description: string,
-    isPublic: boolean,
-    iso_639_1: string,
-    iso_3166_1: string
+    description?: string,
+    isPublic?: boolean,
+    iso_639_1?: string,
+    iso_3166_1?: string
 }

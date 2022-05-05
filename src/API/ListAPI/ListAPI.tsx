@@ -13,7 +13,7 @@ export const listAPI = {
             name: listData.name,
             description: listData.description,
             public: listData.isPublic,
-            iso_639_1: listData.iso_639_1,
+            iso_639_1: listData.iso_639_1 || 'en',
             iso_3166_1: listData.iso_3166_1
         })
         return data

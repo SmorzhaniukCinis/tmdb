@@ -1,25 +1,50 @@
 import React from 'react';
-import {Button, TextField, Typography} from "@mui/material";
-import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import {Button, TextField, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import s from '../styles/newList.module.css'
+import { useForm, SubmitHandler } from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {CreateList} from "../store/listReducer";
+
+type Inputs = {
+    listName: string,
+    listDescription: string,
+};
 
 const NewListStep1 = () => {
 
-    const [alignment, setAlignment] = React.useState('web');
+
+    const [isPublic, setIsPublic] = React.useState<boolean>(true);
+    const dispatch = useDispatch()
+
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const listData = {
+            name: data.listName,
+            description: data.listDescription,
+            isPublic
+        }
+      dispatch(CreateList(listData))
+    }
 
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
-        newAlignment: string,
+        newAlignment: boolean,
     ) => {
-        setAlignment(newAlignment);
+        setIsPublic(newAlignment);
     };
-
+console.log(isPublic)
 
     return (
-        <div className={s.step1Wrapper}>
-            <TextField sx={{width:'100%', marginBottom: '10px'}} id="outlined-basic" label="Name of list"  />
+
+        <form onSubmit={handleSubmit(onSubmit)} className={s.step1Wrapper}>
             <TextField
-                sx={{width:'150%', marginBottom: '10px'}}
+                {...register("listName", {required: true})}
+                sx={{width: '100%', marginBottom: '10px'}}
+                id="outlined-basic" label="Name of list"
+            />
+            <TextField
+                {...register("listDescription")}
+                sx={{width: '150%', marginBottom: '10px'}}
                 id="outlined-multiline-static"
                 label="Description"
                 multiline
@@ -31,18 +56,18 @@ const NewListStep1 = () => {
                 </Typography>
                 <ToggleButtonGroup
                     color="primary"
-                    value={alignment}
+                    value={isPublic}
                     exclusive
                     onChange={handleChange}
                 >
-                    <ToggleButton value={true}>Yas</ToggleButton>
+                    <ToggleButton defaultChecked value={true}>Yas</ToggleButton>
                     <ToggleButton value={false}>No</ToggleButton>
                 </ToggleButtonGroup>
             </div>
-            <Button variant={'outlined'} sx={{marginTop:'20px'}}>
+            <Button type="submit" variant={'outlined'} sx={{marginTop: '20px'}}>
                 Next step
             </Button>
-        </div>
+        </form>
     );
 };
 
