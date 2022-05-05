@@ -1,30 +1,18 @@
-export type movieType = {
-    adult: boolean
-    backdrop_path: string | null
-    genre_ids: Array<number>
-    id: number
-    media_type: "movie"
-    original_language: string
+export type movieAndTVType = {
+    adult?: boolean
+    media_type: "movie" | 'tv'
     original_title: string
-    overview: string | null
-    popularity: 122.474
-    poster_path: string | null
-    release_date: string
-    title: string
-    video: boolean
-    vote_average: number
-    vote_count: number
-}
-export type TVType = {
+    release_date?: string
+    title?: string
+    video?: boolean
     backdrop_path: string | null
-    first_air_date: string
+    first_air_date?: string
     genre_ids: Array<number>
     id: number
-    media_type: "tv"
-    name: string
-    origin_country: Array<string>
+    name?: string
+    origin_country?: Array<string>
     original_language: string
-    original_name: string
+    original_name?: string
     overview: string
     popularity: number
     poster_path: string | null
@@ -41,7 +29,7 @@ export type listType = {
     "public": boolean
     "revenue": string
     "page": number
-    "results": Array<movieType | TVType>
+    "results": Array<movieAndTVType>
     "object_ids": { [key: string]:string }
     "iso_639_1": string
     "total_pages": number
