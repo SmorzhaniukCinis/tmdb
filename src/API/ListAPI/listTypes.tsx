@@ -60,3 +60,9 @@ export type createListData = {
     iso_639_1?: string,
     iso_3166_1?: string
 }
+export type editListData = {
+    name?: string,
+    description?: string,
+    isPublic?: boolean,
+    sort_by?: string
+}

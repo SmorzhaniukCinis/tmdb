@@ -63,6 +63,9 @@ function App() {
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
+                        <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}>
+                            <Route index element={<NewListStep1/>}/>
+                        </Route>
                         <Route path={'/newList'} element={<NewList/>}>
                             <Route index element={<NewListStep1/>}/>
                         </Route>

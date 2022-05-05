@@ -1,5 +1,5 @@
 import {ActionTypes, RootStateType} from "./store";
-import {createListData, listType} from "../API/ListAPI/listTypes";
+import {createListData, editListData, listType} from "../API/ListAPI/listTypes";
 import {listAPI} from "../API/ListAPI/ListAPI";
 import {Dispatch} from "redux";
 
@@ -38,9 +38,15 @@ export const CreateList = (listDetails:createListData) => async (dispatch: Dispa
     dispatch(listActions.setLoading(true))
     const res = await listAPI.createList(listDetails)
     if (res.success) {
+        dispatch(listActions.setLoading(false))
+    }
+}
+export const EditList = (listDetails:editListData, id:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    dispatch(listActions.setLoading(true))
+    const res = await listAPI.editList(listDetails, id)
+    if (res.success) {
         console.log(res)
         dispatch(listActions.setLoading(false))
-
     }
 }
 

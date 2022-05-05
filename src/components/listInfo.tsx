@@ -1,7 +1,7 @@
 import React from 'react';
 import {getImage} from "../Common/getImage";
 import s from "../styles/ListDescription.module.css";
-import {Paper, Typography} from "@mui/material";
+import {Button, Link, Paper, Typography} from "@mui/material";
 import {useSelector} from "react-redux";
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
 import {getList} from "../store/Selectors/listSelectors";
@@ -19,9 +19,16 @@ const ListInfo = () => {
                     borderRadius: "5px"
                 }}>
                     <div className={isDarkTheme ? s.darkBackground : s.lightBackground}>
-                        <Typography sx={{fontSize: '35px'}} variant='h5'>
-                            {listDetails?.name}
-                        </Typography>
+                        <div>
+                            <Typography sx={{fontSize: '35px'}} variant='h5'>
+                                {listDetails?.name}
+                            </Typography>
+                            <Button variant={'contained'}>
+                                <Link sx={{color:'inherit'}} href={`${listDetails?.id}/edit`}>
+                                    Edit list
+                                </Link>
+                            </Button>
+                        </div>
                         <Typography sx={{fontSize: '16px', mt: '15px'}}>
                             A list created by <br/>
                         </Typography>
