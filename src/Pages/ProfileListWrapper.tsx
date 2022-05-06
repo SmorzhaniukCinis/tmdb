@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
+    getCreatedList,
     getFavoriteMovie,
     getFavoriteTVShow,
     getMoviesAndTVShowsWatchList,
     getRatingMoviesAndTVShows
 } from "../store/accountReducer";
 import {
+    getCreatedLists,
     getFavoriteMovieSelector,
     getFavoriteTVShowSelector, getIsLoading, getMovieWatchList,
     getRatingMovieSelector, getRatingTVShowSelector, getTVShowWatchList
@@ -48,6 +50,7 @@ export const ProfileListWrapper = () => {
     const isAuth = useSelector(getIsAuth)
     const isLoading = useSelector(getIsLoading)
     const location = useLocation()
+    const lists = useSelector(getCreatedLists)
 
 
     const [typeOfContent, setTypeOfContent] = React.useState<'movie' | 'TV'>('movie');
@@ -74,8 +77,12 @@ export const ProfileListWrapper = () => {
 
 
 
+
     useEffect(() => {
         if (isAuth) {
+            if (lists.results.length === 0) {
+                dispatch(getCreatedList())
+            }
             if (location.pathname === '/favorite') {
                 setCurrentPage('favorite')
                 setTitle('Favorites')

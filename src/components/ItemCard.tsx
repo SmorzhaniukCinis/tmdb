@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {getImage} from "../Common/getImage";
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import s from "../styles/ProfileListWrapper.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
+import {getCreatedLists, getIsDarkTheme} from "../store/Selectors/accountSelectors";
 import {Rating, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
 import WatchListIcon from '@mui/icons-material/AssignmentTurnedIn';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {addToFavorite, addToWatchList} from "../store/accountReducer";
+import {addToFavorite, addToWatchList, getCreatedList} from "../store/accountReducer";
 import GradingIcon from '@mui/icons-material/Grading';
 import {ListMenu} from "./ListMenu";
 
@@ -31,6 +31,7 @@ export const ItemCard: React.FC<props> = (props: props) => {
 
     const isDarkTheme = useSelector(getIsDarkTheme)
     const dispatch = useDispatch()
+    const lists = useSelector(getCreatedLists)
 
     const markAsFavorite = () => {
         dispatch(addToFavorite(props.id , props.type , true ))
@@ -40,7 +41,13 @@ export const ItemCard: React.FC<props> = (props: props) => {
     }
 
     const [open, setOpen] = React.useState(false);
-    const openListsMenu = () => setOpen(true);
+    const openListsMenu = () => {
+        setOpen(true);
+    }
+
+
+
+
 
 
     return (
@@ -108,7 +115,7 @@ export const ItemCard: React.FC<props> = (props: props) => {
             </Box>
 
 
-            <ListMenu isOpen={open} setOpen={setOpen}/>
+            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={props.id}/>
 
         </Card>
     );

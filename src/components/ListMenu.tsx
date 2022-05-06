@@ -1,8 +1,12 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import {useDispatch} from "react-redux";
+import {getCreatedList} from "../store/accountReducer";
+import {CommonResType, createdList} from "../API/accountAPI/accountTypes";
+import {addListItem} from "../store/listReducer";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -11,20 +15,34 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '1px solid #000',
+    borderRadius: '5px',
     boxShadow: 24,
     p: 4,
+    display: 'flex',
+    flexDirection: 'column'
 };
 
 type props = {
-    isOpen : boolean
-    setOpen : (isOpen:boolean) => void
+    isOpen: boolean
+    setOpen: (isOpen: boolean) => void
+    lists: CommonResType<createdList>
+    mediaId: number
 }
 
-export const ListMenu:React.FC<props> = ({isOpen, setOpen}:props) => {
+export const ListMenu: React.FC<props> = ({isOpen, setOpen, lists, mediaId}: props) => {
+
+
+    const dispatch = useDispatch()
 
 
     const closeListsMenu = () => setOpen(false);
+
+
+    const addToList = (listId: number, itemId: number) => {
+        dispatch(addListItem(listId, itemId))
+        setOpen(false)
+    }
 
     return (
         <div>
@@ -35,12 +53,13 @@ export const ListMenu:React.FC<props> = ({isOpen, setOpen}:props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    {lists.results.map(list =>
+                        <Button
+                            onClick={() => addToList(list.id, mediaId)}
+                            sx={{marginBottom: '7px'}} variant={'outlined'} key={list.id}>
+                            {list.name}
+                        </Button>)}
+
                 </Box>
             </Modal>
         </div>

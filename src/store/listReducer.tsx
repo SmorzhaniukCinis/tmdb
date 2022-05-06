@@ -1,5 +1,5 @@
 import {ActionTypes, RootStateType} from "./store";
-import {createListData, editListData, listItemType, listType} from "../API/ListAPI/listTypes";
+import {createListData, editListData, listType} from "../API/ListAPI/listTypes";
 import {listAPI} from "../API/ListAPI/ListAPI";
 import {Dispatch} from "redux";
 
@@ -55,11 +55,11 @@ export const DeleteList = (id:number) => async (dispatch: Dispatch<ActionTypes>,
         dispatch(listActions.setLoading(false))
     }
 }
-export const addListItem = (ListId:number, listItem:listItemType) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
-    dispatch(listActions.setLoading(true))
-    const res = await listAPI.addListItem([listItem], ListId)
-    if (res.success) {
-        dispatch(listActions.setLoading(false))
+export const addListItem = (ListId:number, itemId:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await listAPI.addListItem(itemId, ListId, sessionId)
+    if (res.status_code === 8) {
+        alert("this item already exist in this list")
     }
 }
 

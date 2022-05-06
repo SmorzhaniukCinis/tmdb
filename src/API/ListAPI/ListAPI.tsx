@@ -1,4 +1,4 @@
-import {instanceV4} from "../index";
+import {instance, instanceV4} from "../index";
 import {
     addListItemRes,
     createListData,
@@ -41,10 +41,15 @@ export const listAPI = {
         return data
 
     },
-    addListItem: async (listItems: Array<listItemType>, listId: number): Promise<addListItemRes> => {
-        const {data} = await instanceV4.put<addListItemRes>(`/list/${listId}/items`, {listItems} )
-        return data
-
+    addListItem: async (itemId:number, listId: number, sessionId:string): Promise<addListItemRes> => {
+        try {
+            const {data} = await instance.post<addListItemRes>(`/list/${listId}/add_item?session_id=${sessionId}`,
+                {media_id: itemId} )
+            return data
+        }
+        catch (e:any) {
+            return e.response.data
+        }
     },
 
 }
