@@ -45,7 +45,13 @@ export const EditList = (listDetails:editListData, id:number) => async (dispatch
     dispatch(listActions.setLoading(true))
     const res = await listAPI.editList(listDetails, id)
     if (res.success) {
-        console.log(res)
+        dispatch(listActions.setLoading(false))
+    }
+}
+export const DeleteList = (id:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    dispatch(listActions.setLoading(true))
+    const res = await listAPI.deleteList(id)
+    if (res.success) {
         dispatch(listActions.setLoading(false))
     }
 }

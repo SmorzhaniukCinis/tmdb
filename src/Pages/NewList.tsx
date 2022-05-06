@@ -25,7 +25,7 @@ const NewList = () => {
         if (params.isEditing && params.listId) {
             dispatch(GetList(Number(params.listId)))
         }
-    }, [])
+    }, [params, dispatch])
 
     useEffect(()=> {
         if (location.pathname === '/newList/step2') {

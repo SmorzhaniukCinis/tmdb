@@ -66,3 +66,8 @@ export type editListData = {
     isPublic?: boolean,
     sort_by?: string
 }
+export type deleteListRes = {
+    "status_message": string
+    "success": boolean
+    "status_code": number
+}

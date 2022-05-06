@@ -1,5 +1,5 @@
 import {instanceV4} from "../index";
-import {createListData, createListRes, editListData, listType} from "./listTypes";
+import {createListData, createListRes, deleteListRes, editListData, listType} from "./listTypes";
 
 
 export const listAPI = {
@@ -27,6 +27,11 @@ export const listAPI = {
         })
         return data
 
-    }
+    },
+    deleteList: async ( id: number): Promise<deleteListRes> => {
+        const {data} = await instanceV4.delete<deleteListRes>(`/list/${id}` )
+        return data
+
+    },
 
 }
