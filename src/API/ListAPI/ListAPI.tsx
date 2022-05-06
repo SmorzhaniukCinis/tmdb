@@ -1,5 +1,13 @@
 import {instanceV4} from "../index";
-import {createListData, createListRes, deleteListRes, editListData, listType} from "./listTypes";
+import {
+    addListItemRes,
+    createListData,
+    createListRes,
+    deleteListRes,
+    editListData,
+    listItemType,
+    listType
+} from "./listTypes";
 
 
 export const listAPI = {
@@ -30,6 +38,11 @@ export const listAPI = {
     },
     deleteList: async ( id: number): Promise<deleteListRes> => {
         const {data} = await instanceV4.delete<deleteListRes>(`/list/${id}` )
+        return data
+
+    },
+    addListItem: async (listItems: Array<listItemType>, listId: number): Promise<addListItemRes> => {
+        const {data} = await instanceV4.put<addListItemRes>(`/list/${listId}/items`, {listItems} )
         return data
 
     },

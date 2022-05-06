@@ -71,3 +71,20 @@ export type deleteListRes = {
     "success": boolean
     "status_code": number
 }
+export type addListItemRes = {
+    "status_message": string
+    "results": [
+        {
+            "media_type": "movie" | 'tv',
+            "media_id": number
+            "success": boolean
+        }
+    ],
+    "success": boolean
+    "status_code": number
+}
+export type listItemType = {
+    media_type: 'movie' | 'tv'
+    media_id: number
+    comment: string
+}

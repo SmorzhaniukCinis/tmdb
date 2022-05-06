@@ -8,6 +8,8 @@ import {Rating, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
 import WatchListIcon from '@mui/icons-material/AssignmentTurnedIn';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {addToFavorite, addToWatchList} from "../store/accountReducer";
+import GradingIcon from '@mui/icons-material/Grading';
+import {ListMenu} from "./ListMenu";
 
 type props = {
     type: 'movie' | 'tv'
@@ -25,7 +27,7 @@ type props = {
 
 
 
-export const FavoriteCard: React.FC<props> = (props: props) => {
+export const ItemCard: React.FC<props> = (props: props) => {
 
     const isDarkTheme = useSelector(getIsDarkTheme)
     const dispatch = useDispatch()
@@ -36,6 +38,10 @@ export const FavoriteCard: React.FC<props> = (props: props) => {
     const addToWatchListOnClick = () => {
         dispatch(addToWatchList(props.id , props.type , true ))
     }
+
+    const [open, setOpen] = React.useState(false);
+    const openListsMenu = () => setOpen(true);
+
 
     return (
         <Card variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
@@ -84,16 +90,26 @@ export const FavoriteCard: React.FC<props> = (props: props) => {
                         key={'Favorite'}
                         icon={<FavoriteIcon onClick={markAsFavorite}/>}
                         // @ts-ignore
-                        tooltipTitle={'test'}
+                        tooltipTitle={'Add to favorite'}
                     />
                     <SpeedDialAction
                         key={'watchList'}
                         icon={<WatchListIcon onClick={addToWatchListOnClick}/>}
                         // @ts-ignore
-                        tooltipTitle={'test'}
+                        tooltipTitle={'Add to WatchList'}
+                    />
+                    <SpeedDialAction
+                        key={'addToList'}
+                        icon={<GradingIcon onClick={openListsMenu}/>}
+                        // @ts-ignore
+                        tooltipTitle={'Add to list'}
                     />
                 </SpeedDial>
             </Box>
+
+
+            <ListMenu isOpen={open} setOpen={setOpen}/>
+
         </Card>
     );
 };

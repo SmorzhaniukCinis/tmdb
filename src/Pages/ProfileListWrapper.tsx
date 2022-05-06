@@ -12,7 +12,7 @@ import {
     getRatingMovieSelector, getRatingTVShowSelector, getTVShowWatchList
 } from "../store/Selectors/accountSelectors";
 import {getIsAuth} from "../store/Selectors/authSelectors";
-import {FavoriteCard} from "../components/FavoriteCard";
+import {ItemCard} from "../components/ItemCard";
 import {useLocation} from "react-router-dom";
 import {
     Backdrop,
@@ -144,13 +144,13 @@ export const ProfileListWrapper = () => {
                 {typeOfContent === 'movie'
                     ? <div>
                         {currentMovie?.results.map(movie =>
-                            <FavoriteCard key={movie.id} backdropPath={movie.backdrop_path}
-                                          language={movie.original_language}
-                                          originalTitle={movie.original_title} posterPath={movie.poster_path}
-                                          overview={movie.overview} voteAverage={movie.vote_average}
-                                          voteCount={movie.vote_count} rating={movie.rating} id={movie.id}
-                                          type={'movie'}
-                                          releaseDate={movie.release_date}/>
+                            <ItemCard key={movie.id} backdropPath={movie.backdrop_path}
+                                      language={movie.original_language}
+                                      originalTitle={movie.original_title} posterPath={movie.poster_path}
+                                      overview={movie.overview} voteAverage={movie.vote_average}
+                                      voteCount={movie.vote_count} rating={movie.rating} id={movie.id}
+                                      type={'movie'}
+                                      releaseDate={movie.release_date}/>
                         )}
                         {
                             (currentMovie?.total_pages && currentMovie?.total_pages > 1)
@@ -160,11 +160,11 @@ export const ProfileListWrapper = () => {
                     </div>
                     : <div>
                         {currentTVShow?.results.map(show =>
-                                <FavoriteCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
-                                              originalTitle={show.name} posterPath={show.poster_path}
-                                              overview={show.overview} voteAverage={show.vote_average}
-                                              voteCount={show.vote_count} rating={show.rating} id={show.id} type={'tv'}
-                                              releaseDate={show.first_air_date}/>
+                                <ItemCard key={show.id} backdropPath={show.backdrop_path} language={show.original_language}
+                                          originalTitle={show.name} posterPath={show.poster_path}
+                                          overview={show.overview} voteAverage={show.vote_average}
+                                          voteCount={show.vote_count} rating={show.rating} id={show.id} type={'tv'}
+                                          releaseDate={show.first_air_date}/>
                             )}
                         {
                             (currentTVShow?.total_pages && currentTVShow?.total_pages > 1)
