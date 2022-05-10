@@ -13,11 +13,9 @@ import {accountActions, getAccountInfo} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
 import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
-import {accountAPI} from "./API/accountAPI/accoutAPI";
 import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
-import NewList from "./Pages/NewList";
-import NewListStep1 from "./components/NewListStep1";
+import {NewList} from "./Pages/NewList";
 
 
 function App() {
@@ -64,13 +62,8 @@ function App() {
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                         <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}>
-                            <Route index element={<NewListStep1/>}/>
                         </Route>
-                        <Route path={'/newList'} element={<NewList/>}>
-                            <Route index element={<NewListStep1/>}/>
-                            <Route path={'/newList/step2'} element={<div>step 2</div>}/>
-                            <Route path={'/newList/step3'} element={<div>step 3</div>}/>
-                        </Route>
+                        <Route path={'/newList'} element={<NewList/>}/>
                     </Routes>
                 </Container>
             </ThemeProvider>

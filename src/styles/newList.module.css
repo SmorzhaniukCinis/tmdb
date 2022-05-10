@@ -1,6 +1,8 @@
 .mainWrapper {
     display: flex;
 }
-.step1Wrapper {
-    margin-left: 20px;
+.fieldWrapper {
+    margin-left: 120px;
+    display: flex;
+    flex-direction: column;
 }

@@ -1,96 +1,96 @@
-import React, {useEffect, useState} from 'react';
-import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
-import {Backdrop, Card, CircularProgress, Divider, List, ListItem, ListItemText} from "@mui/material";
+import React, {useEffect} from 'react';
+import {Button, TextField, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import s from '../styles/newList.module.css'
-import {GetList} from "../store/listReducer";
+import { useForm, SubmitHandler } from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {getIsLoading} from "../store/Selectors/listSelectors";
+import {CreateList, EditList, GetList} from "../store/listReducer";
+import {getList} from "../store/Selectors/listSelectors";
+import {useNavigate, useParams} from "react-router-dom";
 
-const style = {
-    width: '100%',
-    maxWidth: 360,
+type Inputs = {
+    listName: string,
+    listDescription: string,
 };
 
-const NewList = () => {
+export const NewList = () => {
 
 
-    const [activeStep, setActiveStep] = useState(1)
-    const params = useParams()
+    const [isPublic, setIsPublic] = React.useState<boolean>(true);
+    const [title, setTitle] = React.useState<'Create list' | 'Edit list'>('Create list');
     const dispatch = useDispatch()
-    const isLoading = useSelector(getIsLoading)
+    const listDescription = useSelector(getList)
+    const params = useParams()
     const navigate = useNavigate()
-    const location = useLocation()
 
-    useEffect(() => {
-        if (params.isEditing && params.listId) {
-            dispatch(GetList(Number(params.listId)))
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const listData = {
+            name: data.listName,
+            description: data.listDescription,
+            isPublic
         }
-    }, [params, dispatch])
+        if(params.isEditing) {
+            dispatch(EditList(listData, listDescription?.id))
+            dispatch(GetList(listDescription?.id))
+        } else {
+            dispatch(CreateList(listData))
+        }
+
+    }
+
+    const handleChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: boolean,
+    ) => {
+        setIsPublic(newAlignment);
+    };
 
     useEffect(()=> {
-        if (location.pathname === '/newList/step2') {
-            setActiveStep(2)
+        if(params.isEditing) {
+            setTitle('Edit list')
         }
-    },[location])
+    }, [])
 
 
-    const stepHandler = (step: number) => {
-        setActiveStep(step)
-        switch (step) {
-            case 1:
-                navigate('/newList')
-                break
-            case 2:
-                navigate('/newList/step2')
-                break
-            case 3:
-                navigate('/newList/step3')
-                break
-        }
-    }
+    return (
 
-
-    if (isLoading) {
-        return (
+        <form onSubmit={handleSubmit(onSubmit)} className={s.fieldWrapper}>
+            <Typography variant={'h5'} sx={{marginBottom: '10px'}}>
+                {title}
+            </Typography>
+            <TextField
+                {...register("listName", {required: true})}
+                defaultValue={listDescription?.name}
+                sx={{width: '40%', marginBottom: '10px'}}
+                id="outlined-basic" label="Name of list"
+            />
+            <TextField
+                {...register("listDescription")}
+                defaultValue={listDescription?.description}
+                sx={{width: '60%', marginBottom: '10px'}}
+                id="outlined-multiline-static"
+                label="Description"
+                multiline
+                rows={4}
+            />
             <div>
-                <Backdrop
-                    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                    open={true}
+                <Typography>
+                    Public list?
+                </Typography>
+                <ToggleButtonGroup
+                    color="primary"
+                    value={isPublic}
+                    exclusive
+                    onChange={handleChange}
                 >
-                    <CircularProgress color="inherit"/>
-                </Backdrop>
+                    <ToggleButton defaultChecked value={true}>Yas</ToggleButton>
+                    <ToggleButton value={false}>No</ToggleButton>
+                </ToggleButtonGroup>
             </div>
-
-        )
-
-    } else {
-        return (
-            <div className={s.mainWrapper}>
-                <Card variant={'outlined'} sx={{width: '240px', height: '165px'}}>
-                    <List sx={style} component="nav" aria-label="mailbox folders">
-                        <ListItem disabled={activeStep > 1} sx={activeStep === 1 ? {color: 'blueviolet'} : null} button
-                                  onClick={() => stepHandler(1)}>
-                            <ListItemText primary="Step 1: List Details"/>
-                        </ListItem>
-                        <Divider/>
-                        <ListItem disabled={location.pathname === '/newList'}
-                                  sx={activeStep === 2 ? {color: 'blueviolet'} : null} button divider
-                                  onClick={() => stepHandler(2)}>
-                            <ListItemText primary="Step 2: Add Items"/>
-                        </ListItem>
-                        <ListItem disabled={location.pathname === '/newList'}
-                                  sx={activeStep === 3 ? {color: 'blueviolet'} : null} button
-                                  onClick={() => stepHandler(3)}>
-                            <ListItemText primary="Step 3: Choose Image"/>
-                        </ListItem>
-                    </List>
-                </Card>
-                <main>
-                    <Outlet/>
-                </main>
-            </div>
-        )
-    }
+            <Button type="submit" variant={'outlined'} color={'success'} sx={{marginTop: '20px', width: '150px'}}>
+                Save
+            </Button>
+        </form>
+    );
 };
 
-export default NewList;
