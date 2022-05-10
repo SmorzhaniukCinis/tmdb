@@ -16,7 +16,7 @@ import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
 import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
 import {NewList} from "./Pages/NewList";
-import {SearchResult} from "./Pages/SearchReasult";
+import {SearchResult} from "./Pages/SearchResult";
 
 
 function App() {

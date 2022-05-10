@@ -3,6 +3,7 @@ import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/mat
 import {resultType} from "../store/searchReducer";
 import {getImage} from "../Common/getImage";
 import s from '../styles/homePage.module.css'
+import NoImageAvailable from '../assets/No-image-available.jpg'
 
 type props = {
     item: resultType
@@ -16,7 +17,7 @@ export const SearchItem:React.FC<props> = ({item}:props) => {
                 <CardMedia
                     component="img"
                     height="350"
-                    image={getImage("original" , item.poster_path)}
+                    image={getImage("original" , item.poster_path) || NoImageAvailable}
                 />
                 <CardContent>
                     <Typography className={s.searchName} component="div">
@@ -25,10 +26,10 @@ export const SearchItem:React.FC<props> = ({item}:props) => {
                         </abbr>
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {item.first_air_date || item.release_date}
+                        {item.first_air_date || item.release_date || 'No date'}
                     </Typography>
                     <Typography className={s.searchDesc}>
-                        {item.overview}
+                        {item.overview || 'No overview'}
                     </Typography>
                 </CardContent>
             </CardActionArea>
