@@ -7,18 +7,18 @@ import {CommonResType} from "../API/accountAPI/accountTypes";
 const SET_SEARCH_RES = 'search/SET_SEARCH_RES'
 const SET_LOADING = 'search/SET_LOADING'
 
-type result = TVType & MovieType & person
+export type resultType = TVType & MovieType & person
 
 const initialState = {
     isLoading: false,
-    results: null as unknown as CommonResType<result>
+    searchResults: null as unknown as CommonResType<resultType>
 }
 type initialStateType = typeof initialState
 
 export const searchReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case SET_SEARCH_RES:
-            return {...state,}
+            return {...state, searchResults: action.result}
         case SET_LOADING:
             return {...state, isLoading: action.isLoading}
         default:
@@ -27,7 +27,7 @@ export const searchReducer = (state = initialState, action: ActionTypes): initia
 }
 
 export const searchActions = {
-    setSearchRes: (result: CommonResType<result>) => ({type: SET_SEARCH_RES, result} as const),
+    setSearchRes: (result: CommonResType<resultType>) => ({type: SET_SEARCH_RES, result} as const),
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
 }
 

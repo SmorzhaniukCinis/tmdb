@@ -16,6 +16,7 @@ import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
 import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
 import {NewList} from "./Pages/NewList";
+import {SearchResult} from "./Pages/SearchReasult";
 
 
 function App() {
@@ -52,7 +53,9 @@ function App() {
                 <NavBar/>
                 <Container fixed style={{marginTop: 40}}>
                     <Routes>
-                        <Route path={'/'} element={<Home/>}/>
+                        <Route path={'/'} element={<Home/>}>
+                            <Route path={'/result'} element={<SearchResult/>}/>
+                        </Route>
                         <Route path={'/account'} element={<Profile/>}/>
                         <Route path={'/myLists'} element={<MyLists/>}/>
                         <Route path={'/authentication'} element={<Auth/>}/>

@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {GetMultiSearch} from "../store/searchReducer";
 import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 type Inputs = {
     searchField: string,
@@ -12,10 +13,12 @@ type Inputs = {
 export const SearchField = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => {
         dispatch(GetMultiSearch(data.searchField))
+        navigate('result')
     };
 
 

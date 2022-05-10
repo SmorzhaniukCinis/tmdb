@@ -1,0 +1,24 @@
+.resultWrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 15px 0 15px 20px;
+
+}
+.searchName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.searchName abbr {
+    text-decoration: none;
+}
+.searchDesc {   
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 100px;
+    font-size: 14px;
+    opacity: 60%;
+}
