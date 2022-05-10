@@ -62,4 +62,14 @@ export const addListItem = (ListId:number, itemId:number) => async (dispatch: Di
         alert("this item already exist in this list")
     }
 }
+export const deleteListItem = (listId:number, itemId:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res = await listAPI.deleteListItem(itemId, listId, sessionId)
+    if(res.status_code === 13) {
+        const list = await listAPI.getList(listId)
+        dispatch(listActions.setList(list))
+    } else {
+        alert(res.status_message)
+    }
+}
 

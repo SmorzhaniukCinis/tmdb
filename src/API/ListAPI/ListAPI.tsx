@@ -2,7 +2,7 @@ import {instance, instanceV4} from "../index";
 import {
     addListItemRes,
     createListData,
-    createListRes,
+    createListRes, deleteListItem,
     deleteListRes,
     editListData,
     listItemType,
@@ -44,6 +44,16 @@ export const listAPI = {
     addListItem: async (itemId:number, listId: number, sessionId:string): Promise<addListItemRes> => {
         try {
             const {data} = await instance.post<addListItemRes>(`/list/${listId}/add_item?session_id=${sessionId}`,
+                {media_id: itemId} )
+            return data
+        }
+        catch (e:any) {
+            return e.response.data
+        }
+    },
+ deleteListItem: async (itemId:number, listId: number, sessionId:string): Promise<deleteListItem> => {
+        try {
+            const {data} = await instance.post<deleteListItem>(`/list/${listId}/remove_item?session_id=${sessionId}`,
                 {media_id: itemId} )
             return data
         }

@@ -88,3 +88,8 @@ export type listItemType = {
     media_id: number
     comment: string
 }
+
+export type deleteListItem = {
+    "status_code": number
+    "status_message": string
+}
