@@ -1,6 +1,4 @@
-import {ActionTypes, RootStateType} from "./store";
-import {createListData, editListData, listType} from "../API/ListAPI/listTypes";
-import {listAPI} from "../API/ListAPI/ListAPI";
+import {ActionTypes} from "./store";
 import {Dispatch} from "redux";
 import {MovieType, person, TVType} from "../API/SearchAPI/searchTypes";
 import {searchAPI} from "../API/SearchAPI/searchAPI";
@@ -33,10 +31,11 @@ export const searchActions = {
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
 }
 
-export const GetList = (searchString: string, page: number) =>
-    async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const GetMultiSearch = (searchString: string, page?: number) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
         dispatch(searchActions.setLoading(true))
         const result = await searchAPI.getMultiSearch(searchString, page)
         dispatch(searchActions.setSearchRes(result))
+        console.log(result)
         dispatch(searchActions.setLoading(false))
     }
