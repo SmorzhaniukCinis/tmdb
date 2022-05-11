@@ -8,7 +8,7 @@ export type MovieType = {
     original_title: string
     genre_ids: Array<number>
     id: number
-    media_type: string
+    media_type: 'movie' | 'tv'
     original_language: string
     title: string
     backdrop_path: string | null
@@ -27,7 +27,7 @@ export type TVType = {
     overview: string
     genre_ids: Array<number>
     id: number
-    media_type:  string
+    media_type: 'movie' | 'tv'
     original_language: string
     backdrop_path: string | null
     popularity: number

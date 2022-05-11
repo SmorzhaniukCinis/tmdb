@@ -3,8 +3,6 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 15px 0 15px 20px;
     margin: 20px;
-    text-align: center;
-    height: 500px;
 }
 
 .searchName {
@@ -23,7 +21,7 @@
 .searchDesc {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     height: 100px;
     font-size: 14px;
@@ -42,4 +40,8 @@
     margin-left: 55%;
     opacity: 0.7;
     box-shadow: 0 0 12px 10px white;
+}
+.speedMenu {
+    position: relative;
+    left: 30px;
 }

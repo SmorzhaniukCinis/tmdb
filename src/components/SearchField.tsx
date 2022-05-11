@@ -24,6 +24,7 @@ export const SearchField = () => {
 
     return (
         <Paper
+            elevation={10}
             onSubmit={handleSubmit(onSubmit)}
             component="form"
             sx={{p: '2px 4px', display: 'flex', width: '80%', ml: '10%'}}

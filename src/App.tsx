@@ -9,7 +9,7 @@ import {Home} from "./Pages/Home";
 import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 import {authActions, createGuestSessionId} from "./store/authReducer";
-import {accountActions, getAccountInfo} from "./store/accountReducer";
+import {accountActions, getAccountInfo, getCreatedList} from "./store/accountReducer";
 import {getSessionId} from "./store/Selectors/authSelectors";
 import MyLists from "./Pages/MyLists";
 import {ProfileListWrapper} from "./Pages/ProfileListWrapper";
@@ -23,9 +23,9 @@ function App() {
 
     const dispatch = useDispatch()
 
-    useEffect(()=> {
+    useEffect(() => {
         const sessionId = localStorage.getItem('sessionId')
-        if(sessionId) {
+        if (sessionId) {
             dispatch(authActions.setSessionId(sessionId))
             dispatch(authActions.setAuthentication(true))
         } else {
@@ -36,13 +36,13 @@ function App() {
     const sessionId = useSelector(getSessionId)
 
     useEffect(() => {
-        if (sessionId)
+        if (sessionId) {
             dispatch(getAccountInfo())
-        else {
+            dispatch(getCreatedList())
+        } else {
             dispatch(accountActions.deleteAccountDetails())
         }
     }, [dispatch, sessionId])
-
 
 
     const isDarkTheme = useSelector(getIsDarkTheme)
@@ -51,7 +51,7 @@ function App() {
         <div>
             <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
                 <NavBar/>
-                <Container fixed style={{marginTop: 40}}>
+                <Container fixed style={{marginTop: 40, marginBottom: 40}}>
                     <Routes>
                         <Route path={'/'} element={<Home/>}>
                             <Route path={'/result'} element={<SearchResult/>}/>

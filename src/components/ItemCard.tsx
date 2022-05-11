@@ -10,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {addToFavorite, addToWatchList, getCreatedList} from "../store/accountReducer";
 import GradingIcon from '@mui/icons-material/Grading';
 import {ListMenu} from "./ListMenu";
+import {ActionMenu} from "./ActionMenu";
 
 type props = {
     type: 'movie' | 'tv'
@@ -88,30 +89,11 @@ export const ItemCard: React.FC<props> = (props: props) => {
                         </div>
                     </CardContent>
                 </div>
-                <SpeedDial
-                    ariaLabel="SpeedDial basic example"
-                    sx={{position: 'absolute', bottom: 16, right: 16}}
-                    icon={<SpeedDialIcon/>}
-                >
-                    <SpeedDialAction
-                        key={'Favorite'}
-                        icon={<FavoriteIcon onClick={markAsFavorite}/>}
-                        // @ts-ignore
-                        tooltipTitle={'Add to favorite'}
-                    />
-                    <SpeedDialAction
-                        key={'watchList'}
-                        icon={<WatchListIcon onClick={addToWatchListOnClick}/>}
-                        // @ts-ignore
-                        tooltipTitle={'Add to WatchList'}
-                    />
-                    <SpeedDialAction
-                        key={'addToList'}
-                        icon={<GradingIcon onClick={openListsMenu}/>}
-                        // @ts-ignore
-                        tooltipTitle={'Add to list'}
-                    />
-                </SpeedDial>
+                <ActionMenu
+                    markAsFavorite={markAsFavorite}
+                    addToWatchListOnClick={addToWatchListOnClick}
+                    openListsMenu={openListsMenu}
+                />
             </Box>
 
 

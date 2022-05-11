@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper, Typography} from "@mui/material";
+import {Pagination, Paper, Typography} from "@mui/material";
 import {SearchItem} from "../components/SearchItem";
 import {useSelector} from "react-redux";
 import {getResults} from "../store/Selectors/searchSelectors";
@@ -13,15 +13,32 @@ export const SearchResult = () => {
     const isDarkTheme = useSelector(getIsDarkTheme)
 
 
+    ///////pagination//////
+    const [page, setPage] = React.useState(1);
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
+    ///////////
+
+
     return (
+        <div>
+            <Paper elevation={10} className={s.resultWrap}>
+                {
+                    searchRes?.results.length
+                        ? searchRes?.results.map(i => <SearchItem item={i} key={i.id}/>)
+                        : <img className={!isDarkTheme ? s.noResultImage : s.noResultImageDark} src={noResult} alt=""/>
+                }
 
+            </Paper>
+            {
+                searchRes?.total_pages > 1
+                    ? <Pagination page={page} onChange={handleChangePage} count={searchRes?.total_pages}/>
+                    : null
 
-        <Paper className={s.resultWrap} >
-            {searchRes?.results.length
-                ? searchRes?.results.map(i => <SearchItem item={i} key={i.id}/>)
-                : <img className={!isDarkTheme ?s.noResultImage :s.noResultImageDark} src={noResult} alt=""/>
             }
-        </Paper>
+        </div>
+
 
     );
 };
