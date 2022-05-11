@@ -2,7 +2,7 @@ import React from 'react';
 import {IconButton, InputBase, Paper} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import {SubmitHandler, useForm} from "react-hook-form";
-import {GetMultiSearch} from "../store/searchReducer";
+import {GetMovieSearch, GetMultiSearch} from "../store/searchReducer";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
@@ -17,10 +17,9 @@ export const SearchField = () => {
 
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => {
-        dispatch(GetMultiSearch(data.searchField))
-        navigate('result')
+        dispatch(GetMovieSearch(data.searchField))
+        navigate(`result/movie/search=${data.searchField}/page=${1}`)
     };
-
 
     return (
         <Paper

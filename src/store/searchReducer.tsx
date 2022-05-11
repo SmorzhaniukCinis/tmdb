@@ -5,6 +5,7 @@ import {searchAPI} from "../API/SearchAPI/searchAPI";
 import {CommonResType} from "../API/accountAPI/accountTypes";
 
 const SET_SEARCH_RES = 'search/SET_SEARCH_RES'
+const SET_MOVIE_SEARCH_RES = 'search/SET_MOVIE_SEARCH_RES'
 const SET_LOADING = 'search/SET_LOADING'
 
 export type resultType = TVType & MovieType & person
@@ -19,6 +20,8 @@ export const searchReducer = (state = initialState, action: ActionTypes): initia
     switch (action.type) {
         case SET_SEARCH_RES:
             return {...state, searchResults: action.result}
+        case SET_MOVIE_SEARCH_RES:
+            return {...state, searchResults: action.result}
         case SET_LOADING:
             return {...state, isLoading: action.isLoading}
         default:
@@ -28,6 +31,7 @@ export const searchReducer = (state = initialState, action: ActionTypes): initia
 
 export const searchActions = {
     setSearchRes: (result: CommonResType<resultType>) => ({type: SET_SEARCH_RES, result} as const),
+    setMovieSearchRes: (result: CommonResType<resultType>) => ({type: SET_MOVIE_SEARCH_RES, result} as const),
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
 }
 
@@ -36,6 +40,12 @@ export const GetMultiSearch = (searchString: string, page?: number) =>
         dispatch(searchActions.setLoading(true))
         const result = await searchAPI.getMultiSearch(searchString, page)
         dispatch(searchActions.setSearchRes(result))
-        console.log(result)
+        dispatch(searchActions.setLoading(false))
+    }
+export const GetMovieSearch = (searchString: string, page?: number) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
+        dispatch(searchActions.setLoading(true))
+        const result = await searchAPI.getMovieSearch(searchString, page)
+        dispatch(searchActions.setMovieSearchRes(result))
         dispatch(searchActions.setLoading(false))
     }

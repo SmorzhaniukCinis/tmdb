@@ -93,6 +93,7 @@ export const ItemCard: React.FC<props> = (props: props) => {
                     markAsFavorite={markAsFavorite}
                     addToWatchListOnClick={addToWatchListOnClick}
                     openListsMenu={openListsMenu}
+                    isVisible={true}
                 />
             </Box>
 

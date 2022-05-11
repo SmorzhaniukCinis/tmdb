@@ -8,7 +8,7 @@ type props = {
     markAsFavorite: ()=> void
     addToWatchListOnClick: ()=> void
     openListsMenu: ()=> void
-    isVisible? : boolean
+    isVisible: boolean
 }
 
 export const ActionMenu:React.FC<props> = (props:props) => {

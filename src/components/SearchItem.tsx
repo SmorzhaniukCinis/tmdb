@@ -10,6 +10,7 @@ import {ListMenu} from "./ListMenu";
 import {useDispatch, useSelector} from "react-redux";
 import {getCreatedLists} from "../store/Selectors/accountSelectors";
 import {SpeedDial} from "@mui/lab";
+import {MovieType, TVType} from "../API/SearchAPI/searchTypes";
 
 type props = {
     item: resultType

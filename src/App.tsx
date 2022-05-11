@@ -54,7 +54,7 @@ function App() {
                 <Container fixed style={{marginTop: 40, marginBottom: 40}}>
                     <Routes>
                         <Route path={'/'} element={<Home/>}>
-                            <Route path={'/result'} element={<SearchResult/>}/>
+                            <Route path={'/result/:resType/search=:query/page=:page'} element={<SearchResult/>}/>
                         </Route>
                         <Route path={'/account'} element={<Profile/>}/>
                         <Route path={'/myLists'} element={<MyLists/>}/>
