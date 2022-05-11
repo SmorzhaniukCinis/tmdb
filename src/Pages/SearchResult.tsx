@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Pagination, Paper, Typography} from "@mui/material";
+import React, {useEffect, useState} from 'react';
+import {Button, Pagination, Paper} from "@mui/material";
 import {SearchItem} from "../components/SearchItem";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getResults} from "../store/Selectors/searchSelectors";
@@ -18,9 +18,10 @@ export const SearchResult = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const isLoading = useSelector(getIsLoading)
+    const [currentMedia, setCurrentMedia] = useState('movie')
 
-    useEffect(()=> {
-        if(params.query) {
+    useEffect(() => {
+        if (params.query) {
             switch (params.resType) {
                 case 'movie':
                     dispatch(GetMovieSearch(params.query, Number(params.page)))
@@ -28,7 +29,11 @@ export const SearchResult = () => {
                     break
             }
 
-        }},[dispatch, params])
+        }
+    }, [dispatch, params])
+    const changeMediaType = (e:React.MouseEvent<HTMLButtonElement> ) => {
+      setCurrentMedia(e.currentTarget.name)
+    }
 
 
     ///////pagination//////
@@ -42,29 +47,39 @@ export const SearchResult = () => {
         })
     };
     ///////////
+
     if (isLoading) {
         return <Loading/>
-
     } else {
-    return (
-        <div>
-            <Paper id='resultWrap' elevation={10} className={s.resultWrap}>
+        return (
+            <div>
+                <div className={s.searchNavigation}>
+                    <Button  name={'movie'} disabled={currentMedia === 'movie'} onClick={changeMediaType}>
+                        Movie
+                    </Button>
+                    <Button name={'tv'} disabled={currentMedia === 'tv'} onClick={changeMediaType}>
+                        tv shows
+                    </Button>
+                </div>
+                <Paper id='resultWrap' elevation={10} className={s.resultWrap}>
+                    {
+                        searchRes?.results.length
+                            ? searchRes?.results.map(i => <SearchItem item={i} key={i.id}/>)
+                            : <img className={!isDarkTheme ? s.noResultImage : s.noResultImageDark} src={noResult}
+                                   alt=""/>
+                    }
+
+                </Paper>
                 {
-                    searchRes?.results.length
-                        ? searchRes?.results.map(i => <SearchItem item={i} key={i.id}/>)
-                        : <img className={!isDarkTheme ? s.noResultImage : s.noResultImageDark} src={noResult} alt=""/>
+                    searchRes?.total_pages > 1
+                        ? <Pagination page={page} onChange={handleChangePage} count={searchRes?.total_pages}/>
+                        : null
+
                 }
-
-            </Paper>
-            {
-                searchRes?.total_pages > 1
-                    ? <Pagination page={page} onChange={handleChangePage} count={searchRes?.total_pages}/>
-                    : null
-
-            }
-        </div>
+            </div>
 
 
-    )}
+        )
+    }
 };
 
