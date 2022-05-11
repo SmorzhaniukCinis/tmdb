@@ -11,5 +11,9 @@ export const searchAPI = {
     getMovieSearch: async (searchString: string, page?: number):Promise<searchRes> => {
         const {data} = await instance.get<searchRes>(`search/movie?query=${searchString}&page=${page}`)
         return data
+    },
+    getTVShowsSearch: async (searchString: string, page?: number):Promise<searchRes> => {
+        const {data} = await instance.get<searchRes>(`search/tv?query=${searchString}&page=${page}`)
+        return data
     }
 }

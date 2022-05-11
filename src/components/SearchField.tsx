@@ -2,7 +2,7 @@ import React from 'react';
 import {IconButton, InputBase, Paper} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import {SubmitHandler, useForm} from "react-hook-form";
-import {GetMovieSearch, GetMultiSearch} from "../store/searchReducer";
+import {GetMovieSearch} from "../store/searchReducer";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
