@@ -10,11 +10,17 @@ import {useNavigate, useParams} from "react-router-dom";
 import {GetMovieSearch} from "../store/searchReducer";
 import Loading from "../components/Loading";
 
+export type searchQueryParams = {
+    query: string | undefined
+    page: string
+    resType : 'movie' | 'tv'
+}
+
 export const SearchResult = () => {
 
     const searchRes = useSelector(getResults)
     const isDarkTheme = useSelector(getIsDarkTheme)
-    const params = useParams()
+    const params = useParams<searchQueryParams>()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const isLoading = useSelector(getIsLoading)
@@ -27,12 +33,17 @@ export const SearchResult = () => {
                     dispatch(GetMovieSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
                     break
+                case 'tv':
+                    dispatch(GetMovieSearch(params.query, Number(params.page)))
+                    setPage(Number(params.page))
+                    break
             }
 
         }
     }, [dispatch, params])
     const changeMediaType = (e:React.MouseEvent<HTMLButtonElement> ) => {
       setCurrentMedia(e.currentTarget.name)
+        navigate(`/result/${e.currentTarget.name}/search=${params.query}/page=${params.page}`)
     }
 
 
