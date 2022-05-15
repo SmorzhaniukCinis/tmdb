@@ -33,14 +33,17 @@ export const SearchResult = () => {
                 case 'movie':
                     dispatch(GetMovieSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
+                    setCurrentMedia('movie')
                     break
                 case 'tv':
                     dispatch(GetTVShowsSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
+                    setCurrentMedia('tv')
                     break
                 case 'people':
                     dispatch(GetPeopleSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
+                    setCurrentMedia('people')
                     break
             }
 

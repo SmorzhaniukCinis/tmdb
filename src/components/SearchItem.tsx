@@ -50,14 +50,7 @@ export const SearchItem: React.FC<props> = ({item}: props) => {
                     image={getImage("original", item.poster_path) || NoImageAvailable}
                 />
                 <CardContent>
-                    <div className={s.speedMenu}>
-                        <ActionMenu
-                            markAsFavorite={markAsFavorite}
-                            addToWatchListOnClick={addToWatchListOnClick}
-                            openListsMenu={openListsMenu}
-                            isVisible={isMenuVisible}
-                        />
-                    </div>
+
 
                     <Typography className={s.searchName} component="div">
                         <abbr title={item.name || item.title}>
@@ -73,6 +66,14 @@ export const SearchItem: React.FC<props> = ({item}: props) => {
                 </CardContent>
             </CardActionArea>
             <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={item.id}/>
+            <div className={s.speedMenu}>
+                <ActionMenu
+                    markAsFavorite={markAsFavorite}
+                    addToWatchListOnClick={addToWatchListOnClick}
+                    openListsMenu={openListsMenu}
+                    isVisible={isMenuVisible}
+                />
+            </div>
         </Card>
     );
 };

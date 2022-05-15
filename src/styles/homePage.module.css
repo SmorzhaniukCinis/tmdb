@@ -43,7 +43,8 @@
 }
 .speedMenu {
     position: relative;
-    left: 30px;
+    bottom: 170px;
+    left: 10px
 }
 .searchNavigation {
     margin-top: 20px;
