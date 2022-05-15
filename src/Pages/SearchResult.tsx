@@ -4,27 +4,28 @@ import {SearchItem} from "../components/SearchItem";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getResults} from "../store/Selectors/searchSelectors";
 import s from '../styles/homePage.module.css'
-import noResult from '../assets/no_result_2.webp'
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
 import {useNavigate, useParams} from "react-router-dom";
-import {GetMovieSearch, GetTVShowsSearch} from "../store/searchReducer";
+import {GetMovieSearch, GetPeopleSearch, GetTVShowsSearch} from "../store/searchReducer";
 import Loading from "../components/Loading";
+import {ContentSwitcher} from "../components/ContentSwitcher";
 
 export type searchQueryParams = {
     query: string | undefined
     page: string
-    resType : 'movie' | 'tv'
+    resType : 'movie' | 'tv' | 'people'
 }
+
+
 
 export const SearchResult = () => {
 
     const searchRes = useSelector(getResults)
-    const isDarkTheme = useSelector(getIsDarkTheme)
     const params = useParams<searchQueryParams>()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const isLoading = useSelector(getIsLoading)
-    const [currentMedia, setCurrentMedia] = useState('movie')
+    const [currentMedia, setCurrentMedia] = useState<string>('movie')
 
     useEffect(() => {
         if (params.query) {
@@ -37,13 +38,17 @@ export const SearchResult = () => {
                     dispatch(GetTVShowsSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
                     break
+                case 'people':
+                    dispatch(GetPeopleSearch(params.query, Number(params.page)))
+                    setPage(Number(params.page))
+                    break
             }
 
         }
     }, [dispatch, params])
     const changeMediaType = (e:React.MouseEvent<HTMLButtonElement> ) => {
-      setCurrentMedia(e.currentTarget.name)
-        navigate(`/result/${e.currentTarget.name}/search=${params.query}/page=${params.page}`)
+        setCurrentMedia(e.currentTarget.name)
+        navigate(`/result/${e.currentTarget.name}/search=${params.query}/page=1`)
     }
 
 
@@ -51,7 +56,7 @@ export const SearchResult = () => {
     const [page, setPage] = React.useState(1);
     const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        navigate(`/result/movie/search=${params.query}/page=${value}`)
+        navigate(`/result/${params.resType}/search=${params.query}/page=${value}`)
         window.scrollTo({
             top: 0,
             behavior: "smooth"
@@ -71,16 +76,11 @@ export const SearchResult = () => {
                     <Button name={'tv'} disabled={currentMedia === 'tv'} onClick={changeMediaType}>
                         tv shows
                     </Button>
+                    <Button name={'people'} disabled={currentMedia === 'people'} onClick={changeMediaType}>
+                        people
+                    </Button>
                 </div>
-                <Paper id='resultWrap' elevation={10} className={s.resultWrap}>
-                    {
-                        searchRes?.results.length
-                            ? searchRes?.results.map(i => <SearchItem item={i} key={i.id}/>)
-                            : <img className={!isDarkTheme ? s.noResultImage : s.noResultImageDark} src={noResult}
-                                   alt=""/>
-                    }
-
-                </Paper>
+                    <ContentSwitcher contentType={currentMedia}/>
                 {
                     searchRes?.total_pages > 1
                         ? <Pagination page={page} onChange={handleChangePage} count={searchRes?.total_pages}/>

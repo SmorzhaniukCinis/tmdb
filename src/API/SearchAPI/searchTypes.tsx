@@ -38,7 +38,6 @@ export type person = {
     "profile_path": string | null
     "adult": boolean,
     "id": number
-    "media_type": string,
     "name": string
     "popularity": number
     "known_for": Array<MovieType & TVType>

@@ -52,3 +52,10 @@ export const GetTVShowsSearch = (searchString: string, page?: number) =>
         dispatch(searchActions.setSearchRes(result))
         dispatch(searchActions.setLoading(false))
     }
+export const GetPeopleSearch = (searchString: string, page?: number) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
+        dispatch(searchActions.setLoading(true))
+        const result = await searchAPI.getPeopleSearch(searchString, page)
+        dispatch(searchActions.setSearchRes(result))
+        dispatch(searchActions.setLoading(false))
+    }
