@@ -7,7 +7,7 @@ import s from '../styles/homePage.module.css'
 import noResult from '../assets/no_result_2.webp'
 import {getIsDarkTheme} from "../store/Selectors/accountSelectors";
 import {useNavigate, useParams} from "react-router-dom";
-import {GetMovieSearch} from "../store/searchReducer";
+import {GetMovieSearch, GetTVShowsSearch} from "../store/searchReducer";
 import Loading from "../components/Loading";
 
 export type searchQueryParams = {
@@ -34,7 +34,7 @@ export const SearchResult = () => {
                     setPage(Number(params.page))
                     break
                 case 'tv':
-                    dispatch(GetMovieSearch(params.query, Number(params.page)))
+                    dispatch(GetTVShowsSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
                     break
             }
