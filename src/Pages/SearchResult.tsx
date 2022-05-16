@@ -31,6 +31,7 @@ export const SearchResult = () => {
         if (params.query) {
             switch (params.resType) {
                 case 'movie':
+                    debugger
                     dispatch(GetMovieSearch(params.query, Number(params.page)))
                     setPage(Number(params.page))
                     setCurrentMedia('movie')
@@ -48,7 +49,8 @@ export const SearchResult = () => {
             }
 
         }
-    }, [dispatch, params])
+    }, [dispatch, params.page])
+
     const changeMediaType = (e:React.MouseEvent<HTMLButtonElement> ) => {
         setCurrentMedia(e.currentTarget.name)
         navigate(`/result/${e.currentTarget.name}/search=${params.query}/page=1`)

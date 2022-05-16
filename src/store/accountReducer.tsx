@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
 import {accountAPI} from "../API/accountAPI/accoutAPI";
+import {concat} from 'lodash';
 import {
     CommonResType,
     createdList,
@@ -14,6 +15,7 @@ import {
     TVShowWatchList
 } from "../API/accountAPI/accountTypes";
 
+
 const SET_LOADING = "account/SET_LOADING"
 const SET_ACCOUNT_DETAILS = "account/SET_ACCOUNT_DETAILS"
 const SET_DARK_THEME = "account/SET_DARK_THEME"
@@ -26,6 +28,8 @@ const SET_RATING_TV_SHOW = "account/SET_RATING_TV_SHOW"
 const SET_RATED_TV_EPISODES = "account/SET_RATED_TV_EPISODES"
 const SET_MOVIE_WATCH_LIST = "account/SET_MOVIE_WATCH_LIST"
 const SET_TV_SHOW_WATCH_LIST = "account/SET_TV_SHOW_WATCH_LIST"
+const SET_EVENT_MESSAGE = "account/SET_EVENT_MESSAGE"
+const DELETE_EVENT_MESSAGE = "account/DELETE_EVENT_MESSAGE"
 
 
 const initialState: initialStateType = {
@@ -94,8 +98,8 @@ const initialState: initialStateType = {
         results: [],
         total_pages: 0,
         total_results: 0
-    }
-
+    },
+    eventMessages: []
 }
 
 type initialStateType = {
@@ -110,6 +114,7 @@ type initialStateType = {
     ratedSeries: CommonResType<ratedTVEpisodes>
     movieWatchList: CommonResType<MovieWatchList>
     TVShowWatchList: CommonResType<TVShowWatchList>
+    eventMessages: Array<string>
 }
 
 export const AccountReducer = (state = initialState, action: ActionTypes): initialStateType => {
@@ -155,6 +160,12 @@ export const AccountReducer = (state = initialState, action: ActionTypes): initi
             return {...state, movieWatchList: action.movies}
         case SET_TV_SHOW_WATCH_LIST:
             return {...state, TVShowWatchList: action.series}
+        case SET_EVENT_MESSAGE:
+            return {...state, eventMessages: concat(state.eventMessages, action.message)}
+        case DELETE_EVENT_MESSAGE:
+            const array = state.eventMessages
+            array.shift()
+            return {...state, eventMessages:[...array]}
         default:
             return state
     }
@@ -196,6 +207,13 @@ export const accountActions = {
     setTVEpisodesWatchList: (series: CommonResType<TVShowWatchList>) => ({
         type: SET_TV_SHOW_WATCH_LIST,
         series
+    } as const),
+    setEventMessage: (message:string) => ({
+        type: SET_EVENT_MESSAGE,
+        message
+    } as const),
+    deleteEventMessage: () => ({
+        type: DELETE_EVENT_MESSAGE,
     } as const),
 }
 
@@ -255,13 +273,27 @@ export const addToFavorite = (id: number, type: 'movie' | 'tv', isFavorite: bool
     async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
         const sessionId = getState().auth.sessionId
         const res = await accountAPI.markAsFavorite(sessionId, isFavorite, id, type)
-        console.log(res)
+        switch (res.status_code) {
+            case 12: dispatch(accountActions.setEventMessage('Item already added')); break
+            case 1: dispatch(accountActions.setEventMessage('Item added successful')); break
+            default: dispatch(accountActions.setEventMessage('Some error occurred'))
+        }
+        setTimeout(()=> {
+            dispatch(accountActions.deleteEventMessage())
+        }, 5000)
     }
 export const addToWatchList = (id: number, type: 'movie' | 'tv', isWatchlist: boolean) =>
     async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
         const sessionId = getState().auth.sessionId
         const res = await accountAPI.addToWatchList(sessionId, isWatchlist, id, type)
-        console.log(res)
+        switch (res.status_code) {
+            case 12: dispatch(accountActions.setEventMessage('Item already added')); break
+            case 1: dispatch(accountActions.setEventMessage('Item added successful')); break
+            default: dispatch(accountActions.setEventMessage('Some error occurred'))
+        }
+        setTimeout(()=> {
+            dispatch(accountActions.deleteEventMessage())
+        }, 5000)
     }
 
 

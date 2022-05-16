@@ -59,13 +59,19 @@ export const accountAPI = {
     },
     markAsFavorite: async (sessionId: string, isFavorite: boolean, id: number, type: 'movie' | 'tv', accountId?: string)
         : Promise<favoriteAndWatchListRes> => {
-        const {data} = await instance
-            .post<favoriteAndWatchListRes>(`account/{account_id}/favorite?session_id=${sessionId}`, {
-                media_type: type,
-                media_id: id,
-                favorite: isFavorite
-            })
-        return data
+        try {
+            const {data} = await instance
+                .post<favoriteAndWatchListRes>(`account/{account_id}/favorite?session_id=${sessionId}`, {
+                    media_type: type,
+                    media_id: id,
+                    favorite: isFavorite
+                })
+            return data
+        }
+        catch (e) {
+            return e as favoriteAndWatchListRes
+        }
+
     },
     addToWatchList: async (sessionId: string, isWatchlist: boolean, id: number, type: 'movie' | 'tv', accountId?: string)
         : Promise<favoriteAndWatchListRes> => {

@@ -33,3 +33,6 @@ export const getMovieWatchList = (state:RootStateType) => {
 export const getTVShowWatchList = (state:RootStateType) => {
   return state.account.TVShowWatchList
 }
+export const getEventMessages = (state:RootStateType) => {
+  return state.account.eventMessages
+}

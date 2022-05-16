@@ -1,8 +1,10 @@
 import React from 'react';
-import {SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
+import {Alert, Collapse, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WatchListIcon from "@mui/icons-material/AssignmentTurnedIn";
 import GradingIcon from "@mui/icons-material/Grading";
+import {useSelector} from "react-redux";
+import {getEventMessages} from "../store/Selectors/accountSelectors";
 
 type props = {
     markAsFavorite: ()=> void
@@ -12,6 +14,9 @@ type props = {
 }
 
 export const ActionMenu:React.FC<props> = (props:props) => {
+
+
+
     return (
         <div>
             <SpeedDial
@@ -39,6 +44,8 @@ export const ActionMenu:React.FC<props> = (props:props) => {
                     tooltipTitle={'Add to list'}
                 />
             </SpeedDial>
+
+
         </div>
     );
 };

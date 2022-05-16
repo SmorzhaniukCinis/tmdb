@@ -29,7 +29,7 @@ export const ContentSwitcher: React.FC<props> = ({contentType}: props) => {
         case 'movie':
             return <Paper id='resultWrap' elevation={10} className={s.resultWrap}>
                 {searchRes?.results.length
-                    ? searchRes?.results.map(i => <SearchItem item={i} key={i.id}/>)
+                    ? searchRes?.results.map(i => <SearchItem item={i} key={i.id} mediaType={contentType}/>)
                     : <img className={!isDarkTheme ? s.noResultImage : s.noResultImageDark} src={noResult}
                     alt=""/>}
             </Paper>

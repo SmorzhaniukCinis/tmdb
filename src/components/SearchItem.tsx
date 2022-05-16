@@ -11,12 +11,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCreatedLists} from "../store/Selectors/accountSelectors";
 import {SpeedDial} from "@mui/lab";
 import {MovieType, TVType} from "../API/SearchAPI/searchTypes";
+import {useParams} from "react-router-dom";
 
 type props = {
     item: resultType
+    mediaType: 'movie' | 'tv'
 }
 
-export const SearchItem: React.FC<props> = ({item}: props) => {
+export const SearchItem: React.FC<props> = ({item, mediaType}: props) => {
 
     const lists = useSelector(getCreatedLists)
     const dispatch = useDispatch()
@@ -24,10 +26,10 @@ export const SearchItem: React.FC<props> = ({item}: props) => {
 
 
     const markAsFavorite = () => {
-        dispatch(addToFavorite(item.id, item.media_type, true))
+        dispatch(addToFavorite(item.id, mediaType, true))
     }
     const addToWatchListOnClick = () => {
-        dispatch(addToWatchList(item.id, item.media_type, true))
+        dispatch(addToWatchList(item.id, mediaType, true))
     }
 
     const [open, setOpen] = React.useState(false);

@@ -4,9 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 import Profile from "./Pages/Profile";
 import {NavBar} from "./components/NavBar";
 import Auth from "./Pages/Auth";
-import {Container, ThemeProvider} from "@mui/material";
+import {Collapse, Container, ThemeProvider} from "@mui/material";
 import {Home} from "./Pages/Home";
-import {getIsDarkTheme} from "./store/Selectors/accountSelectors";
+import {getEventMessages, getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
 import {authActions, createGuestSessionId} from "./store/authReducer";
 import {accountActions, getAccountInfo, getCreatedList} from "./store/accountReducer";
@@ -17,11 +17,15 @@ import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
 import {NewList} from "./Pages/NewList";
 import {SearchResult} from "./Pages/SearchResult";
+import {Alert} from "@mui/material";
 
 
 function App() {
 
     const dispatch = useDispatch()
+    const isDarkTheme = useSelector(getIsDarkTheme)
+    const sessionId = useSelector(getSessionId)
+    const messages = useSelector(getEventMessages)
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionId')
@@ -33,8 +37,6 @@ function App() {
         }
     }, [dispatch])
 
-    const sessionId = useSelector(getSessionId)
-
     useEffect(() => {
         if (sessionId) {
             dispatch(getAccountInfo())
@@ -44,8 +46,6 @@ function App() {
         }
     }, [dispatch, sessionId])
 
-
-    const isDarkTheme = useSelector(getIsDarkTheme)
 
     return (
         <div>
@@ -64,12 +64,19 @@ function App() {
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
-                        <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}>
-                        </Route>
+                        <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}/>
                         <Route path={'/newList'} element={<NewList/>}/>
                     </Routes>
                 </Container>
+
             </ThemeProvider>
+            <div style={{position: 'fixed', bottom: '50px', right: '30px'}}>
+                    {messages.map((message, index) =>
+                        <Alert key={index} severity="success">
+                            {message}
+                        </Alert>
+                    )}
+            </div>
         </div>
     );
 }
