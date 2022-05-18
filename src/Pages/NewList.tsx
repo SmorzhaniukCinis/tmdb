@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import {Button, TextField, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import s from '../styles/newList.module.css'
-import { useForm, SubmitHandler } from "react-hook-form";
+import {useForm, SubmitHandler} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {CreateList, EditList, GetList} from "../store/listReducer";
 import {getList} from "../store/Selectors/listSelectors";
 import {useNavigate, useParams} from "react-router-dom";
+import {getCreatedList} from "../store/accountReducer";
 
 type Inputs = {
     listName: string,
@@ -22,18 +23,24 @@ export const NewList = () => {
     const params = useParams()
     const navigate = useNavigate()
 
-    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
+    const {register, handleSubmit, reset } = useForm<Inputs>({defaultValues: {
+            listName: listDescription?.name,
+            listDescription: listDescription?.description || ''
+        }});
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const listData = {
             name: data.listName,
             description: data.listDescription,
             isPublic
         }
-        if(params.isEditing) {
+        if (params.isEditing) {
             dispatch(EditList(listData, listDescription?.id))
-            dispatch(GetList(listDescription?.id))
+            navigate(`/listDetails/${listDescription?.id}`)
         } else {
             dispatch(CreateList(listData))
+            dispatch(getCreatedList())
+            navigate('/myLists')
         }
 
     }
@@ -45,33 +52,40 @@ export const NewList = () => {
         setIsPublic(newAlignment);
     };
 
-    useEffect(()=> {
-        if(params.isEditing) {
+    useEffect(() => {
+        if (params.isEditing && params.listId) {
+            dispatch(GetList(Number(params.listId)))
             setTitle('Edit list')
         }
-    }, [])
+    }, [dispatch, params.isEditing , params.listId])
 
+    useEffect(()=>{
+            reset({
+                listName: listDescription?.name,
+                listDescription: listDescription?.description || ''
+            })
+    },[listDescription, reset])
 
     return (
-
         <form onSubmit={handleSubmit(onSubmit)} className={s.fieldWrapper}>
             <Typography variant={'h5'} sx={{marginBottom: '10px'}}>
                 {title}
             </Typography>
             <TextField
+                variant="outlined"
                 {...register("listName", {required: true})}
-                defaultValue={listDescription?.name}
                 sx={{width: '40%', marginBottom: '10px'}}
-                id="outlined-basic" label="Name of list"
+                label="Name of list"
+                focused
             />
             <TextField
+                variant="outlined"
                 {...register("listDescription")}
-                defaultValue={listDescription?.description}
                 sx={{width: '60%', marginBottom: '10px'}}
-                id="outlined-multiline-static"
                 label="Description"
                 multiline
                 rows={4}
+                focused
             />
             <div>
                 <Typography>
