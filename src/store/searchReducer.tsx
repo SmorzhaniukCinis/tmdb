@@ -40,7 +40,6 @@ export const GetMultiSearch = (searchString: string, page?: number) =>
     }
 export const GetMovieSearch = (searchString: string, page?: number) =>
     async (dispatch: Dispatch<ActionTypes>) => {
-    debugger
         dispatch(searchActions.setLoading(true))
         const result = await searchAPI.getMovieSearch(searchString, page)
         dispatch(searchActions.setSearchRes(result))

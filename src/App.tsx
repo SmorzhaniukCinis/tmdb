@@ -72,7 +72,7 @@ function App() {
             </ThemeProvider>
             <div style={{position: 'fixed', bottom: '50px', right: '30px'}}>
                     {messages.map((message, index) =>
-                        <Alert key={index} severity="success">
+                        <Alert sx={{m:1}} key={index} severity="success">
                             {message}
                         </Alert>
                     )}
