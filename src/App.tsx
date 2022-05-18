@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Profile from "./Pages/Profile";
 import {NavBar} from "./components/NavBar";
 import Auth from "./Pages/Auth";
-import {Collapse, Container, ThemeProvider} from "@mui/material";
+import {Alert, Container, ThemeProvider} from "@mui/material";
 import {Home} from "./Pages/Home";
 import {getEventMessages, getIsDarkTheme} from "./store/Selectors/accountSelectors";
 import {darkTheme, lightTheme} from "./materialUI/ThemeStyles";
@@ -17,7 +17,7 @@ import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
 import {NewList} from "./Pages/NewList";
 import {SearchResult} from "./Pages/SearchResult";
-import {Alert} from "@mui/material";
+import {MoviePage} from "./Pages/MoviePage";
 
 
 function App() {
@@ -62,6 +62,7 @@ function App() {
                         <Route path={'/favorite'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratings'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
+                        <Route path={'/movie/:movieId'} element={<MoviePage/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                         <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}/>

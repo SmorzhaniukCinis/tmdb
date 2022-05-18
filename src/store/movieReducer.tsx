@@ -28,6 +28,6 @@ export const movieActions = {
 export const getMovieDetails = (id:number) => async (dispatch: Dispatch<ActionTypes>) => {
     const res  = await movieAPI.getMovieDetails(id)
     dispatch(movieActions.setMovieDetails(res))
-
+    console.log(res)
 }
 
