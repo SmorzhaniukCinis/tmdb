@@ -1,12 +1,16 @@
 import {Dispatch} from "redux";
-import {ActionTypes} from "./store";
-import {movieDetailsType} from "../API/movieAPI/movieTypes";
+import {ActionTypes, RootStateType} from "./store";
+import {accountStats, movieDetailsType} from "../API/movieAPI/movieTypes";
 import {movieAPI} from "../API/movieAPI/movieAPI";
 
 const SET_MOVIE_DETAILS = "movie/SET_MOVIE_DETAILS"
+const SET_LOADING = "movie/SET_LOADING"
+const SET_MOVIE_STATS = "movie/SET_MOVIE_STATS"
 
 const initialState = {
-    movieDetails: {} as movieDetailsType
+    movieDetails: {} as movieDetailsType,
+    isLoading: false,
+    movieStats: {} as accountStats
 }
 type initialStateType = typeof initialState
 
@@ -14,6 +18,10 @@ export const MovieReducer = (state = initialState, action: ActionTypes): initial
     switch (action.type) {
         case SET_MOVIE_DETAILS:
             return {...state, movieDetails: action.movieDetails}
+        case SET_MOVIE_STATS:
+            return {...state, movieStats: action.movieStats}
+        case SET_LOADING:
+            return {...state, isLoading: action.isLoading}
         default:
             return state
     }
@@ -21,13 +29,21 @@ export const MovieReducer = (state = initialState, action: ActionTypes): initial
 
 export const movieActions = {
     setMovieDetails: (movieDetails:movieDetailsType) => ({type: SET_MOVIE_DETAILS, movieDetails} as const),
-
+    setLoading: (isLoading:boolean) => ({type: SET_LOADING, isLoading} as const),
+    setMovieStats: (movieStats:accountStats) => ({type: SET_MOVIE_STATS, movieStats} as const),
 }
 
-
 export const getMovieDetails = (id:number) => async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch(movieActions.setLoading(true))
     const res  = await movieAPI.getMovieDetails(id)
     dispatch(movieActions.setMovieDetails(res))
+    dispatch(movieActions.setLoading(false))
+    console.log(res)
+}
+export const getAccountMovieStats = (id:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
+    const sessionId = getState().auth.sessionId
+    const res  = await movieAPI.getAccountMovieStats(id, sessionId)
+    dispatch(movieActions.setMovieStats(res))
     console.log(res)
 }
 

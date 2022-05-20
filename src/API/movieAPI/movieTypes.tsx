@@ -153,3 +153,9 @@ export type videoType = {
     size: number
     type: string
 }
+export type accountStats = {
+    "id": number,
+    "favorite": boolean,
+    "rated": {"value": number } | false
+    "watchlist": boolean
+}

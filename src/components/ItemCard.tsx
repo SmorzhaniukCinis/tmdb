@@ -1,14 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {getImage} from "../Common/getImage";
-import {Box, Card, CardContent, Typography} from "@mui/material";
+import {Box, Card, CardContent, Rating, Typography} from "@mui/material";
 import s from "../styles/ProfileListWrapper.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getCreatedLists, getIsDarkTheme} from "../store/Selectors/accountSelectors";
-import {Rating, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
-import WatchListIcon from '@mui/icons-material/AssignmentTurnedIn';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import {addToFavorite, addToWatchList, getCreatedList} from "../store/accountReducer";
-import GradingIcon from '@mui/icons-material/Grading';
+import {addToFavorite, addToWatchList} from "../store/accountReducer";
 import {ListMenu} from "./ListMenu";
 import {ActionMenu} from "./ActionMenu";
 

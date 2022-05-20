@@ -1,48 +1,108 @@
 import React, {useEffect} from 'react';
-import {getMovieDetails} from "../store/movieReducer";
+import {getAccountMovieStats, getMovieDetails} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
 import s from '../styles/moviePage.module.css'
-import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
+import {getIsLoading, getMovieDetailsSelector, getMovieStats} from "../store/Selectors/movieSelectors";
 import {getImage} from "../Common/getImage";
-import {Container, Typography} from "@mui/material";
+import {CircularProgress, Container, Typography} from "@mui/material";
+import Backdrop from '@mui/material/Backdrop';
+import WatchListIcon from "@mui/icons-material/AssignmentTurnedIn";
+import GradingIcon from "@mui/icons-material/Grading";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import {Rating} from "@mui/material";
+import {getSessionId} from "../store/Selectors/authSelectors";
+
 
 export const MoviePage = () => {
 
     const dispatch = useDispatch()
     const movieDetails = useSelector(getMovieDetailsSelector)
+    const isLoading = useSelector(getIsLoading)
+    const movieStats = useSelector(getMovieStats)
+    const sessionId = useSelector(getSessionId)
 
     useEffect(() => {
         dispatch(getMovieDetails(550))
-    }, [])
 
-    return (
-        <Container>
-            <div className={s.CommonInfoBloc}>
-                <img className={s.backdropImage}  src={getImage("original" , movieDetails.backdrop_path)}/>
-                <div style={{position: 'relative', zIndex: 2}}>
-                    <Container sx={{mt: 3}} className={s.InfoWrapper}>
-                        <div>
-                            <img className={s.posterImage}
-                                 src={getImage("original" , movieDetails.poster_path)}/>
+    }, [dispatch])
+    useEffect(()=> {
+        dispatch(getAccountMovieStats(550))
+    }, [sessionId])
+
+    if (isLoading) {
+        return <Backdrop
+            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+            open={true}
+        >
+            <CircularProgress color="inherit"/>
+        </Backdrop>
+    } else {
+        return (
+            <Container>
+                <div className={s.CommonInfoBloc}>
+                    <img className={s.backdropImage} src={getImage("original", movieDetails.backdrop_path)} alt=''/>
+                    <div style={{position: 'relative', zIndex: 2}}>
+                        <div className={s.InfoWrapper}>
+                            <div>
+                                <img className={s.posterImage}
+                                     src={getImage("original", movieDetails.poster_path)} alt=''/>
+                            </div>
+                            <div>
+                                <div>
+                                    <Typography sx={{fontSize: 35, fontWeight: 'bold'}}>
+                                        {movieDetails.title}
+                                        <span className={s.movieDate}>{`  (${parseInt(movieDetails.release_date)})`}</span>
+                                    </Typography>
+                                    <Typography>
+                                    <span>
+                                         {movieDetails.release_date?.replace(/-/g, '/')}
+                                    </span>
+                                        <span className={s.language}>
+                                        {` (${movieDetails.original_language})`}
+                                    </span>
+                                        {movieDetails.genres
+                                            ? movieDetails.genres.map(i =>
+                                                <span className={s.genre} key={i.id}>{i.name}</span>)
+                                            : null}
+                                        <span className={s.runTime}>
+                                        {movieDetails.runtime
+                                            ?`${Math.floor(movieDetails.runtime/60)} h. ${movieDetails.runtime%60} min.`
+                                            :   null
+                                        }
+                                    </span>
+                                    </Typography>
+                                </div>
+                                <div className={s.iconsWrapper}>
+                                    <FavoriteIcon  sx={{mr: 3}}    fontSize={'large'}/>
+                                    <WatchListIcon  sx={{mr: 3}}   fontSize={'large'}/>
+                                    <GradingIcon sx={{mr: 3}}   fontSize={'large'}/>
+                                    <div>
+                                        {movieStats.rated
+                                            ?  <Rating
+                                                name="simple-controlled"
+                                                value={movieStats.rated.value}
+                                                onChange={(event, newValue) => {
+                                                    // setValue(newValue);
+                                                }}
+                                            />
+                                            :<Rating
+                                                name="simple-controlled"
+                                                value={null}
+                                                onChange={(event, newValue) => {
+                                                    // setValue(newValue);
+                                                }}
+                                            />}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <Typography className={s.title}>
-                                {movieDetails.title}
-                                <span>{`  (${parseInt(movieDetails.release_date)})`}</span>
-                            </Typography>
-                            <Typography>
-                                <span>
-                                     {movieDetails.release_date.replace(/-/g, '/')}
-                                </span>
-                                <span className={s.language}>
-                                    {` (${movieDetails.original_language})`}
-                                </span>
-                            </Typography>
-                        </div>
-                    </Container>
+
+                    </div>
                 </div>
-            </div>
-        </Container>
-    );
+            </Container>
+        );
+    }
+
+
 };
 

@@ -6,6 +6,7 @@ import GradingIcon from "@mui/icons-material/Grading";
 import {useSelector} from "react-redux";
 import {getEventMessages} from "../store/Selectors/accountSelectors";
 
+
 type props = {
     markAsFavorite: ()=> void
     addToWatchListOnClick: ()=> void
@@ -13,7 +14,7 @@ type props = {
     isVisible: boolean
 }
 
-export const ActionMenu:React.FC<props> = (props:props) => {
+export const ActionMenu :React.FC<props> = (props:props) => {
 
 
 

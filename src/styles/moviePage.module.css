@@ -22,15 +22,25 @@
 }
 .InfoWrapper {
     display: flex;
+    margin: 30px 10% 0 10%;
 }
 .title {
     font-size: 35px;
     font-weight: bold;
 }
-.title span {
+.movieDate {
     font-weight: initial;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 .language {
     text-transform: uppercase;
+}
+.genre {
+    margin-left: 14px;
+}
+.runTime {
+    margin-left: 20px;
+}
+.iconsWrapper {
+    margin-top: 10px;
 }
