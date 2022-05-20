@@ -17,7 +17,7 @@ import {RatedSeries} from "./Pages/RatedSeries";
 import {ListDetails} from "./Pages/listDetails";
 import {NewList} from "./Pages/NewList";
 import {SearchResult} from "./Pages/SearchResult";
-import {MoviePage} from "./Pages/MoviePage";
+import {MediaPage} from "./Pages/MediaPage";
 
 
 function App() {
@@ -62,7 +62,7 @@ function App() {
                         <Route path={'/favorite'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratings'} element={<ProfileListWrapper/>}/>
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
-                        <Route path={'/movie/:movieId'} element={<MoviePage/>}/>
+                        <Route path={'/:media/:mediaId'} element={<MediaPage/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                         <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}/>

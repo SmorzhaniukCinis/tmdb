@@ -33,17 +33,12 @@ export const movieActions = {
     setMovieStats: (movieStats:accountStats) => ({type: SET_MOVIE_STATS, movieStats} as const),
 }
 
-export const getMovieDetails = (id:number) => async (dispatch: Dispatch<ActionTypes>) => {
+export const getMovieDetails = (id:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     dispatch(movieActions.setLoading(true))
     const res  = await movieAPI.getMovieDetails(id)
     dispatch(movieActions.setMovieDetails(res))
-    dispatch(movieActions.setLoading(false))
-    console.log(res)
-}
-export const getAccountMovieStats = (id:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     const sessionId = getState().auth.sessionId
-    const res  = await movieAPI.getAccountMovieStats(id, sessionId)
-    dispatch(movieActions.setMovieStats(res))
-    console.log(res)
+    const stats  = await movieAPI.getAccountMovieStats(id, sessionId)
+    dispatch(movieActions.setMovieStats(stats))
+    dispatch(movieActions.setLoading(false))
 }
-

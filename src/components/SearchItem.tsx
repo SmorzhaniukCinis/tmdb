@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, CardActionArea, CardContent, CardMedia, styled, Typography} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
 import {resultType} from "../store/searchReducer";
 import {getImage} from "../Common/getImage";
 import s from '../styles/homePage.module.css'
@@ -9,9 +9,7 @@ import {addToFavorite, addToWatchList} from "../store/accountReducer";
 import {ListMenu} from "./ListMenu";
 import {useDispatch, useSelector} from "react-redux";
 import {getCreatedLists} from "../store/Selectors/accountSelectors";
-import {SpeedDial} from "@mui/lab";
-import {MovieType, TVType} from "../API/SearchAPI/searchTypes";
-import {useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 type props = {
     item: resultType
@@ -22,6 +20,7 @@ export const SearchItem: React.FC<props> = ({item, mediaType}: props) => {
 
     const lists = useSelector(getCreatedLists)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [isMenuVisible, setIsMenuVisible] = useState(false)
 
 
@@ -37,6 +36,12 @@ export const SearchItem: React.FC<props> = ({item, mediaType}: props) => {
         setOpen(true);
     }
 
+    const goToMedia = (id:number) =>{
+        if (mediaType === 'movie') {
+            navigate(`/movie/${id}`)
+        } else navigate(`/tv/${id}`)
+
+    }
 
 
 
@@ -49,6 +54,7 @@ export const SearchItem: React.FC<props> = ({item, mediaType}: props) => {
                 <CardMedia
                     component="img"
                     height="350"
+                    onClick={()=>goToMedia(item.id)}
                     image={getImage("original", item.poster_path) || NoImageAvailable}
                 />
                 <CardContent>

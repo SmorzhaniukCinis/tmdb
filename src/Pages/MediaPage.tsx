@@ -1,33 +1,33 @@
 import React, {useEffect} from 'react';
-import {getAccountMovieStats, getMovieDetails} from "../store/movieReducer";
+import {getMovieDetails} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
 import s from '../styles/moviePage.module.css'
 import {getIsLoading, getMovieDetailsSelector, getMovieStats} from "../store/Selectors/movieSelectors";
 import {getImage} from "../Common/getImage";
-import {CircularProgress, Container, Typography} from "@mui/material";
+import {CircularProgress, Container, Rating, Typography} from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
 import WatchListIcon from "@mui/icons-material/AssignmentTurnedIn";
 import GradingIcon from "@mui/icons-material/Grading";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {Rating} from "@mui/material";
-import {getSessionId} from "../store/Selectors/authSelectors";
+import {useParams} from "react-router-dom";
 
 
-export const MoviePage = () => {
+export const MediaPage = () => {
 
     const dispatch = useDispatch()
     const movieDetails = useSelector(getMovieDetailsSelector)
     const isLoading = useSelector(getIsLoading)
     const movieStats = useSelector(getMovieStats)
-    const sessionId = useSelector(getSessionId)
+    const params = useParams()
 
     useEffect(() => {
-        dispatch(getMovieDetails(550))
+        if(params.media === 'movie') {
+            dispatch(getMovieDetails(Number(params.mediaId)))
+        }
 
     }, [dispatch])
-    useEffect(()=> {
-        dispatch(getAccountMovieStats(550))
-    }, [sessionId])
+
+
 
     if (isLoading) {
         return <Backdrop
