@@ -6,6 +6,9 @@ export const getMovieDetailsSelector = (state:RootStateType) => {
 export const getIsLoading = (state:RootStateType) => {
   return state.movie.isLoading
 }
+export const getIsRatingLoading = (state:RootStateType) => {
+  return state.movie.isRatingLoading
+}
 export const getMovieStats = (state:RootStateType) => {
   return state.movie.movieStats
 }

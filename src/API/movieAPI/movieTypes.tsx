@@ -159,3 +159,8 @@ export type accountStats = {
     "rated": {"value": number } | false
     "watchlist": boolean
 }
+export type rateMovieRes = {
+    status_code: number
+    status_message: string
+    success: boolean
+}

@@ -1,16 +1,13 @@
 import React, {useEffect} from 'react';
-import {getMovieDetails} from "../store/movieReducer";
+import {deleteMovieRating, getMovieDetails, rateMovie} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
 import s from '../styles/moviePage.module.css'
-import {getIsLoading, getMovieDetailsSelector, getMovieStats} from "../store/Selectors/movieSelectors";
+import {getIsLoading, getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {getImage} from "../Common/getImage";
-import {CircularProgress, Container, Rating, Tooltip, Typography} from "@mui/material";
+import {CircularProgress, Container, Typography} from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
-import WatchListIcon from "@mui/icons-material/AssignmentTurnedIn";
-import GradingIcon from "@mui/icons-material/Grading";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import {useParams} from "react-router-dom";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {MediaTools} from "../components/MediaTools";
 
 
 export const MediaPage = () => {
@@ -18,15 +15,32 @@ export const MediaPage = () => {
     const dispatch = useDispatch()
     const movieDetails = useSelector(getMovieDetailsSelector)
     const isLoading = useSelector(getIsLoading)
-    const movieStats = useSelector(getMovieStats)
     const params = useParams()
+
 
     useEffect(() => {
         if (params.media === 'movie') {
             dispatch(getMovieDetails(Number(params.mediaId)))
+        } else {
+            //get TV
         }
 
-    }, [dispatch])
+    }, [dispatch, params.media, params.mediaId])
+
+    const rateMedia = (value:number) => {
+        if (params.media === 'movie') {
+            dispatch(rateMovie(Number(params.mediaId), value))
+        } else {
+            //get TV
+        }
+    }
+    const deleteMediaRating = () => {
+        if (params.media === 'movie') {
+            dispatch(deleteMovieRating(Number(params.mediaId)))
+        } else {
+            //get TV
+        }
+    }
 
 
     if (isLoading) {
@@ -73,46 +87,12 @@ export const MediaPage = () => {
                                     </span>
                                     </Typography>
                                 </div>
-                                <div className={s.iconsWrapper}>
-                                    <Tooltip title='Add to favorite'>
-                                        <FavoriteIcon sx={{mr: 3, cursor:'pointer'}} fontSize={'large'}/>
-                                    </Tooltip>
-                                    <Tooltip title='Add to watchlist'>
-                                        <WatchListIcon sx={{mr: 3, cursor:'pointer'}} fontSize={'large'}/>
-                                    </Tooltip>
-                                    <Tooltip title='Add to own list'>
-                                        <GradingIcon sx={{mr: 3, cursor:'pointer'}} fontSize={'large'}/>
-                                    </Tooltip>
-                                    <div>
-                                        <Tooltip title={`Votes: ${movieDetails.vote_count}`} followCursor>
-                                            <Typography sx={{m: 1, width: '120px'}}>
-                                                {`Users score: ${movieDetails.vote_average}`}
-                                            </Typography>
-                                        </Tooltip>
-                                    </div>
-                                    <div>
-                                        {movieStats.rated
-                                            ? <div>
-                                                <Rating
-                                                    name="simple-controlled"
-                                                    value={movieStats.rated.value}
-                                                    onChange={(event, newValue) => {
-                                                        // setValue(newValue);
-                                                    }}
-                                                />
-                                                <Tooltip sx={{cursor: 'pointer', ml: 2}} title="Delete rating">
-                                                    <DeleteOutlineIcon/>
-                                                </Tooltip>
-                                            </div>
-                                            : <Rating
-                                                name="simple-controlled"
-                                                value={null}
-                                                onChange={(event, newValue) => {
-                                                    // setValue(newValue);
-                                                }}
-                                            />}
-                                    </div>
-                                </div>
+
+                                <MediaTools voteCount={movieDetails.vote_count}
+                                            voteAverage={movieDetails.vote_average}
+                                            deleteMediaRating={deleteMediaRating}
+                                            rateMedia={rateMedia}/>
+
                                 <div>
                                     <Typography variant={'h5'}>
                                         Overview
