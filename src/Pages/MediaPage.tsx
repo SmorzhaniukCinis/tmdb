@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {deleteMovieRating, getMovieDetails, rateMovie} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
 import s from '../styles/moviePage.module.css'
@@ -16,10 +16,13 @@ export const MediaPage = () => {
     const movieDetails = useSelector(getMovieDetailsSelector)
     const isLoading = useSelector(getIsLoading)
     const params = useParams()
+    const [currentMedia, setCurrentMedia] = useState<'movie'| 'tv'>('movie')
 
 
     useEffect(() => {
+
         if (params.media === 'movie') {
+            setCurrentMedia(params.media)
             dispatch(getMovieDetails(Number(params.mediaId)))
         } else {
             //get TV
@@ -91,6 +94,8 @@ export const MediaPage = () => {
                                 <MediaTools voteCount={movieDetails.vote_count}
                                             voteAverage={movieDetails.vote_average}
                                             deleteMediaRating={deleteMediaRating}
+                                            currentMedia={currentMedia}
+                                            mediaId={movieDetails.id}
                                             rateMedia={rateMedia}/>
 
                                 <div>

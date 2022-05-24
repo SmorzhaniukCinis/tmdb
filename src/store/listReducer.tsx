@@ -59,12 +59,17 @@ export const DeleteList = (id:number) => async (dispatch: Dispatch<ActionTypes>,
 export const addListItem = (ListId:number, itemId:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     const sessionId = getState().auth.sessionId
     const res = await listAPI.addListItem(itemId, ListId, sessionId)
+    console.log(res)
     if (res.status_code === 8) {
         dispatch(accountActions.setEventMessage("this item already exist in this list"))
         setTimeout(()=> {
             dispatch(accountActions.deleteEventMessage())
         }, 5000)
-
+    } else if (res.status_code === 12) {
+        dispatch(accountActions.setEventMessage("Success"))
+        setTimeout(()=> {
+            dispatch(accountActions.deleteEventMessage())
+        }, 5000)
     }
 }
 export const deleteListItem = (listId:number, itemId:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {

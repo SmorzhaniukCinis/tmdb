@@ -14,6 +14,8 @@ import {
     ratedTVShow,
     TVShowWatchList
 } from "../API/accountAPI/accountTypes";
+import {movieAPI} from "../API/movieAPI/movieAPI";
+import {movieActions} from "./movieReducer";
 
 
 const SET_LOADING = "account/SET_LOADING"
@@ -275,6 +277,7 @@ export const addToFavorite = (id: number, type: 'movie' | 'tv', isFavorite: bool
         const res = await accountAPI.markAsFavorite(sessionId, isFavorite, id, type)
         switch (res.status_code) {
             case 12: dispatch(accountActions.setEventMessage('Item already added')); break
+            case 13: dispatch(accountActions.setEventMessage('Item was deleted')); break
             case 1: dispatch(accountActions.setEventMessage('Item added successful')); break
             default: dispatch(accountActions.setEventMessage('Some error occurred'))
         }
@@ -288,6 +291,7 @@ export const addToWatchList = (id: number, type: 'movie' | 'tv', isWatchlist: bo
         const res = await accountAPI.addToWatchList(sessionId, isWatchlist, id, type)
         switch (res.status_code) {
             case 12: dispatch(accountActions.setEventMessage('Item already added')); break
+            case 13: dispatch(accountActions.setEventMessage('Item was deleted')); break
             case 1: dispatch(accountActions.setEventMessage('Item added successful')); break
             default: dispatch(accountActions.setEventMessage('Some error occurred'))
         }
