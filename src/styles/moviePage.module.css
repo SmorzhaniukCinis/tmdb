@@ -44,6 +44,45 @@
 .iconsWrapper {
     margin-top: 10px;
 }
-.creators {
-
+.empty {
+    height: 500px;
+}
+.castAndCrewWrapper {
+    margin-top: 10px;
+    overflow-x: auto;
+    width: 100%;
+    left: 0;
+    top: 540px;
+    display: grid;
+    grid-template-columns: repeat(11, 200px);
+    padding: 15px;
+}
+.castAndCrewWrapper::-webkit-scrollbar-track {
+    border-radius: 1px;
+}
+.castAndCrewWrapper::-webkit-scrollbar {
+    width: 10px;
+}
+.castAndCrewWrapper::-webkit-scrollbar-thumb {
+    border: 5px solid transparent;
+    border-radius: 100px;
+    background-color: #cdc5c5;
+    background-clip: content-box;
+}
+.CastTitle {
+    margin-left: 28px;
+    position: relative;
+    top: 20px;
+    font-size: 24px;
+}
+.castAndCrewLink {
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 25px;
+    color: #cdc5c5;
+    transition: 0.3s;
+}
+.castAndCrewLink:hover {
+    color: #594d59;
+    transition: 0.3s;
 }

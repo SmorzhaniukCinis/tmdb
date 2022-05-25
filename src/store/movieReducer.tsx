@@ -10,7 +10,7 @@ const SET_MOVIE_STATS = "movie/SET_MOVIE_STATS"
 
 const initialState = {
     movieDetails: {} as movieDetailsType,
-    isLoading: false,
+    isLoading: true,
     isRatingLoading: false,
     movieStats: {} as accountStats
 }

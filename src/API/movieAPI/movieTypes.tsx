@@ -71,7 +71,7 @@ type similarMovieType = {
     vote_count: number
 }
 
-type crewItemType = {
+export type crewItemType = {
     adult: boolean
     credit_id: string
     department: string
@@ -84,7 +84,7 @@ type crewItemType = {
     popularity: number
     profile_path: string | null
 }
-type castItemType = {
+export type castItemType = {
     adult: boolean
     cast_id: number
     character: string
