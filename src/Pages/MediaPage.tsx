@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {deleteMovieRating, getMovieDetails, rateMovie} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
-import s from '../styles/moviePage.module.css'
+import s from '../styles/mediaPage.module.css'
 import {getIsLoading, getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {getImage} from "../Common/getImage";
 import {CircularProgress, Container, Typography} from "@mui/material";
@@ -10,6 +10,7 @@ import {useParams} from "react-router-dom";
 import {MediaTools} from "../components/MediaTools";
 import {MediaInfoBlock} from "../components/MediaInfoBlock";
 import {MediaCredits} from "../components/MediaCredits";
+import {MediaSocial} from "../components/MediaSocial";
 
 
 export const MediaPage = () => {
@@ -45,8 +46,9 @@ export const MediaPage = () => {
         return (
             <Container maxWidth={'lg'}>
                 <MediaInfoBlock currentMedia={currentMedia}/>
-                <div className={s.empty}></div>
+                <div className={s.empty}>secret message;)</div>
                 <MediaCredits/>
+                <MediaSocial/>
             </Container>
         );
     }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import s from "../styles/moviePage.module.css";
+import s from "../styles/mediaPage.module.css";
 import {Rating, Tooltip, Typography} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WatchListIcon from "@mui/icons-material/AssignmentTurnedIn";

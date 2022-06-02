@@ -46,6 +46,7 @@
 }
 .empty {
     height: 500px;
+    opacity: 0;
 }
 .castAndCrewWrapper {
     margin-top: 10px;

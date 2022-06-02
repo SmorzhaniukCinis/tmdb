@@ -1,7 +1,7 @@
 import React from 'react';
 import {deleteMovieRating, rateMovie} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
-import s from '../styles/moviePage.module.css'
+import s from '../styles/mediaPage.module.css'
 import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {getImage} from "../Common/getImage";
 import {Typography} from "@mui/material";
