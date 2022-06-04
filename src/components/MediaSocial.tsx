@@ -3,18 +3,20 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import s from '../styles/mediaPage.module.css'
 import {useSelector} from "react-redux";
 import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
+import {Avatar, Paper} from "@mui/material";
+import {getImage} from "../Common/getImage";
+import s from '../styles/mediaPage.module.css'
 
 interface TabPanelProps {
-    children?: React.ReactNode;
+    children?: any
     index: number;
     value: number;
 }
 
 function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+    const {children, value, index, ...other} = props;
 
     return (
         <div
@@ -25,8 +27,8 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                <Box sx={{p: 3}}>
+                    {children}
                 </Box>
             )}
         </div>
@@ -40,28 +42,68 @@ function a11yProps(index: number) {
     };
 }
 
+const getAvatar = (path: string | null) => {
+    if (path && !path.includes("https://www.gravatar.com")) {
+        return getImage('original', path)
+    } else {
+        return path?.slice(1)
+    }
+}
+const getDate = () => {
+    
+}
+
 export const MediaSocial = () => {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-    const {reviews, } = useSelector(getMovieDetailsSelector)
+    const {reviews} = useSelector(getMovieDetailsSelector)
+
 
     return (
-        <Box sx={{ width: '100%', mt: 4 }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Typography variant={'h5'} sx={{m:1}}>
+        <Box sx={{width: '100%', mt: 4}}>
+            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                <Typography variant={'h5'} sx={{m: 1}}>
                     Social
                 </Typography>
-                <Tabs value={value} onChange={handleChange} >
+                <Tabs value={value} onChange={handleChange}>
                     <Tab label="Reviews" {...a11yProps(0)} />
                     <Tab label="Discussions" {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                Item One
             </TabPanel>
+            {
+                reviews.results.length
+                ?<Paper elevation={5} sx={{p:2}} >
+                    <div className={s.review}>
+                        < Avatar
+                            sx={{cursor: 'pointer', mr:2}}
+                            alt={reviews.results[0].author_details.username}
+                            src={getAvatar(reviews.results[0].author_details.avatar_path)}
+                        />
+                        <div>
+                            <Typography>
+                                added by
+                                <span className={s.review__userName}>
+                                {reviews.results[0].author_details.username}
+                            </span>
+                            </Typography>
+                            <Typography>
+                                Was written on
+                                {/*// @ts-ignore*/}
+                                <span>{Date(reviews.results[0].updated_at)}</span>
+                                <span>{reviews.results[0].updated_at || reviews.results[0].created_at}</span>
+                            </Typography>
+                        </div>
+
+                    </div>
+
+                </Paper>
+                :<span>No review</span>
+            }
             <TabPanel value={value} index={1}>
                 Item Two
             </TabPanel>
