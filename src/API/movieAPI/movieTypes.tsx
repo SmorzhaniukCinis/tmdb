@@ -117,7 +117,7 @@ type recommendationType = {
     vote_count: number
 }
 
-type reviewType = {
+export type reviewType = {
     author: string
     author_details: {
         avatar_path: string | null
