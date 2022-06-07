@@ -96,3 +96,26 @@
 .review {
     display: flex;
 }
+.review__Date {
+    font-size: 13px;
+    opacity: 70%;
+}
+.review__Date__value {
+    margin-left: 8px;
+    font-weight: bold;
+}
+.review__content {
+    padding-top: 15px;
+    white-space: pre-line;
+}
+.review__readMore {
+    white-space: nowrap;
+    margin-left: 4px;
+    color: #272727;
+    transition: 0.3s;
+    opacity: 70%;
+}
+.review__readMore:hover {
+    opacity: 100%;
+    transition: 0.3s;
+}

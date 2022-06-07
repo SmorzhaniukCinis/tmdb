@@ -8,6 +8,9 @@ import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {Avatar, Paper} from "@mui/material";
 import {getImage} from "../Common/getImage";
 import s from '../styles/mediaPage.module.css'
+import {getDate} from "../Common/getDate";
+import {Link} from "react-router-dom";
+
 
 interface TabPanelProps {
     children?: any
@@ -49,9 +52,7 @@ const getAvatar = (path: string | null) => {
         return path?.slice(1)
     }
 }
-const getDate = () => {
-    
-}
+
 
 export const MediaSocial = () => {
     const [value, setValue] = React.useState(0);
@@ -74,36 +75,45 @@ export const MediaSocial = () => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
+                {
+                    reviews.results.length
+                        ? <Paper elevation={5} sx={{p: 2}}>
+                            <div className={s.review}>
+                                < Avatar
+                                    sx={{cursor: 'pointer', mr: 2, width: 70, height: 70}}
+                                    alt={reviews.results[0].author_details.username}
+                                    src={getAvatar(reviews.results[0].author_details.avatar_path)}
+                                />
+                                <div>
+                                    <Typography>
+                                        <span>added by</span>
+                                        <span className={s.review__userName}>
+                                        {reviews.results[0].author_details.username}
+                                    </span>
+                                    </Typography>
+                                    <Typography className={s.review__Date}>
+                                        <span>Was written on</span>
+                                        <span className={s.review__Date__value}>
+                                        {getDate(reviews.results[0].updated_at || reviews.results[0].created_at)}
+                                    </span>
+                                    </Typography>
+                                    {reviews.results[0].content.length > 700
+                                        ? <Typography className={s.review__content}>
+                                            {reviews.results[0].content.substring(0, 700).concat('...')}
+                                            <Link to={'/'} className={s.review__readMore}>read the rest</Link>
+                                        </Typography>
+                                        : <Typography className={s.review__content}>
+                                            {reviews.results[0].content}
+                                        </Typography>
+                                    }
+                                </div>
+
+                            </div>
+
+                        </Paper>
+                        : <span>No review</span>
+                }
             </TabPanel>
-            {
-                reviews.results.length
-                ?<Paper elevation={5} sx={{p:2}} >
-                    <div className={s.review}>
-                        < Avatar
-                            sx={{cursor: 'pointer', mr:2}}
-                            alt={reviews.results[0].author_details.username}
-                            src={getAvatar(reviews.results[0].author_details.avatar_path)}
-                        />
-                        <div>
-                            <Typography>
-                                added by
-                                <span className={s.review__userName}>
-                                {reviews.results[0].author_details.username}
-                            </span>
-                            </Typography>
-                            <Typography>
-                                Was written on
-                                {/*// @ts-ignore*/}
-                                <span>{Date(reviews.results[0].updated_at)}</span>
-                                <span>{reviews.results[0].updated_at || reviews.results[0].created_at}</span>
-                            </Typography>
-                        </div>
-
-                    </div>
-
-                </Paper>
-                :<span>No review</span>
-            }
             <TabPanel value={value} index={1}>
                 Item Two
             </TabPanel>
