@@ -1,6 +1,7 @@
 {
   "name": "tmdb",
   "version": "0.1.0",
+  "homepage": "https://SmorzhaniukCinis.github.io/tmdb",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -31,6 +32,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -56,6 +59,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
+    "gh-pages": "^4.0.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }
