@@ -119,3 +119,13 @@
     opacity: 100%;
     transition: 0.3s;
 }
+.allReviewLink {
+    margin-left: 15px;
+    font-size: 18px;
+    color: #272727;
+    transition: 0.3s;
+}
+.allReviewLink:hover {
+    transition: 0.3s;
+    opacity: 70%;
+}

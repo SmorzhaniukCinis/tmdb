@@ -23,7 +23,7 @@ export const SmallMediaReview = ({review}: props) => {
     }
 
     return (
-        <Paper elevation={5} sx={{p: 2}}>
+        <Paper elevation={5} sx={{p: 2, mb:2}}>
             <div className={s.review}>
                 < Avatar
                     sx={{cursor: 'pointer', mr: 2, width: 70, height: 70}}

@@ -7,6 +7,8 @@ import {useSelector} from "react-redux";
 import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {TabPanel} from "./TabPanel";
 import {SmallMediaReview} from "./smallMediaReview";
+import {Link} from "react-router-dom";
+import s from '../styles/mediaPage.module.css'
 
 
 function a11yProps(index: number) {
@@ -40,8 +42,11 @@ export const MediaSocial = () => {
             <TabPanel value={value} index={0}>
                 {
                     reviews.results.length
-                        ? <SmallMediaReview review={reviews.results[0]}/>
-                        : <span>No review</span>
+                        ?   <div>
+                                <SmallMediaReview review={reviews.results[0]}/>
+                                <Link className={s.allReviewLink} to={'/'}>View all review</Link>
+                            </div>
+                        :   <span>No review</span>
                 }
             </TabPanel>
             <TabPanel value={value} index={1}>

@@ -99,7 +99,7 @@ export type castItemType = {
     profile_path: string | null
 }
 
-type recommendationType = {
+export type recommendationType = {
     adult: boolean
     backdrop_path: string | null
     genre_ids: Array<number>

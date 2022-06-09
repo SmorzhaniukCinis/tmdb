@@ -11,6 +11,7 @@ import {MediaTools} from "../components/MediaTools";
 import {MediaInfoBlock} from "../components/MediaInfoBlock";
 import {MediaCredits} from "../components/MediaCredits";
 import {MediaSocial} from "../components/MediaSocial";
+import {Recommendations} from "../components/Recommendations";
 
 
 export const MediaPage = () => {
@@ -49,6 +50,7 @@ export const MediaPage = () => {
                 <div className={s.empty}>secret message;)</div>
                 <MediaCredits/>
                 <MediaSocial/>
+                <Recommendations/>
             </Container>
         );
     }
