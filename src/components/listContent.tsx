@@ -6,17 +6,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {getList} from "../store/Selectors/listSelectors";
 import {deleteListItem} from "../store/listReducer";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {useNavigate} from "react-router-dom";
+import {mediaType} from "../Common/types";
 
 const ListContent = () => {
 
     const listDetails = useSelector(getList)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const goToMedia = (id: number, mediaType: mediaType) => {
+        navigate(`/${mediaType}/${id}`)
+    }
 
 
-    // onClick={
     const deleteItem = (listId: number, mediaId: number) => {
         dispatch(deleteListItem(listId, mediaId))
     }
+
 
     return (
         <Paper elevation={7} className={s.ItemsBlock}>
@@ -31,11 +38,13 @@ const ListContent = () => {
                                 height="100%"
                                 image={getImage('w300', item.poster_path)}
                                 alt="green iguana"
+                                onClick={() => goToMedia(item.id, item.media_type)}
                             />
 
                             <CardContent>
                                 <Typography sx={{height: '45px', fontSize: '20px', textOverflow: 'ellipsis'}}
                                             gutterBottom variant="h5"
+                                            onClick={() => goToMedia(item.id, item.media_type)}
                                             component="div">
                                     {item.name || item.title}
                                 </Typography>

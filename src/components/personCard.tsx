@@ -3,6 +3,7 @@ import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/mat
 import {resultType} from "../store/searchReducer";
 import {getImage} from "../Common/getImage";
 import noPhoto from '../assets/No-image-available.jpg'
+import {useNavigate} from "react-router-dom";
 
 
 type props = {
@@ -10,8 +11,11 @@ type props = {
 }
 
 export const PersonCard:React.FC<props> = ({item}:props) => {
+
+    const navigate = useNavigate()
+
     return (
-        <Card sx={{ maxWidth: 345, m: 1}}>
+        <Card sx={{ maxWidth: 345, m: 1}} onClick={()=> navigate(`/person/${item.id}`)}>
             <CardActionArea>
                 <CardMedia
                     component="img"

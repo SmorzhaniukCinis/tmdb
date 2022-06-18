@@ -6,14 +6,18 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import {castItemType} from "../API/movieAPI/movieTypes";
 import {getImage} from "../Common/getImage";
+import {useNavigate} from "react-router-dom";
 
 type props = {
     item: castItemType
 }
 
 export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
+
+    const navigate = useNavigate()
+
     return (
-        <Card sx={{m:1}}>
+        <Card sx={{m:1}} onClick={() => navigate(`/person/${item.id}`)}>
             <CardActionArea>
                 <CardMedia
                     component="img"

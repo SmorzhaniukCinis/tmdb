@@ -3,8 +3,6 @@ import {Paper} from "@mui/material";
 import {useSelector} from "react-redux";
 import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import s from "../styles/mediaPage.module.css";
-import {Link} from "react-router-dom";
-import {CastAndCrewItem} from "./CastAndCrewItem";
 import {RecommendationItem} from "./RecommendationItem";
 
 export const Recommendations = () => {
@@ -21,7 +19,7 @@ export const Recommendations = () => {
                 {recommendations.results.map((item, index) => {
                         if (index <= 10)
                             return (
-                                <RecommendationItem item={item}/>
+                                <RecommendationItem key={item.id} item={item}/>
                             )
                     }
                 )}

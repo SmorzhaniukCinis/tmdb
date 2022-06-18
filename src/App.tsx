@@ -18,6 +18,7 @@ import {ListDetails} from "./Pages/listDetails";
 import {NewList} from "./Pages/NewList";
 import {SearchResult} from "./Pages/SearchResult";
 import {MediaPage} from "./Pages/MediaPage";
+import {PersonProfile} from "./Pages/PersonProfile";
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                         <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}/>
                         <Route path={'/newList'} element={<NewList/>}/>
+                        <Route path={'/person/:personId'} element={<PersonProfile/>}/>
                     </Routes>
                 </Container>
 

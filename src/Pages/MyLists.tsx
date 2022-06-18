@@ -28,7 +28,7 @@ const MyLists = () => {
         setPage(value);
     };
 
-    const goToList = (id:number) => {
+    const goToList = (id: number) => {
         navigate(`/listDetails/${id}`)
     }
 
@@ -56,24 +56,26 @@ const MyLists = () => {
                         {createdLists.total_results}
                     </span>
                     </Typography>
-                    <Button sx={{marginLeft:'30px', marginBottom:'10px'}} variant={'contained'}>
-                        <Link sx={{color: 'inherit', textDecoration: 'none', }} href={'/newList'}>Create new list</Link>
+                    <Button sx={{marginLeft: '30px', marginBottom: '10px'}} variant={'contained'}>
+                        <Link sx={{color: 'inherit', textDecoration: 'none',}} href={'/newList'}>Create new list</Link>
                     </Button>
                 </div>
                 <div className={s.listWrapper}>
-                    {createdLists.results.map(list => <Card className={s.listItem} key={list.id} variant="outlined" >
-                        <CardContent className={isDarkTheme ? s.listItemDark: s.listItemLight}>
-                            <Typography onClick={() => goToList(list.id)} className={s.listName} variant="h5" component="div">
+                    {createdLists.results.map(list =>
+                        <Card className={s.listItem} key={list.id} variant="outlined">
+                            <CardContent className={isDarkTheme ? s.listItemDark : s.listItemLight}>
+                                <Typography onClick={() => goToList(list.id)} className={s.listName} variant="h5"
+                                            component="div">
                                     {list.name}
-                            </Typography>
-                            <Typography sx={{mb: 1.5}} color="text.secondary">
-                                {list.description || 'No description'}
-                            </Typography>
-                            <Typography variant="body1">
-                                {list.item_count} items
-                            </Typography>
-                        </CardContent>
-                    </Card>)}
+                                </Typography>
+                                <Typography sx={{mb: 1.5}} color="text.secondary">
+                                    {list.description || 'No description'}
+                                </Typography>
+                                <Typography variant="body1">
+                                    {list.item_count} items
+                                </Typography>
+                            </CardContent>
+                        </Card>)}
 
                 </div>
 

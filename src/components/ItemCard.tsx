@@ -7,9 +7,11 @@ import {getCreatedLists, getIsDarkTheme} from "../store/Selectors/accountSelecto
 import {addToFavorite, addToWatchList} from "../store/accountReducer";
 import {ListMenu} from "./ListMenu";
 import {ActionMenu} from "./ActionMenu";
+import {useNavigate} from "react-router-dom";
+import {mediaType} from "../Common/types";
 
 type props = {
-    type: 'movie' | 'tv'
+    type: mediaType
     id: number
     originalTitle: string
     releaseDate: string
@@ -29,12 +31,16 @@ export const ItemCard: React.FC<props> = (props: props) => {
     const isDarkTheme = useSelector(getIsDarkTheme)
     const dispatch = useDispatch()
     const lists = useSelector(getCreatedLists)
+    const navigate = useNavigate()
 
     const markAsFavorite = () => {
         dispatch(addToFavorite(props.id , props.type , true ))
     }
     const addToWatchListOnClick = () => {
         dispatch(addToWatchList(props.id , props.type , true ))
+    }
+    const goToMedia = (id: number, mediaType: mediaType) => {
+        navigate(`/${mediaType}/${id}`)
     }
 
     const [open, setOpen] = React.useState(false);
@@ -56,10 +62,18 @@ export const ItemCard: React.FC<props> = (props: props) => {
                 }}>
                     <CardContent className={isDarkTheme ? s.blackCardWrapper : s.witheCardWrapper}>
                         <div>
-                            <img height={'300px'} src={getImage('w200', props.posterPath)} alt=""/>
+                            <img className={s.poster}
+                                 onClick={() => goToMedia(props.id, props.type)}
+                                 height={'300px'}
+                                 src={getImage('w200', props.posterPath)}
+                                 alt="poster"/>
                         </div>
                         <div>
-                            <Typography variant="h4" component="div">
+                            <Typography
+                                sx={{cursor: 'pointer'}}
+                                variant="h4"
+                                component="div"
+                                onClick={() => goToMedia(props.id, props.type)}>
                                 {props.originalTitle}
                             </Typography>
                             <Typography>
