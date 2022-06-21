@@ -1,4 +1,32 @@
 .personWrapper {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 3fr 7fr;
+}
+.profileImage {
+    width: 300px;
+    border-radius: 5px;
+}
+.biography {
+    white-space: pre-line;
+}
+.title {
+    margin-top: 14px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.name {
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.subTitle {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+.CommonInfo {
+    opacity: 80%;
 }
