@@ -24,8 +24,6 @@ type props = {
     rating: number | undefined
 }
 
-
-
 export const ItemCard: React.FC<props> = (props: props) => {
 
     const isDarkTheme = useSelector(getIsDarkTheme)
@@ -47,11 +45,6 @@ export const ItemCard: React.FC<props> = (props: props) => {
     const openListsMenu = () => {
         setOpen(true);
     }
-
-
-
-
-
 
     return (
         <Card variant={'outlined'} sx={{minWidth: '500px', height: '345px', m: 1}}>
@@ -106,8 +99,7 @@ export const ItemCard: React.FC<props> = (props: props) => {
                     isVisible={true}
                 />
             </Box>
-
-
+            
             <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={props.id}/>
 
         </Card>
