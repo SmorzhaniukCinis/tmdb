@@ -42,6 +42,8 @@ export type crew = {
     "adult": boolean
     "vote_average": number
     "release_date": string
+    "first_air_date"?: string
+    "name"?: string
 }
 
 export type cast = {

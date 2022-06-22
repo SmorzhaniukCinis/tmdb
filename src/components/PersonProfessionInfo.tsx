@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import s from "../styles/PersonPage.module.css";
 import {personDetails} from "../API/PersoneAPI/PersonTypes";
 import {PersonActingTable} from "./PersonActingTable";
+import {PersonCrewTable} from "./PersonCrewTable";
 
 type props = {
     personDetails: personDetails
@@ -26,6 +27,7 @@ export const PersonProfessionInfo: React.FC<props> = ({personDetails}: props) =>
                 </p>
                 : <p className={s.biography}>{personDetails.biography}</p>}
             <PersonActingTable cast={personDetails.combined_credits?.cast}/>
+            <PersonCrewTable crew={personDetails.combined_credits?.crew}/>
         </div>
     );
 };

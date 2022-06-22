@@ -7,6 +7,7 @@ import { CardActionArea } from '@mui/material';
 import {castItemType} from "../API/movieAPI/movieTypes";
 import {getImage} from "../Common/getImage";
 import {useNavigate} from "react-router-dom";
+import NoImage from '../assets/noUserPhoto.png'
 
 type props = {
     item: castItemType
@@ -22,8 +23,8 @@ export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
                 <CardMedia
                     component="img"
                     height="300"
-                    image={getImage('original', item.profile_path)}
-                    alt="green iguana"
+                    image={getImage('original', item.profile_path) || NoImage}
+                    alt="no image"
                 />
                 <CardContent>
                     <Typography gutterBottom component="div">
