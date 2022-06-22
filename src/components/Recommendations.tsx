@@ -8,23 +8,27 @@ import {RecommendationItem} from "./RecommendationItem";
 export const Recommendations = () => {
 
     const {recommendations} = useSelector(getMovieDetailsSelector)
-    console.log(recommendations)
 
-    return (
-        <Paper elevation={10} sx={{mt: 3}} >
+    if(recommendations.results.length) {
+        return (
+            <Paper elevation={10} sx={{mt: 3}} >
                 <span className={s.CastTitle}>
                     Recommendations
                 </span>
-            <div className={s.castAndCrewWrapper}>
-                {recommendations.results.map((item, index) => {
-                        if (index <= 10)
-                            return (
-                                <RecommendationItem key={item.id} item={item}/>
-                            )
-                    }
-                )}
-            </div>
-        </Paper>
-    );
+                <div className={s.castAndCrewWrapper}>
+                    {recommendations.results.map((item, index) => {
+                            if (index <= 10)
+                                return (
+                                    <RecommendationItem key={item.id} item={item}/>
+                                )
+                        }
+                    )}
+                </div>
+            </Paper>
+        );
+    } else {
+        return null
+    }
+
 };
 
