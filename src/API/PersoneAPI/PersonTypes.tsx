@@ -23,7 +23,7 @@ export type personDetails = {
 
 export type gender = 0 | 1 | 2 | 3
 
-type crew = {
+export type crew = {
     "id": number
     "department": string
     "original_language": string
@@ -44,7 +44,7 @@ type crew = {
     "release_date": string
 }
 
-type cast = {
+export type cast = {
     "id": number
     "original_language": string
     "episode_count": number
@@ -52,15 +52,16 @@ type cast = {
     "origin_country": string[]
     "original_name": string
     "genre_ids": number[]
-    "name": string
+    "name"?: string
     "media_type": mediaType,
     "poster_path": string | null
-    "first_air_date": string
+    "first_air_date"?: string
     "vote_average": number
     "vote_count": number
     "character": string
     "backdrop_path": string | null
     "popularity": number
     "credit_id": string
-
+    "title"?: string
+    "release_date"?: string
 }

@@ -8,6 +8,7 @@
 }
 .biography {
     white-space: pre-line;
+    margin-bottom: 30px;
 }
 .title {
     margin-top: 14px;
@@ -30,4 +31,13 @@
 .CommonInfo {
     opacity: 80%;
     display: block;
+}
+.showBiography {
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.showBiography:hover {
+    transition: 0.3s;
+    color: #4f7ab2;
 }

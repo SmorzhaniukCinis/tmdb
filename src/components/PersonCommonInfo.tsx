@@ -28,7 +28,7 @@ const PersonCommonInfo:React.FC<props> = ({personDetails}:props) => {
                  alt="profilePhoto"/>
             <div>
                 <div>
-                    
+
                 </div>
                 <h6 className={s.title}>Personal info</h6>
                 <div>

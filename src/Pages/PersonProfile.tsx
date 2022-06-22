@@ -10,6 +10,7 @@ import {getGender} from "../Common/getGender";
 import moment from "moment";
 import {Loader} from "../Common/Loader";
 import PersonCommonInfo from "../components/PersonCommonInfo";
+import {PersonProfessionInfo} from "../components/PersonProfessionInfo";
 
 export const PersonProfile = () => {
 
@@ -31,11 +32,7 @@ export const PersonProfile = () => {
     return (
         <div className={s.personWrapper}>
             <PersonCommonInfo personDetails={personDetails}/>
-            <div>
-                <h5 className={s.name}>{personDetails.name}</h5>
-                <h6 className={s.title}>Biography</h6>
-                <p className={s.biography}>{personDetails.biography}</p>
-            </div>
+            <PersonProfessionInfo personDetails={personDetails}/>
         </div>
     );
 };
