@@ -21,7 +21,6 @@ export const PersonActingTable: React.FC<props> = ({cast}: props) => {
 
     return (
         <div>
-            <h5 className={s.title}>Acting</h5>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>

@@ -3,6 +3,7 @@ import s from "../styles/PersonPage.module.css";
 import {personDetails} from "../API/PersoneAPI/PersonTypes";
 import {PersonActingTable} from "./PersonActingTable";
 import {PersonCrewTable} from "./PersonCrewTable";
+import {PersonTables} from "./PersonTables";
 
 type props = {
     personDetails: personDetails
@@ -26,8 +27,7 @@ export const PersonProfessionInfo: React.FC<props> = ({personDetails}: props) =>
                     <span className={s.showBiography} onClick={showMore}>show more</span>
                 </p>
                 : <p className={s.biography}>{personDetails.biography}</p>}
-            <PersonActingTable cast={personDetails.combined_credits?.cast}/>
-            <PersonCrewTable crew={personDetails.combined_credits?.crew}/>
+            <PersonTables combined_credits={personDetails.combined_credits}/>
         </div>
     );
 };
