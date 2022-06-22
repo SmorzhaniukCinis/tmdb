@@ -29,4 +29,5 @@
 }
 .CommonInfo {
     opacity: 80%;
+    display: block;
 }
