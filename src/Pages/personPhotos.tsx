@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getPersonDetailsSelector} from "../store/Selectors/personSelectors";
 import {Button, Paper, Typography} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Loader} from "../Common/Loader";
 import {getPersonDetails} from "../store/personReducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -11,10 +11,11 @@ import {PersonImageList} from "../components/PersonImageList";
 
 export const PersonPhotos = () => {
 
-    const {images, name} = useSelector(getPersonDetailsSelector)
+    const {images, name, id} = useSelector(getPersonDetailsSelector)
     const dispatch = useDispatch()
     const {personId} = useParams()
     const isLoading = useSelector(getIsLoading)
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (personId) {
@@ -32,7 +33,7 @@ export const PersonPhotos = () => {
                 <Typography variant={'h4'} sx={{fontWeight: 'bold', pt:3, pl:3}}>
                     {name}
                 </Typography>
-                <Button>
+                <Button onClick={()=>navigate(`/person/${id}`)}>
                     <ArrowBackIcon fontSize={'small'}/>
                     <span className={s.backToProfileButton}>back to person profile</span>
                 </Button>
