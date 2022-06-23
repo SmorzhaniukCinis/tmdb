@@ -1,0 +1,11 @@
+.linkToMedia {
+    color: #272727;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 25px;
+}
+.linkToMedia:hover {
+    transition: 0.3s;
+    text-decoration: underline;
+    color: #594d59;
+}

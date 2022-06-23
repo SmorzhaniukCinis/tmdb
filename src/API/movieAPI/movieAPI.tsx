@@ -1,5 +1,5 @@
 import {instance} from "../index";
-import {accountStats, movieDetailsType, rateMovieRes} from "./movieTypes";
+import {accountStats, movieDetailsType, movieReleaseDate, rateMovieRes} from "./movieTypes";
 
 export const movieAPI = {
     getMovieDetails: async (movieId: number): Promise<movieDetailsType> => {

@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
-import {accountStats, movieDetailsType} from "../API/movieAPI/movieTypes";
+import {accountStats, movieDetailsType, movieReleaseDate} from "../API/movieAPI/movieTypes";
 import {movieAPI} from "../API/movieAPI/movieAPI";
 
 const SET_MOVIE_DETAILS = "movie/SET_MOVIE_DETAILS"
@@ -12,7 +12,7 @@ const initialState = {
     movieDetails: {} as movieDetailsType,
     isLoading: true,
     isRatingLoading: false,
-    movieStats: {} as accountStats
+    movieStats: {} as accountStats,
 }
 type initialStateType = typeof initialState
 
@@ -36,6 +36,7 @@ export const movieActions = {
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
     setRatingLoading: (isLoading: boolean) => ({type: SET_RATING_LOADING, isLoading} as const),
     setMovieStats: (movieStats: accountStats) => ({type: SET_MOVIE_STATS, movieStats} as const),
+
 }
 
 export const getMovieDetails = (id: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
@@ -67,7 +68,7 @@ export const deleteMovieRating = (id: number) => async (dispatch: Dispatch<Actio
 export const getStats = (id: number, mediaType: 'movie' | 'tv') =>
     async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
         const sessionId = getState().auth.sessionId
-        if(mediaType === 'movie') {
+        if (mediaType === 'movie') {
             debugger
             const stats = await movieAPI.getAccountMovieStats(id, sessionId)
             dispatch(movieActions.setMovieStats(stats))
