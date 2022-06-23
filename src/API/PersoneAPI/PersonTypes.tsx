@@ -20,7 +20,19 @@ export type personDetails = {
         cast: Array<cast>
         crew: Array<crew>
     }
-    tagged_images: tagged_images
+    images: {
+        "profiles": images[]
+    }
+}
+
+export type images = {
+    "aspect_ratio": number
+    "file_path": string
+    "height": number
+    "iso_639_1": null,
+    "vote_average": number
+    "vote_count": number
+    "width": number
 }
 
 export type gender = 0 | 1 | 2 | 3
@@ -68,26 +80,4 @@ export type cast = {
     "credit_id": string
     "title"?: string
     "release_date"?: string
-}
-
-export type tagged_images = {
-    "id": number
-    "page": number
-    "total_pages": number
-    "total_results": number
-    "results": imageRes[]
-}
-
-type imageRes = {
-    "aspect_ratio": number
-    "file_path": string
-    "height": number
-    "id": string
-    "iso_639_1": string
-    "vote_average": number
-    "vote_count": number
-    "width": number
-    "image_type": string
-    "media": TVType & MovieType
-    "media_type": mediaType
 }

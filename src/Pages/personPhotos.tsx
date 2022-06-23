@@ -7,10 +7,11 @@ import {Loader} from "../Common/Loader";
 import {getPersonDetails} from "../store/personReducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import s from '../styles/PersonPage.module.css'
+import {PersonImageList} from "../components/PersonImageList";
 
 export const PersonPhotos = () => {
 
-    const {tagged_images, name} = useSelector(getPersonDetailsSelector)
+    const {images, name} = useSelector(getPersonDetailsSelector)
     const dispatch = useDispatch()
     const {personId} = useParams()
     const isLoading = useSelector(getIsLoading)
@@ -37,7 +38,7 @@ export const PersonPhotos = () => {
                 </Button>
             </div>
             <div className={s.photosWrapper}>
-                {tagged_images?.results.map(image => <span>{image.image_type}</span>)}
+                <PersonImageList images={images?.profiles}/>
             </div>
         </Paper>
     );
