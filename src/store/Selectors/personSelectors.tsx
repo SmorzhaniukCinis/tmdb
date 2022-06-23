@@ -1,6 +1,6 @@
 import {RootStateType} from "../store";
 
-export const getPersonDetails = (state:RootStateType) => {
+export const getPersonDetailsSelector = (state:RootStateType) => {
     return state.person.personDetails
 }
 export const getIsLoading = (state:RootStateType) => {

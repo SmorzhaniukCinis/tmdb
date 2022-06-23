@@ -28,7 +28,7 @@ export const PersonActions = {
     setLoading: (isLoading:boolean) => ({type: SET_LOADING, isLoading} as const),
 }
 
-export const getMovieDetails = (id: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const getPersonDetails = (id: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     dispatch(PersonActions.setLoading(true))
     const res = await personAPI.getPersonDetails(id)
     dispatch(PersonActions.setPersonDetails(res))

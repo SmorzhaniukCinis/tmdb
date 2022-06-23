@@ -41,3 +41,15 @@
     transition: 0.3s;
     color: #4f7ab2;
 }
+.backToProfileButton {
+    font-size: 16px;
+    margin-left: 8px;
+}
+.backToProfileWrapper {
+    padding-left: 20px;
+    background: #efe9e9;
+    padding-bottom: 20px;
+}
+.photosWrapper {
+    padding: 20px;
+}

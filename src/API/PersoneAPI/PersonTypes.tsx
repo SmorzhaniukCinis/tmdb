@@ -1,4 +1,5 @@
 import {mediaType} from "../../Common/types";
+import {MovieType, TVType} from "../SearchAPI/searchTypes";
 
 export type personDetails = {
     "birthday": string | null
@@ -19,6 +20,7 @@ export type personDetails = {
         cast: Array<cast>
         crew: Array<crew>
     }
+    tagged_images: tagged_images
 }
 
 export type gender = 0 | 1 | 2 | 3
@@ -66,4 +68,26 @@ export type cast = {
     "credit_id": string
     "title"?: string
     "release_date"?: string
+}
+
+export type tagged_images = {
+    "id": number
+    "page": number
+    "total_pages": number
+    "total_results": number
+    "results": imageRes[]
+}
+
+type imageRes = {
+    "aspect_ratio": number
+    "file_path": string
+    "height": number
+    "id": string
+    "iso_639_1": string
+    "vote_average": number
+    "vote_count": number
+    "width": number
+    "image_type": string
+    "media": TVType & MovieType
+    "media_type": mediaType
 }
