@@ -1,6 +1,5 @@
 import {instance, instanceV4} from "../index";
-import {MovieType, searchRes} from "./searchTypes";
-import {CommonResType} from "../accountAPI/accountTypes";
+import {searchRes} from "./searchTypes";
 
 
 export const searchAPI = {

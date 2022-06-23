@@ -46,7 +46,7 @@ export const SmallMediaReview = ({review}: props) => {
                     {review.content.length > 700
                         ? <Typography className={s.review__content}>
                             {review.content.substring(0, 700).concat('...')}
-                            <Link to={'/'} className={s.review__readMore}>read the rest</Link>
+                            <Link to={`/review/${review.id}`} className={s.review__readMore}>read the rest</Link>
                         </Typography>
                         : <Typography className={s.review__content}>
                             {review.content}

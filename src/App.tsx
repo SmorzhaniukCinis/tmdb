@@ -20,6 +20,7 @@ import {SearchResult} from "./Pages/SearchResult";
 import {MediaPage} from "./Pages/MediaPage";
 import {PersonProfile} from "./Pages/PersonProfile";
 import {PersonPhotos} from "./Pages/personPhotos";
+import {Review} from "./Pages/Review/Review";
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
                         <Route path={'/newList'} element={<NewList/>}/>
                         <Route path={'/person/:personId'} element={<PersonProfile/>}/>
                         <Route path={'/person/:personId/Photos'} element={<PersonPhotos/>}/>
+                        <Route path={'/review/:reviewId'} element={<Review/>}/>
                     </Routes>
                 </Container>
 
