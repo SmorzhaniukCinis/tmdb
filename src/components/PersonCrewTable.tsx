@@ -27,7 +27,7 @@ export const PersonCrewTable: React.FC<props> = ({crew}: props) => {
                         <TableRow>
                             <TableCell>Title</TableCell>
                             <TableCell align="left">Position</TableCell>
-                            <TableCell align="left">Date</TableCell>
+                            <TableCell width={130} align="left">Date</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

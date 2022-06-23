@@ -27,7 +27,7 @@ export const PersonActingTable: React.FC<props> = ({cast}: props) => {
                         <TableRow>
                             <TableCell>Title</TableCell>
                             <TableCell align="left">Character</TableCell>
-                            <TableCell align="left">Date</TableCell>
+                            <TableCell width={130} align="left">Date</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
