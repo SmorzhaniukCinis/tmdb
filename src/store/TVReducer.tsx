@@ -31,9 +31,9 @@ export const tvActions = {
 
 export const GetTVDetails = (TVid:number) =>
     async (dispatch: Dispatch<ActionTypes>) => {
-        dispatch(movieActions.setLoading(true))
+        dispatch(tvActions.setLoading(true))
         const result = await tvAPI.getTVDetails(TVid)
         dispatch(tvActions.setTVDetails(result))
-        dispatch(movieActions.setLoading(false))
+        dispatch(tvActions.setLoading(false))
         console.log(result)
     }

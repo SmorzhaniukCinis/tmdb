@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {deleteMovieRating, getMovieDetails, rateMovie} from "../store/movieReducer";
+import {getMovieDetails} from "../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
 import s from '../styles/mediaPage.module.css'
-import {getIsLoading, getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
-import {getImage} from "../Common/getImage";
-import {CircularProgress, Container, Typography} from "@mui/material";
+import {getIsLoading} from "../store/Selectors/movieSelectors";
+import {CircularProgress, Container} from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
 import {useParams} from "react-router-dom";
-import {MediaTools} from "../components/MediaTools";
 import {MediaInfoBlock} from "../components/MediaInfoBlock";
 import {MediaCredits} from "../components/MediaCredits";
 import {MediaSocial} from "../components/MediaSocial";
 import {Recommendations} from "../components/Recommendations";
+import {getIsTVLoading} from "../store/Selectors/tvSelectors";
+import {GetTVDetails} from "../store/TVReducer";
 
 
 export const MediaPage = () => {
 
     const dispatch = useDispatch()
 
-    const isLoading = useSelector(getIsLoading)
+    const isMovieLoading = useSelector(getIsLoading)
+    const isTVLoading = useSelector(getIsTVLoading)
     const params = useParams()
     const [currentMedia, setCurrentMedia] = useState<'movie'| 'tv'>('movie')
 
@@ -28,15 +29,16 @@ export const MediaPage = () => {
         if (params.media === 'movie') {
             setCurrentMedia(params.media)
             dispatch(getMovieDetails(Number(params.mediaId)))
-        } else {
-            //get TV
+        } else if (params.media === 'tv'){
+            setCurrentMedia(params.media)
+            dispatch(GetTVDetails(Number(params.mediaId)))
         }
 
     }, [dispatch, params.media, params.mediaId])
 
 
 
-    if (isLoading) {
+    if (isMovieLoading || isTVLoading) {
         return <Backdrop
             sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
             open={true}
