@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {getImage} from "../Common/getImage";
 import {Box, Card, CardContent, Rating, Typography} from "@mui/material";
 import s from "../styles/ProfileListWrapper.module.css";
@@ -9,6 +9,8 @@ import {ListMenu} from "./ListMenu";
 import {ActionMenu} from "./ActionMenu";
 import {useNavigate} from "react-router-dom";
 import {mediaType} from "../Common/types";
+import {rateMovie} from "../store/movieReducer";
+import {getIsRatingLoading} from "../store/Selectors/movieSelectors";
 
 type props = {
     type: mediaType
@@ -30,20 +32,32 @@ export const ItemCard: React.FC<props> = (props: props) => {
     const dispatch = useDispatch()
     const lists = useSelector(getCreatedLists)
     const navigate = useNavigate()
+    const isRatingLoading = useSelector(getIsRatingLoading)
+
 
     const markAsFavorite = () => {
-        dispatch(addToFavorite(props.id , props.type , true ))
+        dispatch(addToFavorite(props.id, props.type, true))
     }
     const addToWatchListOnClick = () => {
-        dispatch(addToWatchList(props.id , props.type , true ))
+        dispatch(addToWatchList(props.id, props.type, true))
     }
     const goToMedia = (id: number, mediaType: mediaType) => {
         navigate(`/${mediaType}/${id}`)
     }
 
     const [open, setOpen] = React.useState(false);
+    const [rating, setRating] = useState<number>(0)
+
     const openListsMenu = () => {
         setOpen(true);
+    }
+    const rateMedia = (value: number) => {
+        if (props.type === 'movie') {
+            dispatch(rateMovie(Number(props.id), value))
+            setRating(value * 2)
+        } else {
+            //get TV
+        }
     }
 
     return (
@@ -76,7 +90,14 @@ export const ItemCard: React.FC<props> = (props: props) => {
                             {
                                 props.rating
                                     ? <Typography>
-                                        <Rating name="half-rating" defaultValue={props.rating / 2} precision={0.5}/>
+                                        <Rating onChange={(event, newValue) => {
+                                            if (newValue) {
+                                                rateMedia(newValue * 2)
+                                            }
+                                        }}
+                                                name="half-rating"
+                                                disabled={isRatingLoading}
+                                                defaultValue={props.rating / 2} precision={0.5}/>
                                     </Typography>
                                     : null
                             }
@@ -99,7 +120,7 @@ export const ItemCard: React.FC<props> = (props: props) => {
                     isVisible={true}
                 />
             </Box>
-            
+
             <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={props.id}/>
 
         </Card>
