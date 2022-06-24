@@ -9,3 +9,21 @@
     text-decoration: underline;
     color: #594d59;
 }
+.reviewDetails {
+    font-size: 20px;
+    margin-top: 0;
+}
+.reviewDate {
+    opacity: 80%;
+}
+.reviewAuthor {
+    cursor: pointer;
+    color: #4f7ab2;
+}
+.reviewAuthor:hover {
+    color: #305e9a;
+    text-decoration: underline;
+}
+.reviewContent {
+    white-space: pre-line;
+}

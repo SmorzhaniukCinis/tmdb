@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
-import {accountStats, movieDetailsType, movieReleaseDate} from "../API/movieAPI/movieTypes";
+import {accountStats, movieDetailsType} from "../API/movieAPI/movieTypes";
 import {movieAPI} from "../API/movieAPI/movieAPI";
 
 const SET_MOVIE_DETAILS = "movie/SET_MOVIE_DETAILS"
