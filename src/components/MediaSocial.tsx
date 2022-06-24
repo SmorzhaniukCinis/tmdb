@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import {useSelector} from "react-redux";
 import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {TabPanel} from "./TabPanel";
-import {SmallMediaReview} from "./smallMediaReview";
+import {SmallMediaReview} from "./SmallMediaReview";
 import {Link} from "react-router-dom";
 import s from '../styles/mediaPage.module.css'
 
