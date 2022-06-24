@@ -46,7 +46,6 @@ export const ItemCard: React.FC<props> = (props: props) => {
     }
 
     const [open, setOpen] = React.useState(false);
-    const [rating, setRating] = useState<number>(0)
 
     const openListsMenu = () => {
         setOpen(true);
@@ -54,7 +53,6 @@ export const ItemCard: React.FC<props> = (props: props) => {
     const rateMedia = (value: number) => {
         if (props.type === 'movie') {
             dispatch(rateMovie(Number(props.id), value))
-            setRating(value * 2)
         } else {
             //get TV
         }
