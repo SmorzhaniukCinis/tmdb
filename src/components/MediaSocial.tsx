@@ -44,7 +44,7 @@ export const MediaSocial = () => {
                     reviews.results.length
                         ?   <div>
                                 <SmallMediaReview review={reviews.results[0]}/>
-                                <Link className={s.allReviewLink} to={'/'}>View all review</Link>
+                                <Link className={s.allReviewLink} to={`reviews`}>View all review</Link>
                             </div>
                         :   <span>No review</span>
                 }
