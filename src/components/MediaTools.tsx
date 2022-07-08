@@ -11,6 +11,7 @@ import {ListMenu} from "./ListMenu";
 import {getCreatedLists} from "../store/Selectors/accountSelectors";
 import {addToFavorite, addToWatchList} from "../store/accountReducer";
 import {getStats} from "../store/movieReducer";
+import {mediaType} from "../Common/types";
 
 type props = {
     voteCount: number
@@ -18,10 +19,10 @@ type props = {
     rateMedia: (value: number) => void
     deleteMediaRating: () => void
     mediaId: number
-    currentMedia: 'movie' | 'tv'
+    mediaType: mediaType
 }
 
-export const MediaTools = ({voteCount, voteAverage, rateMedia, deleteMediaRating, mediaId, currentMedia}: props) => {
+export const MediaTools = ({voteCount, voteAverage, rateMedia, deleteMediaRating, mediaId, mediaType}: props) => {
 
     const movieStats = useSelector(getMovieStats)
     const isRatingLoading = useSelector(getIsRatingLoading)
@@ -33,23 +34,23 @@ export const MediaTools = ({voteCount, voteAverage, rateMedia, deleteMediaRating
         if (movieStats.rated) {
             setRating(movieStats.rated.value)
         }
-    }, [])
+    }, [movieStats.rated])
 
     const [open, setOpen] = React.useState(false);
     const openListsMenu = () => {
         setOpen(true);
     }
     const markAsFavorite = (isFavorite: boolean) => {
-        dispatch(addToFavorite(mediaId, currentMedia, isFavorite))
+        dispatch(addToFavorite(mediaId, mediaType, isFavorite))
         setTimeout(()=> {
-            dispatch(getStats(mediaId, currentMedia))
+            dispatch(getStats(mediaId, mediaType))
         }, 500)
 
     }
     const addToWatchListOnClick = (isWatchlist: boolean) => {
-        dispatch(addToWatchList(mediaId, currentMedia, isWatchlist))
+        dispatch(addToWatchList(mediaId, mediaType, isWatchlist))
         setTimeout(()=> {
-            dispatch(getStats(mediaId, currentMedia))
+            dispatch(getStats(mediaId, mediaType))
         }, 500)
     }
 

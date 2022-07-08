@@ -8,7 +8,7 @@ const SET_TV_DETAILS = 'tv/SET_TV_DETAILS'
 
 
 const initialState = {
-    isLoading: false,
+    isLoading: true,
     tvDetails: {} as tvDetails
 }
 type initialStateType = typeof initialState

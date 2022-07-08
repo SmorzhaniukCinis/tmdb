@@ -21,16 +21,16 @@ export const MediaPage = () => {
     const isMovieLoading = useSelector(getIsLoading)
     const isTVLoading = useSelector(getIsTVLoading)
     const params = useParams()
-    const [currentMedia, setCurrentMedia] = useState<'movie'| 'tv'>('movie')
+    const [mediaType, setMediaType] = useState<'movie'| 'tv'>('movie')
 
 
     useEffect(() => {
 
         if (params.media === 'movie') {
-            setCurrentMedia(params.media)
+            setMediaType(params.media)
             dispatch(getMovieDetails(Number(params.mediaId)))
         } else if (params.media === 'tv'){
-            setCurrentMedia(params.media)
+            setMediaType(params.media)
             dispatch(GetTVDetails(Number(params.mediaId)))
         }
 
@@ -38,7 +38,7 @@ export const MediaPage = () => {
 
 
 
-    if (isMovieLoading || isTVLoading) {
+    if (isMovieLoading && isTVLoading) {
         return <Backdrop
             sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
             open={true}
@@ -46,17 +46,15 @@ export const MediaPage = () => {
             <CircularProgress color="inherit"/>
         </Backdrop>
     } else {
-        return (
-            <Container maxWidth={'lg'}>
-                <MediaInfoBlock currentMedia={currentMedia}/>
-                <div className={s.empty}>secret message;)</div>
-                <MediaCredits/>
-                <MediaSocial/>
-                <Recommendations/>
-            </Container>
-        );
+            return (
+                <Container maxWidth={'lg'}>
+                    <MediaInfoBlock mediaType={mediaType}/>
+                    <div className={s.empty}>secret message;)</div>
+                    <MediaCredits/>
+                    <MediaSocial/>
+                    <Recommendations/>
+                </Container>
+            )
     }
-
-
 };
 
