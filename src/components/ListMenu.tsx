@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {useDispatch} from "react-redux";
-import {getCreatedList} from "../store/accountReducer";
 import {CommonResType, createdList} from "../API/accountAPI/accountTypes";
 import {addListItem} from "../store/listReducer";
+import {accountActions} from "../store/accountReducer";
+import {useParams} from "react-router-dom";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -32,15 +32,20 @@ type props = {
 
 export const ListMenu: React.FC<props> = ({isOpen, setOpen, lists, mediaId}: props) => {
 
-
     const dispatch = useDispatch()
-
+    const {mediaType} = useParams()
 
     const closeListsMenu = () => setOpen(false);
 
-
     const addToList = (listId: number, itemId: number) => {
-        dispatch(addListItem(listId, itemId))
+        if (mediaType === 'tv') {
+            dispatch(accountActions.setEventMessage("Sorry, but adding to custom list is not available at the moment"))
+            setTimeout(() => {
+                dispatch(accountActions.deleteEventMessage())
+            }, 5000)
+        } else {
+            dispatch(addListItem(listId, itemId))
+        }
         setOpen(false)
     }
 
@@ -59,7 +64,6 @@ export const ListMenu: React.FC<props> = ({isOpen, setOpen, lists, mediaId}: pro
                             sx={{marginBottom: '7px'}} variant={'outlined'} key={list.id}>
                             {list.name}
                         </Button>)}
-
                 </Box>
             </Modal>
         </div>

@@ -3,6 +3,7 @@ import {createListData, editListData, listType} from "../API/ListAPI/listTypes";
 import {listAPI} from "../API/ListAPI/ListAPI";
 import {Dispatch} from "redux";
 import {accountActions} from "./accountReducer";
+import {mediaType} from "../Common/types";
 
 const SET_LIST = 'list/SET_LIST'
 const SET_LOADING = 'list/SET_LOADING'
@@ -59,7 +60,6 @@ export const DeleteList = (id:number) => async (dispatch: Dispatch<ActionTypes>,
 export const addListItem = (ListId:number, itemId:number) => async (dispatch: Dispatch<ActionTypes>, getState:()=>RootStateType) => {
     const sessionId = getState().auth.sessionId
     const res = await listAPI.addListItem(itemId, ListId, sessionId)
-    console.log(res)
     if (res.status_code === 8) {
         dispatch(accountActions.setEventMessage("this item already exist in this list"))
         setTimeout(()=> {

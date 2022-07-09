@@ -3,12 +3,12 @@ import {useSelector} from "react-redux";
 import s from '../styles/mediaPage.module.css'
 import {getMovieDetailsSelector} from "../store/Selectors/movieSelectors";
 import {getImage} from "../Common/getImage";
-import {Typography} from "@mui/material";
 import {MediaTools} from "./MediaTools";
 import {getTVDetails} from "../store/Selectors/tvSelectors";
 import {mediaType} from "../Common/types";
 import {getCommonMedia} from "../Common/getCommonMedia";
 import MediaMainInfo from "./MediaMainInfo";
+import MediaOverview from "./MediaOverview";
 
 type props = {
     mediaType: mediaType
@@ -36,17 +36,9 @@ export const MediaInfoBlock: React.FC<props> = ({mediaType}: props) => {
                                     voteAverage={currentMedia.vote_average}
                                     mediaType={mediaType}
                                     mediaId={currentMedia.id}/>
-                        <div>
-                            <Typography variant={'h5'}>
-                                Overview
-                            </Typography>
-                            <Typography>
-                                {currentMedia.overview}
-                            </Typography>
-                        </div>
+                        <MediaOverview overview={currentMedia.overview}/>
                     </div>
                 </div>
-
             </div>
         </div>
     );

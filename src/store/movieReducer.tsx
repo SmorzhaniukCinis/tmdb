@@ -65,12 +65,10 @@ export const deleteMovieRating = (id: number) => async (dispatch: Dispatch<Actio
     dispatch(movieActions.setMovieStats(stats))
 
 }
-export const getStats = (id: number, mediaType: 'movie' | 'tv') =>
+export const getMovieStats = (id: number) =>
     async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
         const sessionId = getState().auth.sessionId
-        if (mediaType === 'movie') {
-            debugger
-            const stats = await movieAPI.getAccountMovieStats(id, sessionId)
-            dispatch(movieActions.setMovieStats(stats))
-        }
+        const stats = await movieAPI.getAccountMovieStats(id, sessionId)
+        dispatch(movieActions.setMovieStats(stats))
+
     }

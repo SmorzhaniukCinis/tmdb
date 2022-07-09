@@ -8,6 +8,7 @@ import {
     listItemType,
     listType
 } from "./listTypes";
+import {mediaType} from "../../Common/types";
 
 
 export const listAPI = {
@@ -36,30 +37,27 @@ export const listAPI = {
         return data
 
     },
-    deleteList: async ( id: number): Promise<deleteListRes> => {
-        const {data} = await instanceV4.delete<deleteListRes>(`/list/${id}` )
+    deleteList: async (id: number): Promise<deleteListRes> => {
+        const {data} = await instanceV4.delete<deleteListRes>(`/list/${id}`)
         return data
 
     },
-    addListItem: async (itemId:number, listId: number, sessionId:string): Promise<addListItemRes> => {
+    addListItem: async (itemId: number, listId: number, sessionId: string): Promise<addListItemRes> => {
         try {
             const {data} = await instance.post<addListItemRes>(`/list/${listId}/add_item?session_id=${sessionId}`,
-                {media_id: itemId} )
+                {media_id: itemId})
             return data
-        }
-        catch (e:any) {
+        } catch (e: any) {
             return e.response.data
         }
     },
- deleteListItem: async (itemId:number, listId: number, sessionId:string): Promise<deleteListItem> => {
+    deleteListItem: async (itemId: number, listId: number, sessionId: string): Promise<deleteListItem> => {
         try {
             const {data} = await instance.post<deleteListItem>(`/list/${listId}/remove_item?session_id=${sessionId}`,
-                {media_id: itemId} )
+                {media_id: itemId})
             return data
-        }
-        catch (e:any) {
+        } catch (e: any) {
             return e.response.data
         }
-    },
-
+    }
 }

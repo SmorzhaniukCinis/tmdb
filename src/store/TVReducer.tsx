@@ -1,7 +1,7 @@
 import {ActionTypes, RootStateType} from "./store";
 import {Dispatch} from "redux";
 import {tvAPI} from "../API/TVAPI/TVAPI";
-import {tvDetails, TVStats} from "../API/TVAPI/TVTypes";
+import {tvDetails, meidaStatsType} from "../API/TVAPI/TVTypes";
 import {movieAPI} from "../API/movieAPI/movieAPI";
 import {movieActions} from "./movieReducer";
 
@@ -14,7 +14,7 @@ const UPDATE_RATING = 'tv/UPDATE_RATING'
 const initialState = {
     isLoading: true,
     tvDetails: {} as tvDetails,
-    tvStats: {} as TVStats
+    tvStats: {} as meidaStatsType
 }
 type initialStateType = typeof initialState
 
@@ -36,7 +36,7 @@ export const TVReducer = (state = initialState, action: ActionTypes): initialSta
 export const tvActions = {
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
     setTVDetails: (tvDetails: tvDetails) => ({type: SET_TV_DETAILS, tvDetails} as const),
-    setTVStats: (TVStats: TVStats) => ({type: SET_TV_STATS, TVStats} as const),
+    setTVStats: (TVStats: meidaStatsType) => ({type: SET_TV_STATS, TVStats} as const),
     updateRating: (value: number) => ({type: UPDATE_RATING, value} as const),
 }
 
@@ -48,7 +48,6 @@ export const GetTVDetails = (TVid: number) =>
         const sessionId = getState().auth.sessionId
         const tvStats = await tvAPI.getTVShowStats(TVid, sessionId)
         dispatch(tvActions.setTVStats(tvStats))
-        console.log(tvStats)
         dispatch(tvActions.setLoading(false))
     }
 export const RateTV = (TVid: number, value: number) =>
@@ -66,4 +65,11 @@ export const deleteTVRating = (TVid: number) =>
         if (result.status_code === 1) {
             dispatch(tvActions.updateRating(0))
         }
+    }
+export const getTVStats = (id: number) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+        const sessionId = getState().auth.sessionId
+        const stats = await tvAPI.getTVShowStats(id, sessionId)
+        dispatch(tvActions.setTVStats(stats))
+
     }

@@ -6,6 +6,6 @@ export const getIsTVLoading = (state:RootStateType) => {
 export const getTVDetails = (state:RootStateType) => {
     return state.tv.tvDetails
 }
-export const getTVStats = (state:RootStateType) => {
+export const getTVStatsSelector = (state:RootStateType) => {
     return state.tv.tvStats
 }

@@ -93,7 +93,7 @@ export type rateTVRes = {
     "status_code": number
     "status_message": string
 }
-export type TVStats = {
+export type meidaStatsType = {
     "id": number,
     "favorite": boolean,
     "rated": {"value": number } | false
