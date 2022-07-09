@@ -11,6 +11,7 @@ import {getTVDetails} from "../store/Selectors/tvSelectors";
 import {mediaType} from "../Common/types";
 import {getCommonMedia} from "../Common/getCommonMedia";
 import MediaMainInfo from "./MediaMainInfo";
+import {deleteTVRating, RateTV} from "../store/TVReducer";
 
 type props = {
     mediaType: mediaType
@@ -28,15 +29,16 @@ export const MediaInfoBlock: React.FC<props> = ({mediaType}: props) => {
     const rateMedia = (value: number) => {
         if (params.media === 'movie') {
             dispatch(rateMovie(Number(params.mediaId), value))
-        } else {
-            //get TV
+        } else if (params.media === 'tv'){
+            dispatch(RateTV(Number(params.mediaId), value))
         }
     }
+
     const deleteMediaRating = () => {
         if (params.media === 'movie') {
             dispatch(deleteMovieRating(Number(params.mediaId)))
         } else {
-            //get TV
+            dispatch(deleteTVRating(Number(params.mediaId)))
         }
     }
 

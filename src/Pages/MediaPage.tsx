@@ -50,9 +50,9 @@ export const MediaPage = () => {
                 <Container maxWidth={'lg'}>
                     <MediaInfoBlock mediaType={mediaType}/>
                     <div className={s.empty}>secret message;)</div>
-                    <MediaCredits/>
-                    <MediaSocial/>
-                    <Recommendations/>
+                    {/*<MediaCredits/>*/}
+                    {/*<MediaSocial/>*/}
+                    {/*<Recommendations/>*/}
                 </Container>
             )
     }

@@ -88,3 +88,14 @@ type seasons = {
     "poster_path": string
     "season_number": number
 }
+
+export type rateTVRes = {
+    "status_code": number
+    "status_message": string
+}
+export type TVStats = {
+    "id": number,
+    "favorite": boolean,
+    "rated": {"value": number } | false
+    "watchlist": boolean
+}
