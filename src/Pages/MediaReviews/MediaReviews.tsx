@@ -7,7 +7,7 @@ import {getMovieDetails} from "../../store/movieReducer";
 import s from './mediaReviews.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import moment from "moment";
-import {SmallMediaReview} from "../../components/SmallMediaReview";
+import {SmallMediaReview} from "./Components/SmallMediaReview";
 
 export const MediaReviews = () => {
 

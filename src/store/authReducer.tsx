@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {ActionTypes, RootStateType} from "./store";
 import {authAPI} from "../API/authAPI/authAPI";
-import {formDataType} from "../components/auth-step1";
+import {formDataType} from "../Pages/Auth/Components/auth-step1";
 
 const SET_SESSION_ID = "auth/SET_SESSION_ID"
 const SET_LOADING_FOR_STEP1 = "auth/SET_LOADING_FOR_STEP1"

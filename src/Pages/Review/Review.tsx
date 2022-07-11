@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {GetReview} from "../../store/ReviewReducer";
 import {Link, useParams} from "react-router-dom";
 import {getIsLoading, getReview} from "../../store/Selectors/reviewSelectors";
-import {Loader} from "../../Common/Loader";
+import {Loader} from "../../Common/Components/Loader";
 import {Paper} from "@mui/material";
 import s from './Review.module.css'
 import moment from "moment";

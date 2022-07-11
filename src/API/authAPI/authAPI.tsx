@@ -1,6 +1,6 @@
 import {instance} from "../index";
 import {createGuestSession, createRequestTokenType, createSessionType, createSessionWithLoginType} from "./authTypes";
-import {formDataType} from "../../components/auth-step1";
+import {formDataType} from "../../Pages/Auth/Components/auth-step1";
 
 
 export const authAPI = {
