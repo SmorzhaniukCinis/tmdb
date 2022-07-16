@@ -1,5 +1,3 @@
-import {castItemType, crewItemType} from "../movieAPI/movieTypes";
-
 export type tvDetails = {
     "backdrop_path": string,
     "created_by": Array<{
@@ -60,16 +58,54 @@ export type tvDetails = {
     "type": string
     "vote_average": number
     "vote_count": number
-    aggregate_credits: {
-        cast: Array<castItemType>
-        crew: Array<crewItemType>
-    }
+    aggregate_credits: aggregate_creditsType
     content_ratings: {
         result: Array<{
             iso_3166_1: string
             rating: string
         }>
     }
+}
+
+export type aggregate_creditsType = {
+    cast: Array<castTVItem>
+    crew: Array<crewTVItem>
+}
+
+export type crewTVItem = {
+    adult: boolean
+    department: string
+    gender: number
+    id: number
+    jobs: {
+        credit_id: string
+        episode_count: number
+        job: string
+    }
+    known_for_department: string
+    name: string
+    original_name: string
+    popularity: number
+    profile_path: null | string
+    total_episode_count: number
+}
+
+export type castTVItem = {
+    adult: boolean
+    gender: number
+    id: number
+    known_for_department: string
+    name: string
+    order: number
+    original_name: string
+    popularity: number
+    profile_path: string | null
+    roles: Array<{
+        character: string
+        credit_id: string
+        episode_count: number
+    }>
+    total_episode_count: number
 }
 
 type companiesType = {
@@ -93,7 +129,7 @@ export type rateTVRes = {
     "status_code": number
     "status_message": string
 }
-export type meidaStatsType = {
+export type mediaStatsType = {
     "id": number,
     "favorite": boolean,
     "rated": {"value": number } | false

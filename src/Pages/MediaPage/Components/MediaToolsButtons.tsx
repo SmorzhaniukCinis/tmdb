@@ -7,20 +7,20 @@ import {addToFavorite, addToWatchList} from "../../../store/accountReducer";
 import {getMovieStats} from "../../../store/movieReducer";
 import {getTVStats} from "../../../store/TVReducer";
 import {useDispatch} from "react-redux";
-import {meidaStatsType} from "../../../API/TVAPI/TVTypes";
+import {mediaStatsType} from "../../../API/TVAPI/TVTypes";
 import { mediaType } from '../../../Common/types';
 
 type props = {
     mediaId: number
     mediaType: mediaType
-    TVStats:meidaStatsType
-    movieStats: meidaStatsType
+    TVStats:mediaStatsType
+    movieStats: mediaStatsType
     openListsMenu: () => void
 }
 
 const MediaToolsButtons:React.FC<props> = ({mediaType, mediaId, TVStats, movieStats ,openListsMenu}:props) => {
 
-    const [mediaStats, setMediaStats] = React.useState<meidaStatsType>();
+    const [mediaStats, setMediaStats] = React.useState<mediaStatsType>();
     const dispatch = useDispatch()
 
     const markAsFavorite = (isFavorite: boolean) => {

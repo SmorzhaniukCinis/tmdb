@@ -47,11 +47,13 @@ export type movieDetailsType = {
     }
     reviews: CommonResType<reviewType>
     recommendations: CommonResType<recommendationType>
-    credits: {
-        cast: Array<castItemType>
-        crew: Array<crewItemType>
-    }
+    credits: credits
     similar: CommonResType<similarMovieType>
+}
+
+export type credits = {
+    cast: Array<castItemType>
+    crew: Array<crewItemType>
 }
 
 type similarMovieType = {

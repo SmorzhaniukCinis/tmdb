@@ -1,7 +1,7 @@
 import {ActionTypes, RootStateType} from "./store";
 import {Dispatch} from "redux";
 import {tvAPI} from "../API/TVAPI/TVAPI";
-import {tvDetails, meidaStatsType} from "../API/TVAPI/TVTypes";
+import {tvDetails, mediaStatsType} from "../API/TVAPI/TVTypes";
 import {movieAPI} from "../API/movieAPI/movieAPI";
 import {movieActions} from "./movieReducer";
 
@@ -14,7 +14,7 @@ const UPDATE_RATING = 'tv/UPDATE_RATING'
 const initialState = {
     isLoading: true,
     tvDetails: {} as tvDetails,
-    tvStats: {} as meidaStatsType
+    tvStats: {} as mediaStatsType
 }
 type initialStateType = typeof initialState
 
@@ -36,7 +36,7 @@ export const TVReducer = (state = initialState, action: ActionTypes): initialSta
 export const tvActions = {
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
     setTVDetails: (tvDetails: tvDetails) => ({type: SET_TV_DETAILS, tvDetails} as const),
-    setTVStats: (TVStats: meidaStatsType) => ({type: SET_TV_STATS, TVStats} as const),
+    setTVStats: (TVStats: mediaStatsType) => ({type: SET_TV_STATS, TVStats} as const),
     updateRating: (value: number) => ({type: UPDATE_RATING, value} as const),
 }
 

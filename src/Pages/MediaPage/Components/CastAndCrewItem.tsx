@@ -8,9 +8,10 @@ import {castItemType} from "../../../API/movieAPI/movieTypes";
 import {getImage} from "../../../Common/functions/getImage";
 import {useNavigate} from "react-router-dom";
 import NoImage from '../../../assets/noUserPhoto.png'
+import {castTVItem} from "../../../API/TVAPI/TVTypes";
 
 type props = {
-    item: castItemType
+    item: castItemType| castTVItem
 }
 
 export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
@@ -31,7 +32,8 @@ export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
                         {item.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {item.character}
+                        {/*@ts-ignore*/}
+                        {item.character || item.roles[0].character}
                     </Typography>
                 </CardContent>
             </CardActionArea>

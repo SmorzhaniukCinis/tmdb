@@ -1,10 +1,12 @@
 import {instance} from "../index";
-import {rateTVRes, tvDetails, meidaStatsType} from "./TVTypes";
+import {rateTVRes, tvDetails, mediaStatsType} from "./TVTypes";
 
 
 export const tvAPI = {
     getTVDetails: async (tv_id: number): Promise<tvDetails> => {
-        const {data} = await instance.get<tvDetails>(`/tv/${tv_id}?append_to_response=content_ratings,credits`)
+        const {data} = await instance.get<tvDetails>
+        (`/tv/${tv_id}?append_to_response=content_ratings,credits,aggregate_credits`)
+        console.log(data)
         return data
     },
     rateTVShow: async (tv_id: number, value:number, sessionId:string): Promise<rateTVRes> => {
@@ -13,8 +15,8 @@ export const tvAPI = {
         })
         return data
     },
-    getTVShowStats: async (tv_id: number, sessionId:string): Promise<meidaStatsType> => {
-        const {data} = await instance.get<meidaStatsType>(`/tv/${tv_id}/account_states?session_id=${sessionId}`)
+    getTVShowStats: async (tv_id: number, sessionId:string): Promise<mediaStatsType> => {
+        const {data} = await instance.get<mediaStatsType>(`/tv/${tv_id}/account_states?session_id=${sessionId}`)
         return data
     },
     deleteTVShowRating: async (tv_id: number, sessionId:string): Promise<rateTVRes> => {
