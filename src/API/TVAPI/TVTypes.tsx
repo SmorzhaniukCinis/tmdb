@@ -1,5 +1,6 @@
 import {CommonResType} from "../accountAPI/accountTypes";
 import {reviewType} from "../movieAPI/movieTypes";
+import {mediaType} from "../../Common/types";
 
 export type tvDetails = {
     "backdrop_path": string,
@@ -69,6 +70,26 @@ export type tvDetails = {
         }>
     }
     reviews: CommonResType<reviewType>
+    recommendations: CommonResType<recommendationTVItem>
+}
+
+export type recommendationTVItem = {
+    title: null
+    adult: boolean
+    backdrop_path: string | null
+    first_air_date: string
+    genre_ids: string[]
+    id: number
+    media_type: mediaType
+    name: string
+    original_language: string
+    original_name: string
+    overview: string | null
+    popularity: number
+    poster_path: string | null
+    vote_average: number
+    vote_count: number
+    origin_country: string[]
 }
 
 export type aggregate_creditsType = {

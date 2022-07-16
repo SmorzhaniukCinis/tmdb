@@ -51,7 +51,7 @@ export const MediaPage = () => {
                     <div className={s.empty}>secret message;)</div>
                     <MediaCredits id={Number(params.mediaId) || 0} mediaType={mediaType}/>
                     <MediaSocial mediaType={mediaType}/>
-                    {/*<Recommendations/>*/}
+                    <Recommendations mediaType={mediaType}/>
                 </Container>
             )
     }

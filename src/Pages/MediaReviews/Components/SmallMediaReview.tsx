@@ -53,9 +53,7 @@ export const SmallMediaReview = ({review}: props) => {
                         </Typography>
                     }
                 </div>
-
             </div>
-
         </Paper>
     );
 };

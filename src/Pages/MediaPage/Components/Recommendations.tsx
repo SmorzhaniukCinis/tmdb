@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Paper} from "@mui/material";
 import {useSelector} from "react-redux";
 import {getMovieDetailsSelector} from "../../../store/Selectors/movieSelectors";
 import s from "../mediaPage.module.css";
 import {RecommendationItem} from "./RecommendationItem";
+import {mediaType} from "../../../Common/types";
+import {getTVDetails} from "../../../store/Selectors/tvSelectors";
+import {CommonResType} from "../../../API/accountAPI/accountTypes";
+import {recommendationTVItem} from "../../../API/TVAPI/TVTypes";
+import {recommendationType} from "../../../API/movieAPI/movieTypes";
 
-export const Recommendations = () => {
+type props = {
+    mediaType: mediaType
+}
 
-    const {recommendations} = useSelector(getMovieDetailsSelector)
+export const Recommendations:React.FC<props> = ({mediaType}:props) => {
 
-    if(recommendations.results.length) {
+    const movieDetails = useSelector(getMovieDetailsSelector)
+    const tvDetails = useSelector(getTVDetails)
+    const [recommendations, setRecommendations] = useState<CommonResType<recommendationTVItem | recommendationType>>()
+
+    useEffect(() => {
+        if(mediaType === 'tv') {
+            setRecommendations(tvDetails.recommendations)
+        } else {
+            setRecommendations(movieDetails.recommendations)
+        }
+    }, [mediaType, movieDetails.recommendations, tvDetails.recommendations])
+
+    if(recommendations?.results.length) {
         return (
             <Paper elevation={10} sx={{mt: 3}} >
                 <span className={s.CastTitle}>
@@ -19,7 +38,7 @@ export const Recommendations = () => {
                     {recommendations.results.map((item, index) => {
                             if (index <= 10)
                                 return (
-                                    <RecommendationItem key={item.id} item={item}/>
+                                    <RecommendationItem mediaType={mediaType} key={item.id} item={item}/>
                                 )
                         }
                     )}

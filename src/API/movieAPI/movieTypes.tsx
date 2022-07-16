@@ -102,6 +102,7 @@ export type castItemType = {
 }
 
 export type recommendationType = {
+    name: null
     adult: boolean
     backdrop_path: string | null
     genre_ids: Array<number>

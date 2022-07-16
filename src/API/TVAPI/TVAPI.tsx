@@ -5,7 +5,7 @@ import {rateTVRes, tvDetails, mediaStatsType} from "./TVTypes";
 export const tvAPI = {
     getTVDetails: async (tv_id: number): Promise<tvDetails> => {
         const {data} = await instance.get<tvDetails>
-        (`/tv/${tv_id}?append_to_response=content_ratings,credits,aggregate_credits,reviews`)
+        (`/tv/${tv_id}?append_to_response=content_ratings,credits,aggregate_credits,reviews,recommendations`)
         console.log(data)
         return data
     },
