@@ -46,7 +46,6 @@ const MediaRating:React.FC<props> = ({mediaType, movieStats, TVStats}:props) => 
                     setRating(0)
                 }
             } else if (mediaType === 'tv') {
-                debugger
                 if (TVStats.rated) {
                     setRating(TVStats.rated.value)
                 } else {

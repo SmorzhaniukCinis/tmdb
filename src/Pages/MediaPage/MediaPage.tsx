@@ -25,7 +25,6 @@ export const MediaPage = () => {
 
 
     useEffect(() => {
-
         if (params.media === 'movie') {
             setMediaType(params.media)
             dispatch(getMovieDetails(Number(params.mediaId)))
@@ -51,7 +50,7 @@ export const MediaPage = () => {
                     <MediaInfoBlock mediaType={mediaType}/>
                     <div className={s.empty}>secret message;)</div>
                     <MediaCredits id={Number(params.mediaId) || 0} mediaType={mediaType}/>
-                    {/*<MediaSocial/>*/}
+                    <MediaSocial mediaType={mediaType}/>
                     {/*<Recommendations/>*/}
                 </Container>
             )

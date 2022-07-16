@@ -1,3 +1,6 @@
+import {CommonResType} from "../accountAPI/accountTypes";
+import {reviewType} from "../movieAPI/movieTypes";
+
 export type tvDetails = {
     "backdrop_path": string,
     "created_by": Array<{
@@ -65,6 +68,7 @@ export type tvDetails = {
             rating: string
         }>
     }
+    reviews: CommonResType<reviewType>
 }
 
 export type aggregate_creditsType = {
