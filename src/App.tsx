@@ -22,6 +22,7 @@ import {PersonProfile} from "./Pages/PersonProfile/PersonProfile";
 import {PersonPhotos} from "./Pages/PersonPhotos/PersonPhotos";
 import {Review} from "./Pages/Review/Review";
 import {MediaReviews} from "./Pages/MediaReviews/MediaReviews";
+import {MediaCastAndCrew} from "./Pages/MedaiCastAndCrew/MediaCastAndCrew";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
                         <Route path={'/ratedSeries'} element={<RatedSeries/>}/>
                         <Route path={'/:media/:mediaId'} element={<MediaPage/>}/>
                         <Route path={'/:media/:mediaId/reviews'} element={<MediaReviews/>}/>
+                        <Route path={'/:media/:mediaId/people'} element={<MediaCastAndCrew/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                         <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}/>

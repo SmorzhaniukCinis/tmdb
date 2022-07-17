@@ -1,5 +1,5 @@
 import {instance} from "../index";
-import {accountStats, movieDetailsType, rateMovieRes} from "./movieTypes";
+import {accountStats, commonMediaCredits, movieDetailsType, rateMovieRes} from "./movieTypes";
 
 export const movieAPI = {
     getMovieDetails: async (movieId: number): Promise<movieDetailsType> => {
@@ -20,6 +20,10 @@ export const movieAPI = {
     },
     deleteMovieRating: async (movieId: number, sessionId: string): Promise<rateMovieRes> => {
         const {data} = await instance.delete<rateMovieRes>(`/movie/${movieId}/rating?session_id=${sessionId}`)
+        return data
+    },
+    getCredits: async (tv_id: number): Promise<commonMediaCredits> => {
+        const {data} = await instance.get<commonMediaCredits>(`/movie/${tv_id}/credits`)
         return data
     },
 }

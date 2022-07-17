@@ -6,7 +6,7 @@ import {CastAndCrewItem} from "./CastAndCrewItem";
 import {Paper} from "@mui/material";
 import {Link} from "react-router-dom";
 import {mediaType} from "../../../Common/types";
-import {credits} from "../../../API/movieAPI/movieTypes";
+import {commonMediaCredits} from "../../../API/movieAPI/movieTypes";
 import {getTVDetails} from "../../../store/Selectors/tvSelectors";
 import {aggregate_creditsType} from "../../../API/TVAPI/TVTypes";
 
@@ -19,7 +19,7 @@ export const MediaCredits:React.FC<props> = ({mediaType, id}:props) => {
 
     const {credits} = useSelector(getMovieDetailsSelector)
     const {aggregate_credits} = useSelector(getTVDetails)
-    const [currentCredits, setCurrentCredits] = useState<credits | aggregate_creditsType>()
+    const [currentCredits, setCurrentCredits] = useState<commonMediaCredits | aggregate_creditsType>()
 
     useEffect(() => {
         if(mediaType === 'movie') {

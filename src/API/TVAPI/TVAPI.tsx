@@ -1,5 +1,6 @@
 import {instance} from "../index";
-import {rateTVRes, tvDetails, mediaStatsType} from "./TVTypes";
+import {mediaStatsType, rateTVRes, tvDetails} from "./TVTypes";
+import {commonMediaCredits} from "../movieAPI/movieTypes";
 
 
 export const tvAPI = {
@@ -21,6 +22,10 @@ export const tvAPI = {
     },
     deleteTVShowRating: async (tv_id: number, sessionId:string): Promise<rateTVRes> => {
         const {data} = await instance.delete<rateTVRes>(`/tv/${tv_id}/rating?session_id=${sessionId}`)
+        return data
+    },
+    getCredits: async (tv_id: number): Promise<commonMediaCredits> => {
+        const {data} = await instance.get<commonMediaCredits>(`/tv/${tv_id}/credits`)
         return data
     },
 }

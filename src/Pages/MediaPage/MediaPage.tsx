@@ -3,8 +3,7 @@ import {getMovieDetails} from "../../store/movieReducer";
 import {useDispatch, useSelector} from "react-redux";
 import s from './mediaPage.module.css'
 import {getIsLoading} from "../../store/Selectors/movieSelectors";
-import {CircularProgress, Container} from "@mui/material";
-import Backdrop from '@mui/material/Backdrop';
+import {Container} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {MediaInfoBlock} from "./Components/MediaInfoBlock";
 import {MediaCredits} from "./Components/MediaCredits";
@@ -12,6 +11,7 @@ import {MediaSocial} from "./Components/MediaSocial";
 import {Recommendations} from "./Components/Recommendations";
 import {getIsTVLoading} from "../../store/Selectors/tvSelectors";
 import {GetTVDetails} from "../../store/TVReducer";
+import {Loader} from "../../Common/Components/Loader";
 
 
 export const MediaPage = () => {
@@ -38,12 +38,7 @@ export const MediaPage = () => {
 
 
     if (isMovieLoading && isTVLoading) {
-        return <Backdrop
-            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-            open={true}
-        >
-            <CircularProgress color="inherit"/>
-        </Backdrop>
+        return <Loader/>
     } else {
             return (
                 <Container maxWidth={'lg'}>

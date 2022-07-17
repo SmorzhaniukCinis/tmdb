@@ -102,11 +102,11 @@ export type crewTVItem = {
     department: string
     gender: number
     id: number
-    jobs: {
+    jobs: Array<{
         credit_id: string
         episode_count: number
         job: string
-    }
+    }>
     known_for_department: string
     name: string
     original_name: string

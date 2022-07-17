@@ -4,14 +4,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import {castItemType} from "../../../API/movieAPI/movieTypes";
+import {commonCastType} from "../../../API/movieAPI/movieTypes";
 import {getImage} from "../../../Common/functions/getImage";
 import {useNavigate} from "react-router-dom";
 import NoImage from '../../../assets/noUserPhoto.png'
 import {castTVItem} from "../../../API/TVAPI/TVTypes";
 
 type props = {
-    item: castItemType| castTVItem
+    item: commonCastType| castTVItem
 }
 
 export const CastAndCrewItem:React.FC<props> = ({item}:props) => {

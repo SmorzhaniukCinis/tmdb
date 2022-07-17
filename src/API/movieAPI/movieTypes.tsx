@@ -47,13 +47,14 @@ export type movieDetailsType = {
     }
     reviews: CommonResType<reviewType>
     recommendations: CommonResType<recommendationType>
-    credits: credits
+    credits: commonMediaCredits
     similar: CommonResType<similarMovieType>
 }
 
-export type credits = {
-    cast: Array<castItemType>
-    crew: Array<crewItemType>
+export type commonMediaCredits = {
+    cast: Array<commonCastType>
+    crew: Array<commonCrewType>
+    id?: number
 }
 
 type similarMovieType = {
@@ -73,7 +74,7 @@ type similarMovieType = {
     vote_count: number
 }
 
-export type crewItemType = {
+export type commonCrewType = {
     adult: boolean
     credit_id: string
     department: string
@@ -86,7 +87,7 @@ export type crewItemType = {
     popularity: number
     profile_path: string | null
 }
-export type castItemType = {
+export type commonCastType = {
     adult: boolean
     cast_id: number
     character: string
