@@ -1,0 +1,21 @@
+.name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.job {
+    font-size: 18px;
+}
+.profilePhoto {
+    width: 70px;
+    border-radius: 5px;
+}
+.title {
+    font-size: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.itemCount {
+    font-size: 25px;
+    color: #a19d9d;
+    font-weight: normal;
+}
