@@ -8,6 +8,7 @@ import s from './mediaReviews.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import moment from "moment";
 import {SmallMediaReview} from "./Components/SmallMediaReview";
+import MediaTitle from "../../Common/Components/mediaTitle/MediaTitle";
 
 export const MediaReviews = () => {
 
@@ -23,13 +24,7 @@ export const MediaReviews = () => {
 
     return (
         <Paper elevation={5}>
-            <div className={s.mediaTitleWrapper}>
-                <Link className={s.mediaTitle} to={`/${media}/${mediaId}`}>
-                    <ArrowBackIcon fontSize={'small'} sx={{mr:1}}/>
-                    <span>{movieDetails.title}</span>
-                    <span className={s.mediaDate}>{` (${moment(movieDetails?.release_date).format('YYYY')})`}</span>
-                </Link>
-            </div>
+            <MediaTitle mediaType={media} title={movieDetails.title} mediaId={mediaId} date={movieDetails.release_date}/>
             <div className={s.reviewList}>
                 {movieDetails.reviews.results.map(review => <SmallMediaReview review={review}/>)}
             </div>
