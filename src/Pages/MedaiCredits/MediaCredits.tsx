@@ -8,6 +8,7 @@ import {Loader} from "../../Common/Components/Loader";
 import {MediaCrew} from "./Components/MediaCrew";
 import {MediaCast} from "./Components/MediaCast";
 import {Box} from "@mui/material";
+import MediaTitle from "../../Common/Components/mediaTitle/MediaTitle";
 
 type params = {
     mediaId: string
