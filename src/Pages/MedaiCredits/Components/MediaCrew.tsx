@@ -8,11 +8,12 @@ import {MediaCrewDepartment} from "./MediaCrewDepartment";
 
 type props = {
     crew: commonCrewType[] | undefined
+    goToPerson: (id:number) => void
 }
 
 
 
-export const MediaCrew: React.FC<props> = ({crew}: props) => {
+export const MediaCrew: React.FC<props> = ({crew, goToPerson}: props) => {
 
     const temporaryDepartments:string[] = useMemo(()=> {return []},[])
     const [departments, setDepartments] = useState<string[]>([])
@@ -30,7 +31,7 @@ export const MediaCrew: React.FC<props> = ({crew}: props) => {
         <Box sx={{width: '50%'}}>
             <h5 className={s.title}>Crew<span className={s.itemCount}>({crew?.length})</span></h5>
             {
-                departments.map(i => <MediaCrewDepartment title={i} crew={crew}/>)
+                departments.map(i => <MediaCrewDepartment goToPerson={goToPerson} title={i} crew={crew}/>)
             }
         </Box>
     );

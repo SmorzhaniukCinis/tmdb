@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-import {useParams} from "react-router-dom";
-import {getCredits} from "../../store/mediaReducer";
+import {useNavigate, useParams} from "react-router-dom";
+import {getMediaCredits, getMediaDetails} from "../../store/mediaReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {mediaType} from "../../Common/types";
-import {getCreditsSelector, getIsLoading} from "../../store/Selectors/mediaSelectors";
+import {getMediaCreditsSelector, getIsLoading, getMediaDetailsSelector} from "../../store/Selectors/mediaSelectors";
 import {Loader} from "../../Common/Components/Loader";
 import {MediaCrew} from "./Components/MediaCrew";
 import {MediaCast} from "./Components/MediaCast";
-import {Box} from "@mui/material";
+import {Box, Paper} from "@mui/material";
 import MediaTitle from "../../Common/Components/mediaTitle/MediaTitle";
 
 type params = {
@@ -19,23 +19,37 @@ export const MediaCredits = () => {
 
     const {mediaId, media} = useParams<params>()
     const dispatch = useDispatch()
-    const credits = useSelector(getCreditsSelector)
+    const credits = useSelector(getMediaCreditsSelector)
+    const details = useSelector(getMediaDetailsSelector)
     const isLoading = useSelector(getIsLoading)
+    const navigate = useNavigate()
 
     useEffect(() => {
         if(media) {
-            dispatch(getCredits(Number(mediaId), media))
+            dispatch(getMediaCredits(Number(mediaId), media))
+            dispatch(getMediaDetails(Number(mediaId), media))
         }
     }, [media, mediaId, dispatch])
+
+    const goToPerson = (id:number) => {
+        navigate(`/person/${id}`)
+    }
 
     if(isLoading) {
         return <Loader/>
     }
     return (
-        <Box sx={{display: 'flex'}}>
-            <MediaCast cast={credits.cast}/>
-            <MediaCrew crew={credits.crew}/>
-        </Box>
+        <Paper elevation={10}>
+            <MediaTitle title={details.title}
+                        date={details.releaseDate}
+                        mediaType={details.mediaType}
+                        mediaId={String(details.id)}/>
+            <Box sx={{display: 'flex', pl:6}}>
+
+                <MediaCast cast={credits.cast} goToPerson={goToPerson}/>
+                <MediaCrew crew={credits.crew} goToPerson={goToPerson}/>
+            </Box>
+        </Paper>
     );
 };
 
