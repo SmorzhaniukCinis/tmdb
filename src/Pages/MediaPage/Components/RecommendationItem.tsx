@@ -28,7 +28,7 @@ export const RecommendationItem: React.FC<props> = ({item, mediaType}: props) =>
     // @ts-ignore
     return (
         <Card sx={{maxWidth: 345, m: 1}}>
-            <CardActionArea onClick={goToMedia}>
+            <CardActionArea  sx={{height: '100%'}} onClick={goToMedia}>
                 <CardMedia
                     component="img"
                     height="300"
@@ -37,10 +37,10 @@ export const RecommendationItem: React.FC<props> = ({item, mediaType}: props) =>
                 />
                 <CardContent>
                     {item.title
-                        ?<Typography sx={item.title.length>16 ? {fontSize: 12} : {fontSize: 19}}>
+                        ?<Typography height={30} sx={item.title.length>15 ? {fontSize: 13} : {fontSize: 19}}>
                             {item.title}
                         </Typography>
-                    : <Typography sx={item.name && item.name.length>16 ? {fontSize: 12} : {fontSize: 18}}>
+                    : <Typography sx={item.name && item.name.length>15 ? {fontSize: 13} : {fontSize: 18}}>
                             {item.name}
                         </Typography>}
 

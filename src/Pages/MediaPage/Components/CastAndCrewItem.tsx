@@ -20,14 +20,14 @@ export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
 
     return (
         <Card sx={{m:1}} onClick={() => navigate(`/person/${item.id}`)}>
-            <CardActionArea>
+            <CardActionArea sx={{height: '100%'}}>
                 <CardMedia
                     component="img"
                     height="300"
                     image={getImage('original', item.profile_path) || NoImage}
                     alt="no image"
                 />
-                <CardContent>
+                <CardContent sx={{height: '100px'}}>
                     <Typography gutterBottom component="div">
                         {item.name}
                     </Typography>
