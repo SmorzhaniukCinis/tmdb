@@ -4,6 +4,7 @@ import {tvAPI} from "../API/TVAPI/TVAPI";
 import {tvDetails, mediaStatsType} from "../API/TVAPI/TVTypes";
 import {movieAPI} from "../API/movieAPI/movieAPI";
 import {movieActions} from "./movieReducer";
+import {mediaActions} from "./mediaReducer";
 
 const SET_LOADING = 'tv/SET_LOADING'
 const SET_TV_DETAILS = 'tv/SET_TV_DETAILS'
@@ -20,8 +21,6 @@ type initialStateType = typeof initialState
 
 export const TVReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
-        case SET_LOADING:
-            return {...state, isLoading: action.isLoading}
         case SET_TV_DETAILS:
             return {...state, tvDetails: action.tvDetails}
         case SET_TV_STATS:
@@ -34,7 +33,6 @@ export const TVReducer = (state = initialState, action: ActionTypes): initialSta
 }
 
 export const tvActions = {
-    setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
     setTVDetails: (tvDetails: tvDetails) => ({type: SET_TV_DETAILS, tvDetails} as const),
     setTVStats: (TVStats: mediaStatsType) => ({type: SET_TV_STATS, TVStats} as const),
     updateRating: (value: number) => ({type: UPDATE_RATING, value} as const),
@@ -42,13 +40,13 @@ export const tvActions = {
 
 export const GetTVDetails = (TVid: number) =>
     async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
-        dispatch(tvActions.setLoading(true))
+        dispatch(mediaActions.setLoading(true))
         const result = await tvAPI.getTVDetails(TVid)
         dispatch(tvActions.setTVDetails(result))
         const sessionId = getState().auth.sessionId
         const tvStats = await tvAPI.getTVShowStats(TVid, sessionId)
         dispatch(tvActions.setTVStats(tvStats))
-        dispatch(tvActions.setLoading(false))
+        dispatch(mediaActions.setLoading(false))
     }
 export const RateTV = (TVid: number, value: number) =>
     async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
