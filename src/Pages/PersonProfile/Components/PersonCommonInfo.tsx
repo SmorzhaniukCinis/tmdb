@@ -8,6 +8,7 @@ import {PersonCommonInfoItem} from "./PersonCommonInfoItem";
 import {getDate} from "../../../Common/functions/getDate";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import noPhoto from '../../../assets/noimage.jpg'
 
 type props = {
     personDetails: personDetails
@@ -29,7 +30,7 @@ const PersonCommonInfo:React.FC<props> = ({personDetails}:props) => {
 
     return (
         <div>
-            <img className={s.profileImage} src={getImage('original', personDetails.profile_path)}
+            <img className={s.profileImage} src={getImage('original', personDetails.profile_path) || noPhoto}
                  alt="profilePhoto"/>
             <div>
                 <Button sx={{width:300}} onClick={()=> navigate('photos')}>See all photos</Button>

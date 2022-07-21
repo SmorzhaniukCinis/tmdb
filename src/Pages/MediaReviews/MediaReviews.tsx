@@ -26,7 +26,7 @@ export const MediaReviews = () => {
         <Paper elevation={5}>
             <MediaTitle mediaType={media} title={movieDetails.title} mediaId={mediaId} date={movieDetails.release_date}/>
             <div className={s.reviewList}>
-                {movieDetails.reviews.results.map(review => <SmallMediaReview review={review}/>)}
+                {movieDetails.reviews?.results?.map(review => <SmallMediaReview key={review.id} review={review}/>)}
             </div>
         </Paper>
     );

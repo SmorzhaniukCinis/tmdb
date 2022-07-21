@@ -13,10 +13,10 @@ export const MediaCrewDepartment: React.FC<props> = ({title, crew, goToPerson}: 
     return (
         <div>
             <h6 className={s.departmentTitle}>{title}</h6>
-            {crew?.map(item => {
+            {crew?.map((item,index) => {
                         if (item.department === title) {
                             return (
-                                <MediaCreditsItem job={item.job} goToPerson={goToPerson} item={item}/>
+                                <MediaCreditsItem key={index} job={item.job} goToPerson={goToPerson} item={item}/>
                             )
                         }
 

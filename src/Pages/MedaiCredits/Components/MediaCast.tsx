@@ -18,7 +18,7 @@ export const MediaCast: React.FC<props> = ({cast, goToPerson}: props) => {
             </h5>
             {
                 cast?.map(item =>
-                    <MediaCreditsItem job={item.character} goToPerson={goToPerson} item={item}/>
+                    <MediaCreditsItem key={item.id} job={item.character} goToPerson={goToPerson} item={item}/>
                 )
             }
         </Box>

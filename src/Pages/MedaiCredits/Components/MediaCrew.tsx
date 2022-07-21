@@ -1,7 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {commonCrewType} from "../../../API/movieAPI/movieTypes";
-import {getImage} from "../../../Common/functions/getImage";
-import noPhoto from '../../../assets/noUserPhoto.png'
 import {Box} from "@mui/material";
 import s from '../MediaCredits.module.css'
 import {MediaCrewDepartment} from "./MediaCrewDepartment";
@@ -31,7 +29,7 @@ export const MediaCrew: React.FC<props> = ({crew, goToPerson}: props) => {
         <Box sx={{width: '50%'}}>
             <h5 className={s.title}>Crew<span className={s.itemCount}>({crew?.length})</span></h5>
             {
-                departments.map(i => <MediaCrewDepartment goToPerson={goToPerson} title={i} crew={crew}/>)
+                departments.map(i => <MediaCrewDepartment key={i} goToPerson={goToPerson} title={i} crew={crew}/>)
             }
         </Box>
     );
