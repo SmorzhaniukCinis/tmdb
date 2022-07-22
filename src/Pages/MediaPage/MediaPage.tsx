@@ -11,6 +11,7 @@ import {Recommendations} from "./Components/Recommendations";
 import {GetTVDetails} from "../../store/TVReducer";
 import {Loader} from "../../Common/Components/Loader";
 import {getIsLoading} from "../../store/Selectors/mediaSelectors";
+import {MediaImage} from "./Components/MediaImage";
 
 
 export const MediaPage = () => {
@@ -43,6 +44,7 @@ export const MediaPage = () => {
                     <div className={s.empty}>secret message;)</div>
                     <MediaCredits id={Number(params.mediaId) || 0} mediaType={mediaType}/>
                     <MediaSocial mediaType={mediaType}/>
+                    <MediaImage mediaType={mediaType}/>
                     <Recommendations mediaType={mediaType}/>
                 </Container>
             )

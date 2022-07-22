@@ -1,5 +1,5 @@
 import {CommonResType} from "../accountAPI/accountTypes";
-import {reviewType} from "../movieAPI/movieTypes";
+import {imageType, reviewType} from "../movieAPI/movieTypes";
 import {mediaType} from "../../Common/types";
 
 export type tvDetails = {
@@ -71,6 +71,11 @@ export type tvDetails = {
     }
     reviews: CommonResType<reviewType>
     recommendations: CommonResType<recommendationTVItem>
+    images: {
+        backdrops: Array<imageType>
+        logos: Array<imageType>
+        posters: Array<imageType>
+    }
 }
 
 export type recommendationTVItem = {

@@ -7,7 +7,7 @@ import {MinimizedMediaDetails} from "../../Common/types";
 export const tvAPI = {
     getTVDetails: async (tv_id: number): Promise<tvDetails> => {
         const {data} = await instance.get<tvDetails>
-        (`/tv/${tv_id}?append_to_response=content_ratings,credits,aggregate_credits,reviews,recommendations`)
+        (`/tv/${tv_id}?append_to_response=content_ratings,credits,images,aggregate_credits,reviews,recommendations`)
         return data
     },
     getMinimizedTVDetails: async (tv_id: number): Promise<MinimizedMediaDetails> => {
