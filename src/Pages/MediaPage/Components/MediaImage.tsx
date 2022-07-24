@@ -8,20 +8,27 @@ import {getImage} from "../../../Common/functions/getImage";
 import {Paper} from "@mui/material";
 import s from "../mediaPage.module.css";
 import {Link} from "react-router-dom";
+import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import ImageDirectionsToggle from "../../../Common/Components/ImageDirectionsToggle";
+import MediaImageSlider from "./MediaImageSlider";
 
 type props = {
     mediaType: mediaType
 }
-type images = {
+export type images = {
     backdrops: Array<imageType>
     logos: Array<imageType>
     posters: Array<imageType>
 }
+
+export type direction = "backdrops" | "logos" | "posters"
+
 export const MediaImage = ({mediaType}: props) => {
 
     const movieDetails = useSelector(getMovieDetailsSelector)
     const tvDetails = useSelector(getTVDetails)
     const [currentMediaImage, setCurrentMediaImage] = useState<images>()
+    const [imageDirection, setImageDirection] = React.useState<direction>('backdrops');
 
     useEffect(() => {
         if (mediaType === 'movie') {
@@ -31,20 +38,17 @@ export const MediaImage = ({mediaType}: props) => {
         }
     }, [mediaType, movieDetails.images, tvDetails.images])
 
+
+
     return (
-        <Paper elevation={10} sx={{mb: 5, pt: 3, pl: 3}}>
+        <Paper elevation={10} sx={{mb: 5, padding: '22px 22px 0 22px'}}>
                 <span className={s.ImageTitle}>
                     Images
                     <Link className={s.castAndCrewLink} to={`/${mediaType}/${0}/people`}>View all images...</Link>
                 </span>
-            <div className={s.mediaImageSlider}>
-                {currentMediaImage &&
-                    currentMediaImage.backdrops
-                        .slice(0, 10)
-                        .map((img, index) =>
-                            <img height={'300px'} key={img.file_path} src={getImage('original', img.file_path)} alt="mediaPhoto"/>
-                    )}
-            </div>
+            <ImageDirectionsToggle imageDirection={imageDirection} setImageDirection={setImageDirection}/>
+            <MediaImageSlider currentMediaImage={currentMediaImage} direction={imageDirection}/>
+
         </Paper>
     )
 }

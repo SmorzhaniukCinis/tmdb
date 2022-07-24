@@ -1,0 +1,50 @@
+import React, {useEffect, useState} from 'react';
+import {direction, images} from "./MediaImage";
+import {imageType} from "../../../API/movieAPI/movieTypes";
+import s from "../mediaPage.module.css";
+import {getImage} from "../../../Common/functions/getImage";
+
+type props = {
+    direction: direction
+    currentMediaImage: images | undefined
+}
+
+const MediaImageSlider:React.FC<props> = ({direction , currentMediaImage}: props) => {
+
+    const [currentImages, setCurrentImage] = useState<imageType[]>()
+
+    
+    useEffect(() => {
+        switch (direction) {
+            case 'backdrops': {
+                setCurrentImage(currentMediaImage?.backdrops)
+                break
+            }
+            case 'posters': {
+                setCurrentImage(currentMediaImage?.posters)
+                break
+            }
+            case 'logos': {
+                setCurrentImage(currentMediaImage?.logos)
+                break
+            }
+            default: break
+        }
+    },[currentMediaImage?.backdrops, currentMediaImage?.logos, currentMediaImage?.posters, direction])
+    
+
+    return (
+        <div className={s.mediaImageSlider}>
+            {currentImages && currentImages
+                .slice(0, 10)
+                .map((img, index) =>
+                    <img className={s.mediaImageItem}
+                         key={img.file_path}
+                         src={getImage('original', img.file_path)}
+                         alt="mediaPhoto"/>
+                )}
+        </div>
+    );
+};
+
+export default MediaImageSlider;
