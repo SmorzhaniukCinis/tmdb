@@ -8,7 +8,7 @@ type props = {
     title: string | undefined | null
     date: string | undefined | null
     mediaType: string | undefined | null
-    mediaId: string | undefined | null
+    mediaId: number | string | undefined | null
 }
 
 const MediaTitle:React.FC<props> = ({title, date, mediaType, mediaId}:props) => {

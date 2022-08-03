@@ -51,6 +51,8 @@ export type movieDetailsType = {
     similar: CommonResType<similarMovieType>
 }
 
+
+
 export type commonMediaCredits = {
     cast: Array<commonCastType>
     crew: Array<commonCrewType>

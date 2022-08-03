@@ -1,6 +1,6 @@
 import React from 'react';
-import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import {direction} from "../../Pages/MediaPage/Components/MediaImage";
+import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 
 type props = {
     imageDirection: string

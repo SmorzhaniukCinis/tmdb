@@ -9,3 +9,6 @@ export const getIsLoading = (state:RootStateType) => {
 export const getMediaDetailsSelector = (state:RootStateType) => {
   return state.media.details
 }
+export const getMediaImagesSelector = (state:RootStateType) => {
+  return state.media.images
+}
