@@ -6,3 +6,6 @@
     font-size: 30px;
     text-align: center;
 }
+.borderForLogos {
+    box-shadow: 1px 1px 4px;
+}

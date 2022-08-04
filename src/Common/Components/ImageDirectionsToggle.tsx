@@ -11,7 +11,9 @@ type props = {
 const ImageDirectionsToggle:React.FC<props> = ({imageDirection, setImageDirection}:props) => {
 
     const changeDirection = (event: React.MouseEvent<HTMLElement>, direction: direction,) => {
-        setImageDirection(direction);
+        if(direction)
+            setImageDirection(direction);
+
     };
     return (
         <div>

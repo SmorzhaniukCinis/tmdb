@@ -12,11 +12,11 @@ export const ImagesListWrapper:React.FC<props> = ({imagesList, imageDirection}:p
 
     switch (imageDirection) {
         case "backdrops":
-            return <ImagesList imagesList={imagesList.backdrops} cols={4} size={32}/>
+            return <ImagesList imagesList={imagesList.backdrops} cols={4} />
         case "logos":
-            return <ImagesList imagesList={imagesList.logos} cols={2} size={20}/>
+            return <ImagesList imagesList={imagesList.logos} cols={2} />
         case "posters":
-            return <ImagesList imagesList={imagesList.posters} cols={3} size={15}/>
+            return <ImagesList imagesList={imagesList.posters} cols={4} />
         default: return <div>no res</div>
     }
 };

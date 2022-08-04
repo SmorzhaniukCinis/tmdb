@@ -9,7 +9,6 @@ import {mediaType} from "../../Common/types";
 import {getIsLoading, getMediaDetailsSelector, getMediaImagesSelector} from "../../store/Selectors/mediaSelectors";
 import s from './MediaImages.module.css'
 import {Paper} from "@mui/material";
-import {ImagesList} from "./Components/ImagesList";
 import {Loader} from "../../Common/Components/Loader";
 import {ImagesListWrapper} from "./Components/ImagesListWrapper";
 
