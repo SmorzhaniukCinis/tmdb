@@ -11,6 +11,7 @@ import s from './MediaImages.module.css'
 import {Paper} from "@mui/material";
 import {ImagesList} from "./Components/ImagesList";
 import {Loader} from "../../Common/Components/Loader";
+import {ImagesListWrapper} from "./Components/ImagesListWrapper";
 
 export const MediaImagePage = () => {
 
@@ -38,7 +39,7 @@ export const MediaImagePage = () => {
             <div className={s.imageDirection}>
                 <ImageDirectionsToggle imageDirection={imageDirection} setImageDirection={setImageDirection}/>
             </div>
-            <ImagesList imagesList={mediaImages} imageDirection={imageDirection}/>
+            <ImagesListWrapper  imagesList={mediaImages} imageDirection={imageDirection}/>
         </Paper>
     );
 };
