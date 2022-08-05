@@ -15,12 +15,12 @@ export const ImagesList: React.FC<props> = ({imagesList, cols}: props) => {
 
     return (
         <div>
-            {imagesList
+            {imagesList?.length
                 ? <ImageList sx={{p: 1, maxWidth: '100%'}} cols={cols}>
                     {imagesList.map(image =>
                         <ImageListItem key={image.file_path}>
                                 <img
-                                    className={cols === 2 && s.borderForLogos}
+                                    className={cols === 2 ? s.borderForLogos : undefined}
                                     src={getImage('original', image.file_path)}
                                     srcSet={getImage('original', image.file_path)}
                                     alt={getImage('original', image.file_path)}

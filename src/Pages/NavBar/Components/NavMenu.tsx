@@ -9,7 +9,7 @@ export const NawMenu = () => {
             <Button
                 sx={{my: 2, color: 'inherit', display: 'block'}}
             >
-               <Link to={'/'} style={{color: 'inherit' , textDecoration: 'none'}}>
+               <Link to={'/tmdb'} style={{color: 'inherit' , textDecoration: 'none'}}>
                    Home
                </Link>
             </Button>

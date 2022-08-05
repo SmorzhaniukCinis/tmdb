@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "./Pages/Profile/Profile";
 import {NavBar} from "./Pages/NavBar/NavBar";
@@ -32,6 +32,7 @@ function App() {
     const isDarkTheme = useSelector(getIsDarkTheme)
     const sessionId = useSelector(getSessionId)
     const messages = useSelector(getEventMessages)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const sessionId = localStorage.getItem('sessionId')
@@ -79,6 +80,7 @@ function App() {
                         <Route path={'/person/:personId'} element={<PersonProfile/>}/>
                         <Route path={'/person/:personId/Photos'} element={<PersonPhotos/>}/>
                         <Route path={'/review/:reviewId'} element={<Review/>}/>
+                        <Route path={'*'} element={<Navigate to="/" />} />
                     </Routes>
                 </Container>
 
