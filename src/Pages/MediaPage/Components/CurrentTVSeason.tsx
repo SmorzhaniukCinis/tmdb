@@ -1,13 +1,25 @@
 import React from 'react';
 import {Paper} from "@mui/material";
-import MediaControlCard from "../../../Common/Components/SeasonItem";
+import {SeasonItem} from "../../../Common/Components/SeasonItem/SeasonItem";
+import {useSelector} from "react-redux";
+import {getTVDetails} from "../../../store/Selectors/tvSelectors";
 import {Link} from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import s from '../mediaPage.module.css'
 
-export const CurrentTVSeason = () => {
+type props = {
+    tvId: string | undefined
+}
+
+export const CurrentTVSeason:React.FC<props> = ({tvId}:props) => {
+
+    const {seasons, id} = useSelector(getTVDetails)
+
     return (
         <Paper sx={{mt: 4, p: 3}} elevation={10}>
-            <MediaControlCard/>
-            {/*<Link to={`/tv/${tvId}/seasons}`}>View all seasons</Link>*/}
+            <Typography sx={{mb: 2}} variant={'h5'}>Current season</Typography>
+            <SeasonItem season={seasons.pop()} tvId={id}/>
+            <Link className={s.viewAllSeason} to={`/tv/${tvId}/seasons}`}>View all seasons</Link>
         </Paper>
     );
 };

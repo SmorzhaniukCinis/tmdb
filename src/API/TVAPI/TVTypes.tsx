@@ -51,7 +51,7 @@ export type tvDetails = {
         "iso_3166_1": string
         "name": string
     }>
-    "seasons": seasons[]
+    "seasons": season[]
     "spoken_languages":Array<{
             "english_name": string
             "iso_639_1": string
@@ -145,7 +145,7 @@ type companiesType = {
     "origin_country": string
 }
 
-type seasons = {
+export type season = {
     "air_date": string
     "episode_count": number
     "id": number

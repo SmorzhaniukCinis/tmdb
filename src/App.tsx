@@ -80,7 +80,7 @@ function App() {
                         <Route path={'/person/:personId'} element={<PersonProfile/>}/>
                         <Route path={'/person/:personId/Photos'} element={<PersonPhotos/>}/>
                         <Route path={'/review/:reviewId'} element={<Review/>}/>
-                        <Route path={'*'} element={<Navigate to="/" />} />
+                        <Route path={'tmdb'} element={<Navigate to="/" />} />
                     </Routes>
                 </Container>
 

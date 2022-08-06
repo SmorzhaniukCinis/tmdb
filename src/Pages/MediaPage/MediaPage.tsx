@@ -45,7 +45,7 @@ export const MediaPage = () => {
                     <div className={s.empty}>secret message;)</div>
                     <MediaCredits id={Number(params.mediaId) || 0} mediaType={mediaType}/>
                     {
-                        mediaType === 'tv' && <CurrentTVSeason/>
+                        mediaType === 'tv' && <CurrentTVSeason tvId={params.mediaId}/>
                     }
                     <MediaSocial mediaType={mediaType}/>
                     <MediaImage mediaType={mediaType}/>

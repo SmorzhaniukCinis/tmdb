@@ -155,3 +155,13 @@
     background-color: #cdc5c5;
     background-clip: content-box;
 }
+.viewAllSeason {
+    text-decoration: none;
+    color: #868080;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.viewAllSeason:hover {
+    color: #272727;
+    transition: 0.3s;
+}
