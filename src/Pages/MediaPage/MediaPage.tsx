@@ -12,6 +12,7 @@ import {GetTVDetails} from "../../store/TVReducer";
 import {Loader} from "../../Common/Components/Loader";
 import {getIsLoading} from "../../store/Selectors/mediaSelectors";
 import {MediaImage} from "./Components/MediaImage";
+import {CurrentTVSeason} from "./Components/CurrentTVSeason";
 
 
 export const MediaPage = () => {
@@ -43,6 +44,9 @@ export const MediaPage = () => {
                     <MediaInfoBlock mediaType={mediaType}/>
                     <div className={s.empty}>secret message;)</div>
                     <MediaCredits id={Number(params.mediaId) || 0} mediaType={mediaType}/>
+                    {
+                        mediaType === 'tv' && <CurrentTVSeason/>
+                    }
                     <MediaSocial mediaType={mediaType}/>
                     <MediaImage mediaType={mediaType}/>
                     <Recommendations mediaType={mediaType}/>
