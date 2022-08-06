@@ -3,23 +3,25 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import {CardActionArea} from '@mui/material';
 import {commonCastType} from "../../../API/movieAPI/movieTypes";
 import {getImage} from "../../../Common/functions/getImage";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import NoImage from '../../../assets/noUserPhoto.png'
 import {castTVItem} from "../../../API/TVAPI/TVTypes";
 
 type props = {
-    item: commonCastType| castTVItem
+    item: commonCastType | castTVItem
 }
 
-export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
+export const CastAndCrewItem: React.FC<props> = ({item}: props) => {
 
     const navigate = useNavigate()
+    const {media} = useParams()
+
 
     return (
-        <Card sx={{m:1}} onClick={() => navigate(`/person/${item.id}`)}>
+        <Card sx={{m: 1}} onClick={() => navigate(`/person/${item.id}`)}>
             <CardActionArea sx={{height: '100%'}}>
                 <CardMedia
                     component="img"
@@ -33,7 +35,7 @@ export const CastAndCrewItem:React.FC<props> = ({item}:props) => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {/*@ts-ignore*/}
-                        {item.character || item.roles[0].character}
+                        {media === 'movie' ? item.character : item.roles[0].character}
                     </Typography>
                 </CardContent>
             </CardActionArea>
