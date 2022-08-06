@@ -14,7 +14,7 @@ const initialState = {
     isLoading: true,
     tvDetails: {} as tvDetails,
     tvStats: {} as mediaStatsType,
-    season: {} as seasonDetails,
+    seasonsDetails: [] as seasonDetails[],
 }
 type initialStateType = typeof initialState
 
@@ -27,7 +27,7 @@ export const TVReducer = (state = initialState, action: ActionTypes): initialSta
         case UPDATE_RATING:
             return {...state, tvStats: {...state.tvStats, rated: {value: action.value}}}
         case SET_SEASON:
-            return {...state, season: action.season}
+            return {...state, seasonsDetails: [...state.seasonsDetails, action.season]}
         default:
             return state
     }
@@ -73,10 +73,12 @@ export const getTVStats = (id: number) =>
         dispatch(tvActions.setTVStats(stats))
 
     }
-export const GetSeason = (TVid: number, seasonNumber: number) =>
+export const GetSeason = (TVid: number, seasonsCount: number) =>
     async (dispatch: Dispatch<ActionTypes>) => {
         dispatch(mediaActions.setLoading(true))
-        const result = await tvAPI.getTVSeason(TVid, seasonNumber)
-        dispatch(tvActions.setSeason(result))
+        for (let i = 0; i < seasonsCount; i++) {
+            const result = await tvAPI.getTVSeason(TVid, i)
+            dispatch(tvActions.setSeason(result))
+        }
         dispatch(mediaActions.setLoading(false))
     }

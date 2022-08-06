@@ -1,22 +1,29 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {GetSeason} from "../../store/TVReducer";
+import {GetSeason, GetTVDetails} from "../../store/TVReducer";
 import {useParams} from "react-router-dom";
-import {getTVSeason} from "../../store/Selectors/tvSelectors";
+import {getTVDetails, getTVSeason} from "../../store/Selectors/tvSelectors";
 
 export const SeasonsPage = () => {
 
     const dispatch = useDispatch()
     const {mediaId} = useParams()
-    const season = useSelector(getTVSeason)
+    const seasonsDetails = useSelector(getTVSeason)
+    const {seasons, id} = useSelector(getTVDetails)
 
     useEffect(() => {
-        dispatch(GetSeason(Number(mediaId), 1))
-    },[dispatch, mediaId])
+        dispatch(GetTVDetails(Number(mediaId)))
+    }, [mediaId, dispatch])
+
+    useEffect(() => {
+        if (seasons) {
+            dispatch(GetSeason(Number(mediaId),  seasons.length))
+        }
+    }, [dispatch, mediaId, seasons])
 
     return (
         <div>
-            {season.name}
+            {seasonsDetails[0]?.name}
         </div>
     );
 };
