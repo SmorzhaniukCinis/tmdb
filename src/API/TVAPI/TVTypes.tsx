@@ -165,3 +165,67 @@ export type mediaStatsType = {
     "rated": {"value": number } | false
     "watchlist": boolean
 }
+export type seasonDetails = {
+    air_date: string
+    episodes: episode[]
+    id: number
+    name: string
+    overview: string
+    poster_path: string
+    season_number: number
+    _id: string
+    account_states: {
+        results: accountStatesItem[]
+        air_date: string
+    }
+
+}
+export type accountStatesItem = {
+    episode_number: number
+    id: number
+    rated: false | {
+        value: number
+    }
+}
+export type episode = {
+    air_date: string
+    crew: seasonCrewItem[]
+    episode_number: 1
+    guest_stars: guestStarsItem[]
+    id: number
+    name: string
+    overview: string
+    production_code: string
+    runtime: number
+    season_number: number
+    show_id: number
+    still_path: string
+    vote_average: number
+    vote_count: number
+}
+export type seasonCrewItem = {
+    adult: boolean
+    credit_id: string
+    department: string
+    gender: number
+    id: number
+    job: string
+    known_for_department: string
+    name: string
+    original_name: string
+    popularity: number
+    profile_path: string
+}
+export type guestStarsItem = {
+    adult: false
+    character: string
+    credit_id: string
+    gender: number
+    id: number
+    known_for_department: string
+    name: string
+    order: number
+    original_name: string
+    popularity: number
+    profile_path: string
+}

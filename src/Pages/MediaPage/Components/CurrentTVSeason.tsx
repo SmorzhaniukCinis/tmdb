@@ -19,7 +19,7 @@ export const CurrentTVSeason:React.FC<props> = ({tvId}:props) => {
         <Paper sx={{mt: 4, p: 3}} elevation={10}>
             <Typography sx={{mb: 2}} variant={'h5'}>Current season</Typography>
             <SeasonItem season={seasons.pop()} tvId={id}/>
-            <Link className={s.viewAllSeason} to={`/tv/${tvId}/seasons}`}>View all seasons</Link>
+            <Link className={s.viewAllSeason} to={`/tv/${tvId}/seasons`}>View all seasons</Link>
         </Paper>
     );
 };

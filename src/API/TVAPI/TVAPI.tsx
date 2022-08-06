@@ -1,5 +1,5 @@
 import {instance} from "../index";
-import {mediaStatsType, rateTVRes, tvDetails} from "./TVTypes";
+import {mediaStatsType, rateTVRes, seasonDetails, tvDetails} from "./TVTypes";
 import {commonMediaCredits} from "../movieAPI/movieTypes";
 import {mediaImagesType, MinimizedMediaDetails} from "../../Common/types";
 
@@ -8,6 +8,11 @@ export const tvAPI = {
     getTVDetails: async (tv_id: number): Promise<tvDetails> => {
         const {data} = await instance.get<tvDetails>
         (`/tv/${tv_id}?append_to_response=content_ratings,credits,images,aggregate_credits,reviews,recommendations`)
+        return data
+    },
+    getTVSeason: async (tv_id: number,season_number: number): Promise<seasonDetails> => {
+        const {data} = await instance.get<seasonDetails>
+        (`/tv/${tv_id}/season/${season_number}?append_to_response=account_states,`)
         return data
     },
     getTVImages: async (tv_id: number): Promise<mediaImagesType> => {
