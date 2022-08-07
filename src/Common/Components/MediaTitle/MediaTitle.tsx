@@ -21,7 +21,7 @@ const MediaTitle:React.FC<props> = ({title, date, mediaType, mediaId}:props) => 
     return (
         <div id={"topOfPage"} className={s.mediaTitleWrapper}>
             <Link className={s.mediaTitle}
-                  to={mediaType === 'season'
+                  to={mediaType !== 'season'
                       ?`/${mediaType}/${mediaId}`
                       : `/${mediaType}/${mediaId}/seasons`} >
                 <ArrowBackIcon fontSize={'small'} sx={{mr:1}}/>

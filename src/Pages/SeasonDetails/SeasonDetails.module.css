@@ -1,0 +1,19 @@
+.episodeNumber {
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 20px;
+}
+.episodeName {
+    font-weight: inherit;
+    margin-right: 5px;
+    font-size: 20px;
+}
+.episodeDate {
+    color: #786b6b;
+}
+.image {
+    width: 200px;
+}
+.mainBlockWrapper {
+    display: flex;
+}

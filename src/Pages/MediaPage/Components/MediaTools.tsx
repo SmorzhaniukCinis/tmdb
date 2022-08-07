@@ -9,6 +9,7 @@ import {mediaType} from "../../../Common/types";
 import MediaRating from "./MediaRating";
 import MediaToolsButtons from "./MediaToolsButtons";
 import {getTVStatsSelector} from "../../../store/Selectors/tvSelectors";
+import {MediaVotes} from "./MediaVotes";
 
 type props = {
     voteCount: number
@@ -39,16 +40,8 @@ export const MediaTools = ({voteCount, voteAverage, mediaId, mediaType}: props) 
                                TVStats={TVStats}
                                movieStats={movieStats}/>
 
-            <div>
-                <Tooltip title={`Votes: ${voteCount}`} followCursor>
-                    <Typography sx={{m: 1, width: '120px'}}>
-                        {`Users score: ${voteAverage}`}
-                    </Typography>
-                </Tooltip>
-            </div>
-
+            <MediaVotes voteCount={voteCount} voteAverage={voteAverage}/>
             <MediaRating mediaType={mediaType} TVStats={TVStats} movieStats={movieStats}/>
-
             <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={mediaId}/>
 
         </div>
