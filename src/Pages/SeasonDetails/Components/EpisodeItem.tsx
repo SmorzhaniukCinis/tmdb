@@ -36,7 +36,7 @@ export const EpisodeItem:React.FC<props> = ({episode}:props) => {
             <AccordionDetails>
                 <div>
                     <MediaVotes voteCount={episode.vote_count} voteAverage={episode.vote_average}/>
-                    {/*<EpisodeRating />*/}
+                    <EpisodeRating episodeNumber={episode.episode_number} episodeId={episode.id} />
                 </div>
                 {episode.runtime}
             </AccordionDetails>

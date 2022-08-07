@@ -2,70 +2,52 @@ import React, {useEffect, useState} from 'react';
 import {Rating, Tooltip} from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useDispatch, useSelector} from "react-redux";
-import {getIsRatingLoading} from "../../../store/Selectors/movieSelectors";
-import {deleteMovieRating, rateMovie} from "../../../store/movieReducer";
-import {deleteTVRating, RateTV} from "../../../store/TVReducer";
 import {useParams} from "react-router-dom";
-import {mediaType} from "../../../Common/types";
-import {accountStats} from "../../../API/movieAPI/movieTypes";
+import {getEpisodeStats} from "../../../store/episodeReducer";
+import {getEpisodesRating} from "../../../store/Selectors/episodeSelectors";
 
 type props = {
-    mediaType: mediaType
-    movieStats: accountStats
-    TVStats: accountStats
+    episodeNumber: number
+    episodeId: number
 }
 
-export const EpisodeRating:React.FC<props> = ({mediaType, movieStats, TVStats}:props) => {
+export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) => {
 
-    const isRatingLoading = useSelector(getIsRatingLoading)
-    const [rating, setRating] = useState<number>(0)
-    const params = useParams()
+    const episodesRating = useSelector(getEpisodesRating)
+    const {mediaId, seasonNumber} = useParams()
     const dispatch = useDispatch()
-
-    const rateMedia = (value: number) => {
-        if (params.media === 'movie') {
-            dispatch(rateMovie(Number(params.mediaId), value))
-        } else if (params.media === 'tv'){
-            dispatch(RateTV(Number(params.mediaId), value))
-        }
-    }
-
-    const deleteMediaRating = () => {
-        if (params.media === 'movie') {
-            dispatch(deleteMovieRating(Number(params.mediaId)))
-        } else {
-            dispatch(deleteTVRating(Number(params.mediaId)))
-        }
-    }
+    const [currentRating, setCurrentRating] = useState<undefined| number | false>(undefined)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
-            if (mediaType === 'movie') {
-                if (movieStats.rated) {
-                    setRating(movieStats.rated.value)
-                } else {
-                    setRating(0)
-                }
-            } else if (mediaType === 'tv') {
-                if (TVStats.rated) {
-                    setRating(TVStats.rated.value)
-                } else {
-                    setRating(0)
-                }
-            }
-        }, [movieStats.rated, TVStats.rated, mediaType]
+        dispatch(getEpisodeStats(Number(mediaId), Number(seasonNumber), episodeNumber))
+        }, [mediaId, episodeNumber, seasonNumber, dispatch]
     )
 
+    useEffect(() => {
+        setIsLoading(true)
+        const temporaryRating = episodesRating.find(item => item.id === episodeId)
+        setCurrentRating(temporaryRating?.rated !== false && temporaryRating?.rated.value)
+        setIsLoading(false)
+    },[episodeId, episodesRating])
 
+    const setRating = (value: number) => {
+
+    }
+    const rateMedia = (value: number) => {
+
+    }
+    console.log(currentRating)
     return (
         <div>
-            {rating
+            {currentRating
                 ? <div>
                     <Rating
                         precision={0.5}
-                        disabled={isRatingLoading}
+                        disabled={isLoading}
                         sx={{cursor: 'pointer'}}
                         name="simple-controlled"
-                        value={rating / 2}
+                        value={currentRating / 2}
                         onChange={(event, newValue) => {
                             if (newValue) {
                                 setRating(newValue * 2)
@@ -75,14 +57,14 @@ export const EpisodeRating:React.FC<props> = ({mediaType, movieStats, TVStats}:p
                     />
                     <Tooltip sx={{cursor: 'pointer', ml: 2}} title="Delete rating">
                         <DeleteOutlineIcon onClick={() => {
-                            deleteMediaRating()
+                            // deleteMediaRating()
                             setRating(0)
                         }}/>
                     </Tooltip>
                 </div>
                 : <Rating
                     precision={0.5}
-                    disabled={isRatingLoading}
+                    disabled={isLoading}
                     sx={{cursor: 'pointer'}}
                     name="simple-controlled"
                     value={null}
