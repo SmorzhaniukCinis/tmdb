@@ -14,13 +14,16 @@ type props = {
 const MediaTitle:React.FC<props> = ({title, date, mediaType, mediaId}:props) => {
 
     useEffect(() => {
-        const el = document.getElementById('el');
+        const el = document.getElementById('topOfPage');
         el && el.scrollIntoView({block: 'center'});
     },[])
 
     return (
-        <div id={"el"} className={s.mediaTitleWrapper}>
-            <Link className={s.mediaTitle} to={`/${mediaType}/${mediaId}`} >
+        <div id={"topOfPage"} className={s.mediaTitleWrapper}>
+            <Link className={s.mediaTitle}
+                  to={mediaType === 'season'
+                      ?`/${mediaType}/${mediaId}`
+                      : `/${mediaType}/${mediaId}/seasons`} >
                 <ArrowBackIcon fontSize={'small'} sx={{mr:1}}/>
                 <span>{title}</span>
                 <span className={s.mediaDate}>{` (${moment(date).format('YYYY')})`}</span>
