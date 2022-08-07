@@ -23,7 +23,7 @@ const MediaTitle:React.FC<props> = ({title, date, mediaType, mediaId}:props) => 
             <Link className={s.mediaTitle}
                   to={mediaType !== 'season'
                       ?`/${mediaType}/${mediaId}`
-                      : `/${mediaType}/${mediaId}/seasons`} >
+                      : `/tv/${mediaId}/seasons`} >
                 <ArrowBackIcon fontSize={'small'} sx={{mr:1}}/>
                 <span>{title}</span>
                 <span className={s.mediaDate}>{` (${moment(date).format('YYYY')})`}</span>

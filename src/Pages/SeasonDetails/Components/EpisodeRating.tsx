@@ -3,39 +3,52 @@ import {Rating, Tooltip} from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {getEpisodeStats} from "../../../store/episodeReducer";
+import {episodeActions, getEpisodeStats, rateEpisode} from "../../../store/episodeReducer";
 import {getEpisodesRating} from "../../../store/Selectors/episodeSelectors";
+import {getTVSeason} from "../../../store/Selectors/tvSelectors";
 
 type props = {
     episodeNumber: number
     episodeId: number
 }
 
-export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) => {
+export const EpisodeRating: React.FC<props> = ({episodeNumber, episodeId}: props) => {
 
     const episodesRating = useSelector(getEpisodesRating)
     const {mediaId, seasonNumber} = useParams()
     const dispatch = useDispatch()
-    const [currentRating, setCurrentRating] = useState<{rating: number | false, id: number}>()
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [currentRating, setCurrentRating] = useState<{ rating: number | false, id: number }>()
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const seasonDetails = useSelector(getTVSeason)
+
+    // useEffect(() => {
+    //         dispatch(getEpisodeStats(Number(mediaId), Number(seasonNumber), episodeNumber))
+    //         return function deleteEpisodesRating() {
+    //             dispatch(episodeActions.deleteEpisodesRating())
+    //         }
+    //     }, [mediaId, episodeNumber, seasonNumber, dispatch]
+    // )
 
     useEffect(() => {
-        dispatch(getEpisodeStats(Number(mediaId), Number(seasonNumber), episodeNumber))
-        }, [mediaId, episodeNumber, seasonNumber, dispatch]
-    )
+        console.log('render')
+        if(episodesRating.length === seasonDetails.episodes.length) {
+            setCurrentRating(episodesRating.find(item => item.id === episodeId))
 
-    useEffect(() => {
-        setIsLoading(true)
-        setCurrentRating(episodesRating.find(item => item.id === episodeId))
+        }
         setIsLoading(false)
-    },[episodeId, episodesRating])
+    }, [episodeId, episodesRating, seasonDetails.episodes.length])
 
     const setRating = (value: number) => {
 
     }
-    const rateMedia = (value: number) => {
+    const rateCurrentEpisode = (value: number) => {
+
+        dispatch(
+            rateEpisode(Number(mediaId), Number(seasonNumber), episodeNumber, value, currentRating?.id || 0)
+        )
 
     }
+    // console.log(isLoading)
     return (
         <div>
             {currentRating?.rating
@@ -48,7 +61,8 @@ export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) 
                         value={currentRating.rating / 2}
                         onChange={(event, newValue) => {
                             if (newValue) {
-                                rateMedia(newValue * 2);
+                                setIsLoading(true)
+                                rateCurrentEpisode(newValue * 2);
                             }
                         }}
                     />
@@ -68,7 +82,7 @@ export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) 
                     onChange={(event, newValue) => {
                         if (newValue) {
                             setRating(newValue * 2)
-                            rateMedia(newValue * 2);
+                            rateCurrentEpisode(newValue * 2);
                         }
                     }}
                 />}

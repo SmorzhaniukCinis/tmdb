@@ -1,12 +1,12 @@
 .episodeNumber {
     font-weight: bold;
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 24px;
 }
 .episodeName {
     font-weight: inherit;
     margin-right: 5px;
-    font-size: 20px;
+    font-size: 24px;
 }
 .episodeDate {
     color: #786b6b;

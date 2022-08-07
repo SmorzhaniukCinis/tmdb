@@ -28,7 +28,7 @@ export const SeasonsPage = () => {
         <Paper elevation={10} sx={{pb: 1}}>
             <MediaTitle title={name} date={first_air_date} mediaType={'tv'} mediaId={id}/>
             {
-                seasons?.map(season => <div className={s.seasonCard}>
+                seasons?.map(season => <div key={season.id} className={s.seasonCard}>
                     <SeasonItem season={season} tvId={id}/>
                 </div>)
             }
