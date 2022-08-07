@@ -16,7 +16,7 @@ export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) 
     const episodesRating = useSelector(getEpisodesRating)
     const {mediaId, seasonNumber} = useParams()
     const dispatch = useDispatch()
-    const [currentRating, setCurrentRating] = useState<undefined| number | false>(undefined)
+    const [currentRating, setCurrentRating] = useState<{rating: number | false, id: number}>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
@@ -26,8 +26,7 @@ export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) 
 
     useEffect(() => {
         setIsLoading(true)
-        const temporaryRating = episodesRating.find(item => item.id === episodeId)
-        setCurrentRating(temporaryRating?.rated !== false && temporaryRating?.rated.value)
+        setCurrentRating(episodesRating.find(item => item.id === episodeId))
         setIsLoading(false)
     },[episodeId, episodesRating])
 
@@ -37,20 +36,18 @@ export const EpisodeRating:React.FC<props> = ({episodeNumber, episodeId}:props) 
     const rateMedia = (value: number) => {
 
     }
-    console.log(currentRating)
     return (
         <div>
-            {currentRating
+            {currentRating?.rating
                 ? <div>
                     <Rating
                         precision={0.5}
                         disabled={isLoading}
                         sx={{cursor: 'pointer'}}
                         name="simple-controlled"
-                        value={currentRating / 2}
+                        value={currentRating.rating / 2}
                         onChange={(event, newValue) => {
                             if (newValue) {
-                                setRating(newValue * 2)
                                 rateMedia(newValue * 2);
                             }
                         }}
