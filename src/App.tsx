@@ -25,6 +25,7 @@ import {MediaReviews} from "./Pages/MediaReviews/MediaReviews";
 import {MediaCredits} from "./Pages/MedaiCredits/MediaCredits";
 import {MediaImagePage} from "./Pages/MediaImages/MediaImagePage";
 import {SeasonsPage} from "./Pages/SeasonsPage/SeasonsPage";
+import {SeasonDetails} from "./Pages/SeasonDetails/SeasonDetails";
 
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
                         <Route path={'/:media/:mediaId/people'} element={<MediaCredits/>}/>
                         <Route path={'/:media/:mediaId/images'} element={<MediaImagePage/>}/>
                         <Route path={'/tv/:mediaId/seasons'} element={<SeasonsPage/>}/>
+                        <Route path={'/tv/:mediaId/season/:seasonNumber'} element={<SeasonDetails/>}/>
                         <Route path={'/watchList'} element={<ProfileListWrapper/>}/>
                         <Route path={'/listDetails/:listId'} element={<ListDetails/>}/>
                         <Route path={'/listDetails/:listId/:isEditing'} element={<NewList/>}/>

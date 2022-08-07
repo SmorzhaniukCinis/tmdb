@@ -23,6 +23,7 @@ export const SeasonItem: React.FC<props> = ({season, tvId}: props) => {
     return (
         <Card sx={{width: '100%', display: 'flex', height: 250, mb:2}}>
             <CardMedia
+                onClick={() => navigate(`/tv/${tvId}/season/${season?.season_number}`)}
                 sx={{width: '16%', h: 250, cursor: 'pointer'}}
                 component="img"
                 height="250"

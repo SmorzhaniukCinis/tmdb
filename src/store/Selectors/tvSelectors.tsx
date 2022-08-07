@@ -10,5 +10,5 @@ export const getTVStatsSelector = (state:RootStateType) => {
     return state.tv.tvStats
 }
 export const getTVSeason = (state:RootStateType) => {
-    return state.tv.seasonsDetails
+    return state.tv.seasonDetails
 }

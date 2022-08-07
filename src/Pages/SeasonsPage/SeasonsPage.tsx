@@ -17,18 +17,12 @@ export const SeasonsPage = () => {
 
     const dispatch = useDispatch()
     const {mediaId} = useParams()
-    const seasonsDetails = useSelector(getTVSeason)
     const {seasons, id, name, first_air_date} = useSelector(getTVDetails)
 
     useEffect(() => {
         dispatch(GetTVDetails(Number(mediaId)))
     }, [mediaId, dispatch])
 
-    useEffect(() => {
-        if (seasons) {
-            dispatch(GetSeason(Number(mediaId), seasons.length))
-        }
-    }, [dispatch, mediaId, seasons])
 
     return (
         <Paper elevation={10} sx={{pb: 1}}>
