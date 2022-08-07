@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {direction} from "../MediaPage/Components/MediaImage";
 import ImageDirectionsToggle from "../../Common/Components/ImageDirectionsToggle";
-import MediaTitle from "../../Common/Components/mediaTitle/MediaTitle";
+import MediaTitle from "../../Common/Components/MediaTitle/MediaTitle";
 import {getMediaDetails, getMediaImages} from "../../store/mediaReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";

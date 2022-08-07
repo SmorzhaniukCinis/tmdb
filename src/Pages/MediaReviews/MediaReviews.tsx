@@ -8,7 +8,7 @@ import s from './mediaReviews.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import moment from "moment";
 import {SmallMediaReview} from "./Components/SmallMediaReview";
-import MediaTitle from "../../Common/Components/mediaTitle/MediaTitle";
+import MediaTitle from "../../Common/Components/MediaTitle/MediaTitle";
 
 export const MediaReviews = () => {
 
