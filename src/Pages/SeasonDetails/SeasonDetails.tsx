@@ -10,38 +10,39 @@ import {getIsLoading} from "../../store/Selectors/mediaSelectors";
 import {Loader} from "../../Common/Components/Loader";
 import {episodeActions, getEpisodeStats} from "../../store/episodeReducer";
 
-export const SeasonDetails = () => {
+export const SeasonDetails = React.memo(() => {
 
-    const seasonDetails = useSelector(getTVSeason)
-    const isLoading = useSelector(getIsLoading)
-    const dispatch = useDispatch()
-    const {mediaId, seasonNumber} = useParams()
+        const seasonDetails = useSelector(getTVSeason)
+        const isLoading = useSelector(getIsLoading)
+        const dispatch = useDispatch()
+        const {mediaId, seasonNumber} = useParams()
 
 
-    useEffect(() => {
-        dispatch(GetSeason(Number(mediaId), Number(seasonNumber)))
-    }, [dispatch, mediaId, seasonNumber])
+        useEffect(() => {
+            dispatch(GetSeason(Number(mediaId), Number(seasonNumber)))
+        }, [dispatch, mediaId, seasonNumber])
 
-    useEffect(() => {
-            dispatch(getEpisodeStats(Number(mediaId), Number(seasonNumber), seasonDetails.episodes?.length))
+        useEffect(() => {
+                dispatch(getEpisodeStats(Number(mediaId), Number(seasonNumber), seasonDetails.episodes?.length))
 
-            return function deleteEpisodesRating() {
-                dispatch(episodeActions.deleteEpisodesRating())
-            }
-        }, [mediaId, seasonDetails.episodes, seasonNumber, dispatch]
-    )
+                return function deleteEpisodesRating() {
+                    dispatch(episodeActions.deleteEpisodesRating())
+                }
+            }, [mediaId, seasonDetails.episodes, seasonNumber, dispatch]
+        )
 
-    if (isLoading) return <Loader/>
-    return (
-        <Paper elevation={10}>
-            <MediaTitle date={seasonDetails.air_date}
-                        mediaId={mediaId}
-                        mediaType={'season'}
-                        title={seasonDetails.name}/>
-            <div>
-                {seasonDetails.episodes && seasonDetails.episodes.map(episode =>
-                    <EpisodeItem key={episode.id} episode={episode}/>)}
-            </div>
-        </Paper>
-    );
-};
+        if (isLoading) return <Loader/>
+        return (
+            <Paper elevation={10}>
+                <MediaTitle date={seasonDetails.air_date}
+                            mediaId={mediaId}
+                            mediaType={'season'}
+                            title={seasonDetails.name}/>
+                <div>
+                    {seasonDetails.episodes && seasonDetails.episodes.map(episode =>
+                        <EpisodeItem key={episode.id} episode={episode}/>)}
+                </div>
+            </Paper>
+        )
+    }
+)

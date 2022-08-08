@@ -5,6 +5,10 @@ export const getEpisodesRating = (state: RootStateType) => {
     return state.episode.episodesRating.map( item => createCommonRating(item) )
 
 }
+export const getIsRatingFetching = (state: RootStateType) => {
+    return state.episode.isRatingFetching
+
+}
 
 const createCommonRating = (item: EpisodeStats) => {
     if(item.rated !== false) {

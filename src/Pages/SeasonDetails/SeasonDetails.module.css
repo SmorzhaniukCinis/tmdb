@@ -12,8 +12,14 @@
     color: #786b6b;
 }
 .image {
-    width: 200px;
+    height: 110px;
 }
 .mainBlockWrapper {
     display: flex;
+}
+.EpisodeDetails {
+    display: flex;
+}
+.detailsLeftSide {
+    width: 20%;
 }

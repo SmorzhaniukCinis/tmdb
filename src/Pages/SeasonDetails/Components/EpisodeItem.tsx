@@ -20,25 +20,27 @@ export const EpisodeItem:React.FC<props> = ({episode}:props) => {
     return (
         <Accordion>
             <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
                 <div className={s.mainBlockWrapper}>
                     <img className={s.image} src={getImage('original', episode.still_path)} alt="poster"/>
-                    <Typography sx={{p: 5}}>
+                    <Typography sx={{p: 5, ml: 2}}>
                         <span className={s.episodeNumber}>{episode.episode_number}</span>
                         <span className={s.episodeName}>{episode.name}</span>
                         {episode.air_date && <span className={s.episodeDate}>({episode.air_date})</span>}
                     </Typography>
                 </div>
             </AccordionSummary>
-            <AccordionDetails>
-                <div>
+            <AccordionDetails className={s.EpisodeDetails}>
+                <div className={s.detailsLeftSide}>
                     <MediaVotes voteCount={episode.vote_count} voteAverage={episode.vote_average}/>
                     <EpisodeRating episodeNumber={episode.episode_number} episodeId={episode.id} />
+                    <Typography sx={{ml: 1}}>{`Duration: ${episode.runtime} min.`}</Typography>
                 </div>
-                {episode.runtime}
+                <Typography sx={{width: '80%',mr: 2}}>
+                    {episode.overview || 'No overview'}
+                </Typography>
             </AccordionDetails>
         </Accordion>
     );

@@ -16,4 +16,11 @@ export const episodeAPI = {
             })
             return data
         },
+    DeleteEpisodeRating:
+        async (tv_id: number, seasonNum: number, episodeNum: number): Promise<ratingStatus> => {
+            const {data} = await instance.delete<ratingStatus>
+            (`/tv/${tv_id}/season/${seasonNum}/episode/${episodeNum}/rating`)
+            console.log(data)
+            return data
+        },
 }

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Rating, Tooltip} from "@mui/material";
+import {Rating, Skeleton, Tooltip} from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {episodeActions, getEpisodeStats, rateEpisode} from "../../../store/episodeReducer";
-import {getEpisodesRating} from "../../../store/Selectors/episodeSelectors";
+import {DeleteEpisodeRating, rateEpisode} from "../../../store/episodeReducer";
+import {getEpisodesRating, getIsRatingFetching} from "../../../store/Selectors/episodeSelectors";
 import {getTVSeason} from "../../../store/Selectors/tvSelectors";
 
 type props = {
@@ -15,42 +15,35 @@ type props = {
 export const EpisodeRating: React.FC<props> = ({episodeNumber, episodeId}: props) => {
 
     const episodesRating = useSelector(getEpisodesRating)
+    const isRatingFetching = useSelector(getIsRatingFetching)
     const {mediaId, seasonNumber} = useParams()
     const dispatch = useDispatch()
     const [currentRating, setCurrentRating] = useState<{ rating: number | false, id: number }>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const seasonDetails = useSelector(getTVSeason)
 
-    // useEffect(() => {
-    //         dispatch(getEpisodeStats(Number(mediaId), Number(seasonNumber), episodeNumber))
-    //         return function deleteEpisodesRating() {
-    //             dispatch(episodeActions.deleteEpisodesRating())
-    //         }
-    //     }, [mediaId, episodeNumber, seasonNumber, dispatch]
-    // )
-
     useEffect(() => {
-        console.log('render')
-        if(episodesRating.length === seasonDetails.episodes.length) {
+        if (episodesRating.length === seasonDetails.episodes.length) {
             setCurrentRating(episodesRating.find(item => item.id === episodeId))
-
+            setIsLoading(false)
         }
-        setIsLoading(false)
-    }, [episodeId, episodesRating, seasonDetails.episodes.length])
+    }, [episodeId, episodesRating, episodesRating.length])
 
-    const setRating = (value: number) => {
-
+    const DeleteRating = () => {
+        setIsLoading(true)
+        dispatch(DeleteEpisodeRating(Number(mediaId), Number(seasonNumber), episodeNumber, currentRating?.id))
     }
     const rateCurrentEpisode = (value: number) => {
-
         dispatch(
-            rateEpisode(Number(mediaId), Number(seasonNumber), episodeNumber, value, currentRating?.id || 0)
+            rateEpisode(Number(mediaId), Number(seasonNumber), episodeNumber, value, currentRating?.id)
         )
-
     }
-    // console.log(isLoading)
+
+    console.log('render')
+
+    if(isRatingFetching) return <Skeleton width={150} variant={'text'}/>
     return (
-        <div>
+        <div style={{marginLeft: '5px'}}>
             {currentRating?.rating
                 ? <div>
                     <Rating
@@ -67,10 +60,7 @@ export const EpisodeRating: React.FC<props> = ({episodeNumber, episodeId}: props
                         }}
                     />
                     <Tooltip sx={{cursor: 'pointer', ml: 2}} title="Delete rating">
-                        <DeleteOutlineIcon onClick={() => {
-                            // deleteMediaRating()
-                            setRating(0)
-                        }}/>
+                        <DeleteOutlineIcon onClick={DeleteRating}/>
                     </Tooltip>
                 </div>
                 : <Rating
@@ -81,7 +71,7 @@ export const EpisodeRating: React.FC<props> = ({episodeNumber, episodeId}: props
                     value={null}
                     onChange={(event, newValue) => {
                         if (newValue) {
-                            setRating(newValue * 2)
+                            setIsLoading(true)
                             rateCurrentEpisode(newValue * 2);
                         }
                     }}
