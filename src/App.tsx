@@ -89,7 +89,6 @@ function App() {
                         <Route path={'tmdb'} element={<Navigate to="/" />} />
                     </Routes>
                 </Container>
-
             </ThemeProvider>
             <div style={{position: 'fixed', bottom: '50px', right: '30px'}}>
                     {messages.map((message, index) =>

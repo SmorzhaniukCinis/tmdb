@@ -3,18 +3,21 @@ import {ActionTypes} from "./store";
 import {mediaImagesType, mediaType, MinimizedMediaDetails} from "../Common/types";
 import {tvAPI} from "../API/TVAPI/TVAPI";
 import {movieAPI} from "../API/movieAPI/movieAPI";
-import {commonMediaCredits} from "../API/movieAPI/movieTypes";
+import {commonMediaCredits, popularMovie, popularTV} from "../API/movieAPI/movieTypes";
+import {CommonResType} from "../API/accountAPI/accountTypes";
 
 const SET_LOADING = "media/SET_LOADING"
 const SET_MEDIA_CREDITS = "media/SET_MEDIA_CREDITS"
 const SET_MEDIA_DETAILS = "media/SET_MEDIA_DETAILS"
 const SET_MEDIA_IMAGES = "media/SET_MEDIA_IMAGES"
+const SET_POPULAR_MEDIA = "media/SET_POPULAR_MEDIA"
 
 const initialState = {
     isLoading: false,
     credits: {} as commonMediaCredits,
     details: {} as MinimizedMediaDetails,
-    images: {} as mediaImagesType
+    images: {} as mediaImagesType,
+    popular: {} as { popularTV: CommonResType<popularTV>, popularMovie: CommonResType<popularMovie> }
 }
 type initialStateType = typeof initialState
 
@@ -26,6 +29,13 @@ export const MediaReducer = (state = initialState, action: ActionTypes): initial
             return {...state, details: action.details}
         case SET_MEDIA_IMAGES:
             return {...state, images: action.images}
+        case SET_POPULAR_MEDIA:
+            return {
+                ...state, popular: {
+                    popularTV: action.popularTV,
+                    popularMovie: action.popularMovie
+                }
+            }
         case SET_LOADING:
             return {...state, isLoading: action.isLoading}
         default:
@@ -37,12 +47,17 @@ export const mediaActions = {
     setMediaCredits: (credits: commonMediaCredits) => ({type: SET_MEDIA_CREDITS, credits} as const),
     setMediaDetails: (details: MinimizedMediaDetails) => ({type: SET_MEDIA_DETAILS, details} as const),
     setMediaImages: (images: mediaImagesType) => ({type: SET_MEDIA_IMAGES, images} as const),
+    setPopularMedia: (popularTV: CommonResType<popularTV>, popularMovie: CommonResType<popularMovie>) => ({
+        type: SET_POPULAR_MEDIA,
+        popularMovie,
+        popularTV
+    } as const),
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
 }
 
 export const getMediaCredits = (mediaId: number, mediaType: mediaType) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    if(mediaType === 'tv') {
+    if (mediaType === 'tv') {
         const TVCredits = await tvAPI.getCredits(mediaId)
         dispatch(mediaActions.setMediaCredits(TVCredits))
     } else {
@@ -53,7 +68,7 @@ export const getMediaCredits = (mediaId: number, mediaType: mediaType) => async 
 }
 export const getMediaDetails = (mediaId: number, mediaType: mediaType) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    if(mediaType === 'tv') {
+    if (mediaType === 'tv') {
         const tvDetails = await tvAPI.getMinimizedTVDetails(mediaId)
         dispatch(mediaActions.setMediaDetails(tvDetails))
     } else {
@@ -64,13 +79,20 @@ export const getMediaDetails = (mediaId: number, mediaType: mediaType) => async 
 }
 export const getMediaImages = (mediaId: number, mediaType: mediaType) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    if(mediaType === 'tv') {
+    if (mediaType === 'tv') {
         const tvImages = await tvAPI.getTVImages(mediaId)
         dispatch(mediaActions.setMediaImages(tvImages))
     } else {
         const movieImages = await movieAPI.getMovieImages(mediaId)
         dispatch(mediaActions.setMediaImages(movieImages))
     }
+    dispatch(mediaActions.setLoading(false))
+}
+export const getPopularMedia = () => async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch(mediaActions.setLoading(true))
+    const popularTV = await tvAPI.getPopularTVShow()
+    const popularMovie = await movieAPI.getPopularMovie()
+    dispatch(mediaActions.setPopularMedia(popularTV, popularMovie))
     dispatch(mediaActions.setLoading(false))
 }
 

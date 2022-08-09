@@ -1,7 +1,8 @@
 import {instance} from "../index";
 import {mediaStatsType, rateTVRes, seasonDetails, tvDetails} from "./TVTypes";
-import {commonMediaCredits} from "../movieAPI/movieTypes";
+import {commonMediaCredits, popularTV} from "../movieAPI/movieTypes";
 import {mediaImagesType, MinimizedMediaDetails} from "../../Common/types";
+import {CommonResType} from "../accountAPI/accountTypes";
 
 
 export const tvAPI = {
@@ -46,6 +47,10 @@ export const tvAPI = {
     },
     getCredits: async (tv_id: number): Promise<commonMediaCredits> => {
         const {data} = await instance.get<commonMediaCredits>(`/tv/${tv_id}/credits`)
+        return data
+    },
+    getPopularTVShow: async (): Promise<CommonResType<popularTV>> => {
+        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/popular`)
         return data
     },
 }

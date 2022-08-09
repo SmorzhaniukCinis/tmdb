@@ -12,3 +12,6 @@ export const getMediaDetailsSelector = (state:RootStateType) => {
 export const getMediaImagesSelector = (state:RootStateType) => {
   return state.media.images
 }
+export const getPopularMediaSelector = (state:RootStateType) => {
+  return state.media.popular
+}
