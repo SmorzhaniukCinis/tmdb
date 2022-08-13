@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react';
-import {getPopularMedia} from "../../store/mediaReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {getPopularMediaSelector} from "../../store/Selectors/mediaSelectors";
-import {SearchItem} from "../../Pages/SearchResult/Componnents/SearchItem";
+import React from 'react';
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import {SmallMediaRating} from "./SmallMediaRating";
 
 export const SliderListItem = () => {
 
-    const popular = useSelector(getPopularMediaSelector)
 
     return (
         <div>
             media Item
+            <SmallMediaRating/>
         </div>
     );
 };
