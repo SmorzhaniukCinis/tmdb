@@ -9,7 +9,7 @@ const ratingStyle = {
     borderRadius: '50%'
 }
 
-export const SmallMediaRating = () => {
+export const CircleMediaRating = () => {
     return (
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
             <CircularProgress variant="determinate" thickness={5} value={10} sx={ratingStyle} />

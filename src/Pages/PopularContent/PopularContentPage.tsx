@@ -1,4 +1,4 @@
-import {SectionMediaSlider} from "../../Common/Components/SectionMediaSlider";
+import {MediaSlider} from "../../Common/Components/MediaSlider/MediaSlider";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getPopularMediaSelector} from "../../store/Selectors/mediaSelectors";
 import {useEffect} from "react";
@@ -18,8 +18,8 @@ export const PopularContentPage = () => {
 if (isLoading) return <Loader/>
     return (
         <div>
-            <SectionMediaSlider title={'Popular TVShow'} content={popular.popularMovie}/>
-            <SectionMediaSlider title={'Popular Movie'} content={popular.popularMovie}/>
+            <MediaSlider title={'Popular TVShow'} content={popular.popularMovie}/>
+            <MediaSlider title={'Popular Movie'} content={popular.popularMovie}/>
         </div>
     );
 };

@@ -1,0 +1,20 @@
+.sliderContentContainer {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    padding-bottom: 12px;
+}
+.sliderContentContainer::-webkit-scrollbar {
+    height: 7px;
+}
+
+/* Трек поле скроллбара */
+.sliderContentContainer::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+/* Ползунок скроллбара */
+.sliderContentContainer::-webkit-scrollbar-thumb {
+    background: #afa4a4;
+    border-radius: 5px;
+}
