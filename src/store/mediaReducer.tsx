@@ -1,10 +1,11 @@
 import {Dispatch} from "redux";
 import {ActionTypes} from "./store";
-import {mediaImagesType, mediaType, MinimizedMediaDetails} from "../Common/types";
+import {mediaCardType, mediaImagesType, mediaType, MinimizedMediaDetails} from "../Common/types";
 import {tvAPI} from "../API/TVAPI/TVAPI";
 import {movieAPI} from "../API/movieAPI/movieAPI";
-import {commonMediaCredits, popularMovie, popularTV} from "../API/movieAPI/movieTypes";
+import {commonMediaCredits, popularMovie} from "../API/movieAPI/movieTypes";
 import {CommonResType} from "../API/accountAPI/accountTypes";
+import {popularTV} from "../API/TVAPI/TVTypes";
 
 const SET_LOADING = "media/SET_LOADING"
 const SET_MEDIA_CREDITS = "media/SET_MEDIA_CREDITS"
@@ -13,11 +14,11 @@ const SET_MEDIA_IMAGES = "media/SET_MEDIA_IMAGES"
 const SET_POPULAR_MEDIA = "media/SET_POPULAR_MEDIA"
 
 const initialState = {
-    isLoading: false,
+    isLoading: true,
     credits: {} as commonMediaCredits,
     details: {} as MinimizedMediaDetails,
     images: {} as mediaImagesType,
-    popular: {} as { popularTV: CommonResType<popularTV>, popularMovie: CommonResType<popularMovie> }
+    popular: {} as { popularTV: mediaCardType[], popularMovie: mediaCardType[] }
 }
 type initialStateType = typeof initialState
 
@@ -47,7 +48,7 @@ export const mediaActions = {
     setMediaCredits: (credits: commonMediaCredits) => ({type: SET_MEDIA_CREDITS, credits} as const),
     setMediaDetails: (details: MinimizedMediaDetails) => ({type: SET_MEDIA_DETAILS, details} as const),
     setMediaImages: (images: mediaImagesType) => ({type: SET_MEDIA_IMAGES, images} as const),
-    setPopularMedia: (popularTV: CommonResType<popularTV>, popularMovie: CommonResType<popularMovie>) => ({
+    setPopularMedia: (popularTV: mediaCardType[], popularMovie: mediaCardType[]) => ({
         type: SET_POPULAR_MEDIA,
         popularMovie,
         popularTV

@@ -84,7 +84,6 @@ export const SearchResult = () => {
                 searchRes?.total_pages > 1
                     ? <Pagination page={page} onChange={handleChangePage} count={searchRes?.total_pages}/>
                     : null
-
             }
         </div>
 

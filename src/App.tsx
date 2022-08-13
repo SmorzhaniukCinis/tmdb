@@ -26,7 +26,7 @@ import {MediaCredits} from "./Pages/MedaiCredits/MediaCredits";
 import {MediaImagePage} from "./Pages/MediaImages/MediaImagePage";
 import {SeasonsPage} from "./Pages/SeasonsPage/SeasonsPage";
 import {SeasonDetails} from "./Pages/SeasonDetails/SeasonDetails";
-import {ActualContent} from "./Pages/ActualContent/ActualContent";
+import {PopularContentPage} from "./Pages/PopularContent/PopularContentPage";
 
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
                 <Container fixed style={{marginTop: 40, marginBottom: 40}}>
                     <Routes>
                         <Route path={'/'} element={<Home/>}>
-                            <Route index element={<ActualContent/>}/>
+                            <Route index element={<PopularContentPage/>}/>
                             <Route path={'/result/:resType/search=:query/page=:page'} element={<SearchResult/>}/>
                         </Route>
                         <Route path={'/account'} element={<Profile/>}/>

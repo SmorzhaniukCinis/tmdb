@@ -14,3 +14,14 @@ export type mediaImagesType = {
     logos: Array<imageType>
     posters: Array<imageType>
 }
+
+export type mediaCardType = {
+    id: number
+    name: string
+    overview: string
+    date: string
+    posterPath: string
+    type: mediaType
+    voteAverage: number
+    voteCount: number
+}

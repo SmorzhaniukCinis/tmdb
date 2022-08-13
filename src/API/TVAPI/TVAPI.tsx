@@ -1,7 +1,7 @@
 import {instance} from "../index";
-import {mediaStatsType, rateTVRes, seasonDetails, tvDetails} from "./TVTypes";
-import {commonMediaCredits, popularTV} from "../movieAPI/movieTypes";
-import {mediaImagesType, MinimizedMediaDetails} from "../../Common/types";
+import {mediaStatsType, popularTV, rateTVRes, seasonDetails, tvDetails} from "./TVTypes";
+import {commonMediaCredits} from "../movieAPI/movieTypes";
+import {mediaCardType, mediaImagesType, MinimizedMediaDetails} from "../../Common/types";
 import {CommonResType} from "../accountAPI/accountTypes";
 
 
@@ -49,8 +49,21 @@ export const tvAPI = {
         const {data} = await instance.get<commonMediaCredits>(`/tv/${tv_id}/credits`)
         return data
     },
-    getPopularTVShow: async (): Promise<CommonResType<popularTV>> => {
+    getPopularTVShow: async (): Promise<mediaCardType[]> => {
         const {data} = await instance.get<CommonResType<popularTV>>(`/tv/popular`)
-        return data
+        return data.results.map( tvShow => getTVShowMainInfo(tvShow))
     },
+}
+
+const getTVShowMainInfo = (TVShow:popularTV):mediaCardType => {
+    return {
+        voteAverage: TVShow.vote_average,
+        name: TVShow.name,
+        date: TVShow.first_air_date,
+        type: 'tv',
+        overview: TVShow.overview,
+        posterPath: TVShow.poster_path,
+        voteCount: TVShow.vote_count,
+        id: TVShow.id
+    }
 }
