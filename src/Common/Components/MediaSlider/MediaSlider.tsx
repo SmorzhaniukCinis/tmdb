@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from "@mui/material/Typography";
-import {SliderListItem} from "../SliderListItem";
+import {SliderListItem} from "../SliderListItem/SliderListItem";
 import {Paper} from "@mui/material";
 import {mediaCardType} from "../../types";
 import s from './MediaSlider.module.css'
