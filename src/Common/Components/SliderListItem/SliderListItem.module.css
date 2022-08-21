@@ -1,6 +1,22 @@
 .ratingWrapper {
     position: relative;
-    bottom: 50px;
+    bottom: 60px;
     left: 8px;
     color: #f6f1f1;
+}
+.cardItemName {
+    text-overflow: ellipsis;
+    padding-top: 5px;
+    position: relative;
+    bottom: 30px;
+    left: 10px;
+    font-size: 20px;
+}
+.cardItemName__SmallFont {
+    text-overflow: ellipsis;
+    padding-top: 5px;
+    position: relative;
+    bottom: 30px;
+    left: 10px;
+    font-size: 15px;
 }

@@ -18,7 +18,7 @@ export const MediaSlider = ({title, content}:props) => {
             </Typography>
             <div className={s.sliderContentContainer}>
                 {
-                    content.map( item => <SliderListItem media={item} key={item.id}/>)
+                    content?.map( item => <SliderListItem media={item} key={item.id}/>)
                 }
             </div>
         </Paper>

@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import {CardActionArea} from '@mui/material';
+import {useNavigate} from "react-router-dom";
 
 type props = {
     media: mediaCardType
@@ -15,10 +16,12 @@ type props = {
 
 export const SliderListItem:React.FC<props> = ({media}:props) => {
 
+    const navigate = useNavigate()
+
 
     return (
         <div >
-            <Card sx={{ width: 250 }}>
+            <Card elevation={3} sx={{ width: 250, mr: 1 }} onClick={() => navigate(`${media.type}/${media.id}`)}>
                 <CardActionArea>
                     <div>
                         <CardMedia
@@ -28,13 +31,14 @@ export const SliderListItem:React.FC<props> = ({media}:props) => {
                             alt="Media Image"
                         />
                         <div className={s.ratingWrapper}>
-                            <CircleMediaRating/>
+                            <CircleMediaRating voteCount={media.voteCount} voteAverage={media.voteAverage}/>
                         </div>
                     </div>
 
-                    <CardContent sx={{padding: 0}}>
-
-                        item
+                    <CardContent sx={{padding: 0, height: '12px'}}>
+                        <span className={media.name.length > 22 ? s.cardItemName__SmallFont :s.cardItemName}>
+                            {media.name}
+                        </span>
                     </CardContent>
                 </CardActionArea>
             </Card>
