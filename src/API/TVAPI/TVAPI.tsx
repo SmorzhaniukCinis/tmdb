@@ -53,6 +53,10 @@ export const tvAPI = {
         const {data} = await instance.get<CommonResType<popularTV>>(`/tv/popular`)
         return data.results.map( tvShow => getTVShowMainInfo(tvShow))
     },
+    getTopRatedTVShow: async (): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/top_rated`)
+        return data.results.map( tvShow => getTVShowMainInfo(tvShow))
+    },
 }
 
 const getTVShowMainInfo = (TVShow:popularTV):mediaCardType => {

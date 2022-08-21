@@ -54,6 +54,7 @@ export const SliderListItem:React.FC<props> = ({media}:props) => {
                             component="img"
                             sx={{cursor: 'pointer'}}
                             width='200px'
+                            height='375px'
                             image={getImage('original', media.posterPath)}
                             alt="Media Image"
                             onClick={() => goToMedia(media.type, media.id)}

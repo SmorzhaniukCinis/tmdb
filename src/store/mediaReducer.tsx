@@ -12,13 +12,15 @@ const SET_MEDIA_CREDITS = "media/SET_MEDIA_CREDITS"
 const SET_MEDIA_DETAILS = "media/SET_MEDIA_DETAILS"
 const SET_MEDIA_IMAGES = "media/SET_MEDIA_IMAGES"
 const SET_POPULAR_MEDIA = "media/SET_POPULAR_MEDIA"
+const SET_TOP_RATED_MEDIA = "media/SET_TOP_RATED_MEDIA"
 
 const initialState = {
     isLoading: true,
     credits: {} as commonMediaCredits,
     details: {} as MinimizedMediaDetails,
     images: {} as mediaImagesType,
-    popular: {} as { popularTV: mediaCardType[], popularMovie: mediaCardType[] }
+    popular: {} as { popularTV: mediaCardType[], popularMovie: mediaCardType[] },
+    topRated: {} as { topRatedTV: mediaCardType[], topRatedMovie: mediaCardType[] }
 }
 type initialStateType = typeof initialState
 
@@ -37,6 +39,13 @@ export const MediaReducer = (state = initialState, action: ActionTypes): initial
                     popularMovie: action.popularMovie
                 }
             }
+        case SET_TOP_RATED_MEDIA:
+            return {
+                ...state, topRated: {
+                    topRatedTV: action.popularTV,
+                    topRatedMovie: action.popularMovie
+                }
+            }
         case SET_LOADING:
             return {...state, isLoading: action.isLoading}
         default:
@@ -50,6 +59,11 @@ export const mediaActions = {
     setMediaImages: (images: mediaImagesType) => ({type: SET_MEDIA_IMAGES, images} as const),
     setPopularMedia: (popularTV: mediaCardType[], popularMovie: mediaCardType[]) => ({
         type: SET_POPULAR_MEDIA,
+        popularMovie,
+        popularTV
+    } as const),
+    setTopRatedMedia: (popularTV: mediaCardType[], popularMovie: mediaCardType[]) => ({
+        type: SET_TOP_RATED_MEDIA,
         popularMovie,
         popularTV
     } as const),
@@ -94,6 +108,14 @@ export const getPopularMedia = () => async (dispatch: Dispatch<ActionTypes>) => 
     const popularTV = await tvAPI.getPopularTVShow()
     const popularMovie = await movieAPI.getPopularMovie()
     dispatch(mediaActions.setPopularMedia(popularTV, popularMovie))
+    dispatch(mediaActions.setLoading(false))
+}
+export const getTopRatedMedia = () => async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch(mediaActions.setLoading(true))
+    const popularTV = await tvAPI.getTopRatedTVShow()
+    const popularMovie = await movieAPI.getTopRatedMovie()
+    debugger
+    dispatch(mediaActions.setTopRatedMedia(popularTV, popularMovie))
     dispatch(mediaActions.setLoading(false))
 }
 
