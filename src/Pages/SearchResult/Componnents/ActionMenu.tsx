@@ -19,7 +19,7 @@ export const ActionMenu: React.FC<props> = (props: props) => {
             <SpeedDial
                 hidden={!props.isVisible}
                 ariaLabel="SpeedDial basic example"
-                sx={{position: 'absolute', bottom: 16, right: 16}}
+                sx={{position: 'absolute', bottom: 8, right: 16}}
                 icon={<SpeedDialIcon/>}
             >
                 <SpeedDialAction

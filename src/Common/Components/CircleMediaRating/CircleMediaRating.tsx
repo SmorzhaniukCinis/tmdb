@@ -14,8 +14,8 @@ const ratingStyle = {
     opacity: '80%',
     background: '9c27b0',
     borderRadius: '50%',
-    width: '50px',
-    height: '50px'
+    width: '52px',
+    height: '52px'
 }
 const ratingValueStyle = {
     top: 0,
@@ -26,6 +26,7 @@ const ratingValueStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: 'pointer'
 }
 
 

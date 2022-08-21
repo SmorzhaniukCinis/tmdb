@@ -86,8 +86,6 @@ export const SearchResult = () => {
                     : null
             }
         </div>
-
-
     )
 };
 
