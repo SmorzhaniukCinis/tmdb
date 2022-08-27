@@ -22,8 +22,7 @@ export const tvAPI = {
         return data
     },
     getMinimizedTVDetails: async (tv_id: number): Promise<MinimizedMediaDetails> => {
-        const {data} = await instance.get<tvDetails>
-        (`/tv/${tv_id}`)
+        const {data} = await instance.get<tvDetails>(`/tv/${tv_id}`)
         return {
             mediaType: 'tv',
             id: data.id,

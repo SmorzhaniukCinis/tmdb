@@ -21,6 +21,7 @@ type initialStateType = typeof initialState
 export const TVReducer = (state = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case SET_TV_DETAILS:
+            debugger
             return {...state, tvDetails: action.tvDetails}
         case SET_TV_STATS:
             return {...state, tvStats: action.TVStats}

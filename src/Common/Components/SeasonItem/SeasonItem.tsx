@@ -38,7 +38,7 @@ export const SeasonItem: React.FC<props> = ({season, tvId}: props) => {
                     {season?.name}
                 </Typography>
                 <Typography sx={{fontSize: 16, fontWeight: 'bold'}}>
-                    <span>{moment(season?.air_date).format('YYYY')}</span>
+                    <span>{season?.air_date ? moment(season?.air_date).format('YYYY') : 'No Date'}</span>
                     <span>{` | ${season?.episode_count} Episodes`}</span>
                 </Typography>
                 <Typography className={s.overview} sx={{pt: 2}}>

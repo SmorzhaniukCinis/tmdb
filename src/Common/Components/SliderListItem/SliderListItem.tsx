@@ -56,7 +56,7 @@ export const SliderListItem:React.FC<props> = ({media}:props) => {
                             width='200px'
                             height='375px'
                             image={getImage('original', media.posterPath)}
-                            alt="Media Image"
+                            alt={getImage('original', media.posterPath)}
                             onClick={() => goToMedia(media.type, media.id)}
                         />
                         <div className={s.ratingWrapper}>

@@ -114,7 +114,6 @@ export const getTopRatedMedia = () => async (dispatch: Dispatch<ActionTypes>) =>
     dispatch(mediaActions.setLoading(true))
     const popularTV = await tvAPI.getTopRatedTVShow()
     const popularMovie = await movieAPI.getTopRatedMovie()
-    debugger
     dispatch(mediaActions.setTopRatedMedia(popularTV, popularMovie))
     dispatch(mediaActions.setLoading(false))
 }
