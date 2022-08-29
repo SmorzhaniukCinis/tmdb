@@ -27,6 +27,9 @@ import {MediaImagePage} from "./Pages/MediaImages/MediaImagePage";
 import {SeasonsPage} from "./Pages/SeasonsPage/SeasonsPage";
 import {SeasonDetails} from "./Pages/SeasonDetails/SeasonDetails";
 import {RecommendationsContentPage} from "./Pages/Recommendations/RecommendationsContentPage";
+import {MoviesPage} from "./Pages/MoviesPage/MoviesPage";
+import TvShowsPage from "./Pages/TVShowsPage/TVShowsPage";
+import {PeoplesPage} from "./Pages/PeoplesPage/PeoplesPage";
 
 
 function App() {
@@ -87,6 +90,9 @@ function App() {
                         <Route path={'/person/:personId/Photos'} element={<PersonPhotos/>}/>
                         <Route path={'/review/:reviewId'} element={<Review/>}/>
                         <Route path={'tmdb'} element={<Navigate to="/" />} />
+                        <Route path={'/movies'} element={<MoviesPage/>} />
+                        <Route path={'tvShow'} element={<TvShowsPage/>} />
+                        <Route path={'peoples'} element={<PeoplesPage/>} />
                     </Routes>
                 </Container>
             </ThemeProvider>

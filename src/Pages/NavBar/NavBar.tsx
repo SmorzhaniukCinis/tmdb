@@ -41,7 +41,7 @@ export const NavBar = (props: { window?: () => Window }) => {
                                     variant="h6"
                                     noWrap
                                     component="div"
-                                    sx={{mr: 2, display: {xs: 'none', md: 'flex'}}}
+                                    sx={{ml: 12, mr: 4, display: {xs: 'none', md: 'flex'}}}
                                 >
                                     TMDB
                                 </Typography>

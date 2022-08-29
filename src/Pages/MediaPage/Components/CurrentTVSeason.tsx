@@ -18,7 +18,11 @@ export const CurrentTVSeason:React.FC<props> = ({tvId}:props) => {
     return (
         <Paper sx={{mt: 4, p: 3}} elevation={10}>
             <Typography sx={{mb: 2}} variant={'h5'}>Current season</Typography>
-            <SeasonItem season={seasons.slice(-1)[0]} tvId={id}/>
+            {
+                seasons.slice(-1)[0].air_date
+                ?<SeasonItem season={seasons.slice(-1)[0]} tvId={id}/>
+                :<SeasonItem season={seasons.slice(-2)[0]} tvId={id}/>
+            }
             <Link className={s.viewAllSeason} to={`/tv/${tvId}/seasons`}>View all seasons</Link>
         </Paper>
     );
