@@ -3,9 +3,7 @@ import {ActionTypes} from "./store";
 import {mediaCardType, mediaImagesType, mediaType, MinimizedMediaDetails} from "../Common/types";
 import {tvAPI} from "../API/TVAPI/TVAPI";
 import {movieAPI} from "../API/movieAPI/movieAPI";
-import {commonMediaCredits, popularMovie} from "../API/movieAPI/movieTypes";
-import {CommonResType} from "../API/accountAPI/accountTypes";
-import {popularTV} from "../API/TVAPI/TVTypes";
+import {commonMediaCredits} from "../API/movieAPI/movieTypes";
 
 const SET_LOADING = "media/SET_LOADING"
 const SET_MEDIA_CREDITS = "media/SET_MEDIA_CREDITS"

@@ -9,3 +9,9 @@ export const getIsRatingLoading = (state:RootStateType) => {
 export const getMovieStatsSelector = (state:RootStateType) => {
   return state.movie.movieStats
 }
+export const getNowPlayingMoviesSelector = (state:RootStateType) => {
+  return state.movie.nowPlayingMovies
+}
+export const getUpcomingMoviesSelector = (state:RootStateType) => {
+  return state.movie.upcomingMovies
+}

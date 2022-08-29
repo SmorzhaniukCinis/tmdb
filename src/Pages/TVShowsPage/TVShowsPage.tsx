@@ -4,13 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {GetOnTheAirTVShow} from "../../store/TVReducer";
 import {MediaSlider} from "../../Common/Components/MediaSlider/MediaSlider";
 import {getPopularMedia, getTopRatedMedia} from "../../store/mediaReducer";
-import {getPopularMediaSelector, getTopRatedMediaSelector} from "../../store/Selectors/mediaSelectors";
+import {getIsLoading, getPopularMediaSelector, getTopRatedMediaSelector} from "../../store/Selectors/mediaSelectors";
+import {Loader} from "../../Common/Components/Loader";
 
 const TvShowsPage = () => {
 
     const onAirTVShows = useSelector(getOnAirTV)
     const {popularTV} = useSelector(getPopularMediaSelector)
     const {topRatedTV} = useSelector(getTopRatedMediaSelector)
+    const isLoading = useSelector(getIsLoading)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -19,6 +21,7 @@ const TvShowsPage = () => {
         dispatch(getTopRatedMedia())
     }, [dispatch])
 
+    if(isLoading) return <Loader/>
     return (
         <div>
             <MediaSlider title={'On The Air TV Shows'} content={onAirTVShows}/>
