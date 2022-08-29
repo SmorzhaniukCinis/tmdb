@@ -12,3 +12,6 @@ export const getTVStatsSelector = (state:RootStateType) => {
 export const getTVSeason = (state:RootStateType) => {
     return state.tv.seasonDetails
 }
+export const getOnAirTV = (state:RootStateType) => {
+    return state.tv.onTheAirTVShows
+}

@@ -3,11 +3,13 @@ import {Dispatch} from "redux";
 import {tvAPI} from "../API/TVAPI/TVAPI";
 import {mediaStatsType, seasonDetails, tvDetails} from "../API/TVAPI/TVTypes";
 import {mediaActions} from "./mediaReducer";
+import {mediaCardType} from "../Common/types";
 
 const SET_TV_DETAILS = 'tv/SET_TV_DETAILS'
 const SET_TV_STATS = 'tv/SET_TV_STATS'
 const UPDATE_RATING = 'tv/UPDATE_RATING'
 const SET_SEASON = 'tv/SET_SEASON'
+const SET_ON_THE_AIR_TVSHOW = 'tv/SET_ON_THE_AIR_TVSHOW'
 
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
     tvDetails: {} as tvDetails,
     tvStats: {} as mediaStatsType,
     seasonDetails: {} as seasonDetails,
+    onTheAirTVShows: [] as mediaCardType[]
 }
 type initialStateType = typeof initialState
 
@@ -29,6 +32,8 @@ export const TVReducer = (state = initialState, action: ActionTypes): initialSta
             return {...state, tvStats: {...state.tvStats, rated: {value: action.value}}}
         case SET_SEASON:
             return {...state, seasonDetails: action.season}
+        case SET_ON_THE_AIR_TVSHOW:
+            return {...state, onTheAirTVShows: action.TVShows}
         default:
             return state
     }
@@ -39,6 +44,7 @@ export const tvActions = {
     setTVStats: (TVStats: mediaStatsType) => ({type: SET_TV_STATS, TVStats} as const),
     updateRating: (value: number) => ({type: UPDATE_RATING, value} as const),
     setSeason: (season: seasonDetails) => ({type: SET_SEASON, season} as const),
+    setOnTheAirTVShow: (TVShows:  mediaCardType[]) => ({type: SET_ON_THE_AIR_TVSHOW, TVShows} as const),
 }
 
 export const GetTVDetails = (TVid: number) =>
@@ -79,5 +85,11 @@ export const GetSeason = (TVid: number, seasonNumber: number) =>
         dispatch(mediaActions.setLoading(true))
         const result = await tvAPI.getTVSeason(TVid, seasonNumber)
         dispatch(tvActions.setSeason(result))
+        dispatch(mediaActions.setLoading(false))
+    }
+export const GetOnTheAirTVShow = () => async (dispatch: Dispatch<ActionTypes>) => {
+        dispatch(mediaActions.setLoading(true))
+        const result = await tvAPI.getOnTheAirTVShow()
+        dispatch(tvActions.setOnTheAirTVShow(result))
         dispatch(mediaActions.setLoading(false))
     }
