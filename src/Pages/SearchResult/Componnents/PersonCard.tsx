@@ -4,10 +4,12 @@ import {resultType} from "../../../store/searchReducer";
 import {getImage} from "../../../Common/functions/getImage";
 import noPhoto from '../../../assets/No-image-available.jpg'
 import {useNavigate} from "react-router-dom";
+import {popularPeople} from "../../../API/PersoneAPI/PersonTypes";
+import {person} from "../../../API/SearchAPI/searchTypes";
 
 
 type props = {
-    item: resultType
+    item: person | popularPeople
 }
 
 export const PersonCard:React.FC<props> = ({item}:props) => {

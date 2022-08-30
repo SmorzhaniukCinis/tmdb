@@ -4,6 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getPopularPersons} from "../../store/Selectors/personSelectors";
 import {Loader} from "../../Common/Components/Loader";
 import {useSearchParams} from "react-router-dom";
+import {Paper} from "@mui/material";
+import {PersonCard} from "../SearchResult/Componnents/PersonCard";
+import s from './PeoplesPage.module.css'
+import Typography from "@mui/material/Typography";
 
 export const PeoplesPage = () => {
 
@@ -14,14 +18,20 @@ export const PeoplesPage = () => {
 
     useEffect(() => {
         dispatch(getPopularPerson())
-        },[dispatch])
+    }, [dispatch])
 
-    console.log(popularPerson)
-
-    if(isLoading) return <Loader/>
+    if (isLoading) return <Loader/>
     return (
         <div>
-            <button onClick={()=>setSearchParams({page: '1'})}></button>
+            <Typography variant={'h4'} sx={{ml:5}}>
+                Popular peoples
+            </Typography>
+            <Paper elevation={8} className={s.container}>
+                {
+                    popularPerson.results.map(person => <PersonCard item={person} key={person.id}/>)
+                }
+                <button onClick={() => setSearchParams({page: '1'})}></button>
+            </Paper>
         </div>
     );
 };
