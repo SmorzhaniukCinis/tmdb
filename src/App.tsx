@@ -30,6 +30,7 @@ import {RecommendationsContentPage} from "./Pages/Recommendations/Recommendation
 import {MoviesPage} from "./Pages/MoviesPage/MoviesPage";
 import TvShowsPage from "./Pages/TVShowsPage/TVShowsPage";
 import {PeoplesPage} from "./Pages/PeoplesPage/PeoplesPage";
+import {MediaListPage} from "./Pages/MediaListPage/MediaListPage";
 
 
 function App() {
@@ -91,8 +92,9 @@ function App() {
                         <Route path={'/review/:reviewId'} element={<Review/>}/>
                         <Route path={'tmdb'} element={<Navigate to="/" />} />
                         <Route path={'/movies'} element={<MoviesPage/>} />
-                        <Route path={'tvShow'} element={<TvShowsPage/>} />
-                        <Route path={'peoples'} element={<PeoplesPage/>} />
+                        <Route path={'/tvShow'} element={<TvShowsPage/>} />
+                        <Route path={'/peoples'} element={<PeoplesPage/>} />
+                        <Route path={'/discover/:mediaType'} element={<MediaListPage/>} />
                     </Routes>
                 </Container>
             </ThemeProvider>

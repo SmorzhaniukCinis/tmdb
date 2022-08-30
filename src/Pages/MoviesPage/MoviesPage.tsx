@@ -22,11 +22,11 @@ export const MoviesPage = () => {
         dispatch(getPopularMedia())
         dispatch(getTopRatedMedia())
     }, [dispatch])
-    
+
     if(isLoading) return <Loader/>
     return (
         <div>
-            <MediaSlider title={'Now Playing Movies'} content={nowPlayingMovies}/>
+            <MediaSlider title={'Now Playing Movies'} content={nowPlayingMovies} mediaType={"movie"}/>
             <MediaSlider title={'Upcoming Movies'} content={upcomingMovies}/>
             <MediaSlider title={'Popular Movies'} content={popularMovie}/>
             <MediaSlider title={'Top Rated Movies'} content={topRatedMovie}/>
