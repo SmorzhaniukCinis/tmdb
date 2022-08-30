@@ -81,3 +81,32 @@ export type cast = {
     "title"?: string
     "release_date"?: string
 }
+
+export type popularPeople =  {
+    "profile_path": string
+    "adult": boolean,
+    "id": number
+    "known_for": personKnowFor[]
+    "name": string
+    "popularity": number
+}
+
+export type personKnowFor = {
+    "poster_path": string
+    "adult": boolean,
+    "overview": string
+    "release_date": string
+    "original_title": string
+    "genre_ids": number[]
+    "id": number
+    "media_type": mediaType
+    "original_language": string
+    "title": string
+    "backdrop_path": string
+    "popularity": number
+    "vote_count": number
+    "video": boolean
+    "vote_average": number
+}
+
+
