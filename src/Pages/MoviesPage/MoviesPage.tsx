@@ -27,9 +27,9 @@ export const MoviesPage = () => {
     return (
         <div>
             <MediaSlider title={'Now Playing Movies'} content={nowPlayingMovies} mediaType={"movie"}/>
-            <MediaSlider title={'Upcoming Movies'} content={upcomingMovies}/>
-            <MediaSlider title={'Popular Movies'} content={popularMovie}/>
-            <MediaSlider title={'Top Rated Movies'} content={topRatedMovie}/>
+            <MediaSlider title={'Upcoming Movies'} content={upcomingMovies} mediaType={"movie"}/>
+            <MediaSlider title={'Popular Movies'} content={popularMovie} mediaType={"movie"}/>
+            <MediaSlider title={'Top Rated Movies'} content={topRatedMovie} mediaType={"movie"}/>
         </div>
     );
 };

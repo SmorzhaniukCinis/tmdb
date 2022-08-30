@@ -24,7 +24,7 @@ export const MediaSlider = ({title, content, mediaType}: props) => {
                 }
             </div>
             {mediaType
-                ? <Link to={`discover/${mediaType}`} className={s.seeMoreLink}>
+                ? <Link to={`/discover/${mediaType}`} className={s.seeMoreLink}>
                     see more...
                 </Link>
                 : null}
