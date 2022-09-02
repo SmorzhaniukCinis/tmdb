@@ -38,7 +38,7 @@ export const SliderListItem:React.FC<props> = ({media}:props) => {
         setOpen(true);
     }
     const goToMedia = (mediaType: mediaType, mediaId: number) => {
-        navigate(`${mediaType}/${mediaId}`)
+        navigate(`/${mediaType}/${mediaId}`)
     }
 
 

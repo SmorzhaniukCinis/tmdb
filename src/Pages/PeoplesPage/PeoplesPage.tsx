@@ -4,21 +4,26 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIsLoading, getPopularPersons} from "../../store/Selectors/personSelectors";
 import {Loader} from "../../Common/Components/Loader";
 import {useSearchParams} from "react-router-dom";
-import {Paper} from "@mui/material";
+import {Pagination, Paper} from "@mui/material";
 import {PersonCard} from "../SearchResult/Componnents/PersonCard";
 import s from './PeoplesPage.module.css'
 import Typography from "@mui/material/Typography";
 
 export const PeoplesPage = () => {
 
-    const [searchParams, setSearchParams] = useSearchParams()
+    let [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch()
     const popularPerson = useSelector(getPopularPersons)
     const isLoading = useSelector(getIsLoading)
 
+
     useEffect(() => {
-        dispatch(getPopularPerson())
-    }, [dispatch])
+        dispatch(getPopularPerson(Number(searchParams.get('page')) || 1))
+    }, [dispatch, searchParams])
+
+    const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setSearchParams({page: String(value)});
+    };
 
     if (isLoading) return <Loader/>
     return (
@@ -28,10 +33,14 @@ export const PeoplesPage = () => {
             </Typography>
             <Paper elevation={8} className={s.container}>
                 {
-                    popularPerson.results.map(person => <PersonCard item={person} key={person.id}/>)
+                    popularPerson.results?.map(person => <PersonCard item={person} key={person.id}/>)
                 }
-                <button onClick={() => setSearchParams({page: '1'})}></button>
             </Paper>
+            <div className={s.paginationWrapper}>
+                <Pagination count={popularPerson.total_pages}
+                            page={popularPerson.page}
+                            onChange={changePage} />
+            </div>
         </div>
     );
 };

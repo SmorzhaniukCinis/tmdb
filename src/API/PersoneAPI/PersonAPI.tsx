@@ -8,8 +8,8 @@ export const personAPI = {
         (`/person/${personId}?append_to_response=combined_credits,images`)
         return data
     },
-    getPopularPersons: async (): Promise<CommonResType<popularPeople>> => {
-        const {data} = await instance.get<CommonResType<popularPeople>>(`/person/popular`)
+    getPopularPersons: async (page: number): Promise<CommonResType<popularPeople>> => {
+        const {data} = await instance.get<CommonResType<popularPeople>>(`/person/popular?page=${page}`)
         return data
     },
 }

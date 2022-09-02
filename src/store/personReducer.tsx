@@ -40,9 +40,9 @@ export const getPersonDetails = (id: number) => async (dispatch: Dispatch<Action
     dispatch(PersonActions.setPersonDetails(res))
     dispatch(PersonActions.setLoading(false))
 }
-export const getPopularPerson = () => async (dispatch: Dispatch<ActionTypes>) => {
+export const getPopularPerson = (page: number) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(PersonActions.setLoading(true))
-    const persons = await personAPI.getPopularPersons()
+    const persons = await personAPI.getPopularPersons(page)
     dispatch(PersonActions.setPopularPerson(persons))
     dispatch(PersonActions.setLoading(false))
 }
