@@ -90,7 +90,7 @@ function App() {
                         <Route path={'/person/:personId'} element={<PersonProfile/>}/>
                         <Route path={'/person/:personId/Photos'} element={<PersonPhotos/>}/>
                         <Route path={'/review/:reviewId'} element={<Review/>}/>
-                        <Route path={'tmdb'} element={<Navigate to="/" />} />
+                        <Route path={'/tmdb'} element={<Navigate to="/" />} />
                         <Route path={'/movies'} element={<MoviesPage/>} />
                         <Route path={'/tvShow'} element={<TvShowsPage/>} />
                         <Route path={'/peoples'} element={<PeoplesPage/>} />
