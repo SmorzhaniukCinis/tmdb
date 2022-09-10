@@ -14,7 +14,7 @@ export const Step2 = () => {
             <div className={s.PermissionLinkBox}>
                 <Button  variant="outlined">
                     <Link className={s.Link} underline={"hover"}
-                          href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/authentication`}
+                          href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=https://smorzhaniukcinis.github.io/authentication`}
                           color="inherit">
                         Go to TMDB permission page
                     </Link>

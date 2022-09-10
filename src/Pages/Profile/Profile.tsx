@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {getDetails} from "../../store/Selectors/accountSelectors";
 import {getImage} from "../../Common/functions/getImage";
 import s from './Profile.module.css'
+import {ProfileLinks} from "./Components/ProfileLinks";
 
 const Profile = () => {
 
@@ -11,13 +12,14 @@ const Profile = () => {
     const profileImage = getImage('w200', details.avatar.tmdb.avatar_path)
 
     return (
-        <div className={s.profileContainer}>
-            <div>
-                <img className={s.profilePhoto} src={profileImage} alt=""/>
+        <div>
+            <div className={s.profileContainer}>
+                <img className={s.profilePhoto} src={profileImage} alt="profilePhoto"/>
+                <span className={s.userName}>
+                    {details.name}
+                </span>
             </div>
-            <span className={s.userName}>
-                {details.name}
-            </span>
+            <ProfileLinks/>
         </div>
     );
 };

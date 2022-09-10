@@ -6,9 +6,16 @@
 }
 .profileContainer {
     display: flex;
+    margin-top: 100px;
 }
 .userName {
     font-size: 24px;
     margin-left: 50px;
     margin-top: 20px;
+}
+.linksWrapper {
+    margin-top: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
