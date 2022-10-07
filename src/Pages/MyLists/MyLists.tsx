@@ -29,27 +29,26 @@ const MyLists = () => {
     if (isLoading) return <Loader/>
 
     return (
-            <div>
-                <div className={s.myListTitleWrapper}>
-                    <Typography variant={'h5'} className={s.myListTitle}>
-                        My lists
-                        <span className={s.myListResultCount}>
+        <div>
+            <div className={s.myListTitleWrapper}>
+                <Typography variant={'h5'} className={s.myListTitle}>
+                    My lists
+                    <span className={s.myListResultCount}>
                         {createdLists.total_results}
                     </span>
-                    </Typography>
-                    <Button sx={{marginLeft: '30px', marginBottom: '10px'}} variant={'contained'}>
-                        <Link sx={{color: 'inherit', textDecoration: 'none',}} href={'/newList'}>Create new list</Link>
-                    </Button>
-                </div>
-                <div className={s.listWrapper}>
-                    {createdLists.results.map(list => <MyListItem list={list} key={list.id}/>)}
-
-                </div>
-                {(createdLists?.total_pages && createdLists?.total_pages > 1)
-                    ? <Pagination page={page} onChange={handleChangePage} count={createdLists?.total_pages}/>
-                    : null}
+                </Typography>
+                <Button sx={{marginLeft: '30px', marginBottom: '10px'}} variant={'contained'}>
+                    <Link sx={{color: 'inherit', textDecoration: 'none',}} href={'/newList'}>Create new list</Link>
+                </Button>
             </div>
-        );
+            <div className={s.listWrapper}>
+                {createdLists.results.map(list => <MyListItem list={list} key={list.id}/>)}
+            </div>
+            {(createdLists?.total_pages && createdLists?.total_pages > 1)
+                ? <Pagination page={page} onChange={handleChangePage} count={createdLists?.total_pages}/>
+                : null}
+        </div>
+    );
 };
 
 export default MyLists;

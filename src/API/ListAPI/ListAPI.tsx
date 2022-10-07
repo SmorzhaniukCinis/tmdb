@@ -59,5 +59,20 @@ export const listAPI = {
         } catch (e: any) {
             return e.response.data
         }
+    },
+    addComment: async (listId:number, mediaType:mediaType, mediaId:number, comment:string): Promise<addListItemRes> => {
+        // @ts-ignore
+        const {data} = await instanceV4.put<addListItemRes>(`/list/${listId}/items`, {
+            items: [
+                {
+                    media_type: mediaType,
+                    media_id: mediaId,
+                    comment: comment
+                }
+            ]
+        })
+        return data
     }
 }
+
+

@@ -1,3 +1,5 @@
+import {mediaType} from "../../Common/types";
+
 export type movieAndTVType = {
     adult?: boolean
     media_type: "movie" | 'tv'
