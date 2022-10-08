@@ -39,10 +39,10 @@ export const MediaListPage = () => {
                 <Tab label="Now Playing" {...a11yProps(3)} />
 
             </Tabs>
-            <ContentTab value={value} index={0}/>
-            <ContentTab value={value} index={1}/>
-            <ContentTab value={value} index={2}/>
-            <ContentTab value={value} index={3}/>
+            <ContentTab value={value} index={0} contentType={''}/>
+            <ContentTab value={value} index={1} contentType={''}/>
+            <ContentTab value={value} index={2} contentType={''}/>
+            <ContentTab value={value} index={3} contentType={''}/>
         </Box>
     );
 }

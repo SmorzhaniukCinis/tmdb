@@ -10,6 +10,7 @@ import {reviewActions, ReviewReducer} from "./ReviewReducer";
 import {tvActions, TVReducer} from "./TVReducer";
 import {mediaActions, MediaReducer} from "./mediaReducer";
 import {episodeActions, EpisodeReducer} from "./episodeReducer";
+import {discoverMediaActions, DiscoverMediaReducer} from "./DiscoverMediaRedicer";
 
 
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     tv: TVReducer,
     media: MediaReducer,
     episode: EpisodeReducer,
+    discoverMedia: DiscoverMediaReducer
 })
 export type RootStateType = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -34,6 +36,7 @@ export type ActionTypes = ReturnType<InferValueType<typeof
     | typeof listActions
     | typeof movieActions
     | typeof reviewActions
+    | typeof discoverMediaActions
     | typeof tvActions
     | typeof PersonActions
     | typeof mediaActions

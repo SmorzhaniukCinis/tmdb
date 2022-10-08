@@ -1,7 +1,6 @@
 import {instance} from "../index";
 import {accountStats, commonMediaCredits, movieDetailsType, popularMovie, rateMovieRes} from "./movieTypes";
 import {mediaCardType, mediaImagesType, MinimizedMediaDetails} from "../../Common/types";
-import {tvDetails} from "../TVAPI/TVTypes";
 import {CommonResType} from "../accountAPI/accountTypes";
 
 export const movieAPI = {
@@ -44,20 +43,20 @@ export const movieAPI = {
         const {data} = await instance.get<commonMediaCredits>(`/movie/${tv_id}/credits`)
         return data
     },
-    getPopularMovie: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/popular`)
+    getPopularMovie: async (page: number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/popular?page=${page}`)
         return  data.results.map( media => getMovieMainInfo(media))
     },
-    getTopRatedMovie: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/top_rated`)
+    getTopRatedMovie: async (page: number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/top_rated?page=${page}`)
         return  data.results.map( media => getMovieMainInfo(media))
     },
-    getUpcomingMovie: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/upcoming`)
+    getUpcomingMovie: async (page: number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/upcoming?page=${page}`)
         return  data.results.map( media => getMovieMainInfo(media))
     },
-    getNowPlayingMovie: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/now_playing`)
+    getNowPlayingMovie: async (page: number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/now_playing?page=${page}`)
         return  data.results.map( media => getMovieMainInfo(media))
     },
 }
