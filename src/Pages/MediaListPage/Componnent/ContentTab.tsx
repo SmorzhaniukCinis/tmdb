@@ -5,6 +5,7 @@ import {SliderListItem} from "../../../Common/Components/SliderListItem/SliderLi
 import s from '../MediaListPage.module.css'
 import {Pagination, Skeleton} from "@mui/material";
 import {createArray} from "../MediaListFunc";
+import {createSearchParams, useSearchParams} from "react-router-dom";
 
 interface TabPanelProps {
     index: number;
@@ -17,6 +18,17 @@ export const ContentTab = (props: TabPanelProps) => {
     const currentMedia = useSelector(getCurrentMedia)
     const isLoading = useSelector(getIsLoading)
     const arrForSkeleton = createArray(20)
+    const [search, setSearch] = useSearchParams();
+    const page = Number(search.get('page'))
+
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setSearch(createSearchParams({section: search.get('section') || '', page: String(value)}));
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        })
+    };
 
     return (
         <div
@@ -28,13 +40,14 @@ export const ContentTab = (props: TabPanelProps) => {
             {value === index && (
                 <div className={s.contentWrapper}>
                     {!isLoading
-                        ?currentMedia.results?.map(media => <SliderListItem key={media.id} media={media}/>)
-                        :arrForSkeleton.map(item => <Skeleton sx={{m:'3px', borderRadius: '5px'}} variant="rectangular" width={240} height={433} /> )
+                        ? currentMedia.results?.map(media => <SliderListItem key={media.id} media={media}/>)
+                        : arrForSkeleton.map(item => <Skeleton sx={{m: '3px', borderRadius: '5px'}}
+                                                               variant="rectangular" width={240} height={433}/>)
                     }
                 </div>
             )}
             <div className={s.pagination}>
-                <Pagination count={10} />
+                <Pagination count={currentMedia.total_pages} page={page || 1} onChange={handleChange}/>
             </div>
         </div>
     );

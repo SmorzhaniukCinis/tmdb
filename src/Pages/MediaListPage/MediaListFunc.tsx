@@ -14,35 +14,35 @@ export const getValueFromURL = (section:string | null) => {
 type loadDataParams = {
     mediaType:string | undefined,
     value:number,
-    setSearch: (section:{section: string})=>void
+    setSearch: (section:{section: string, page: string})=>void
 }
 
 export const loadData = ({mediaType, value, setSearch}:loadDataParams) => {
     if (mediaType === 'movie') {
         switch (value) {
             case 0:
-                setSearch({section: 'topRated'})
+                setSearch({section: 'topRated', page: '1'})
                 break
             case 1:
-                setSearch({section: 'popular'})
+                setSearch({section: 'popular', page: '1'})
                 break
             case 2:
-                setSearch({section: 'upcoming'})
+                setSearch({section: 'upcoming', page: '1'})
                 break
             case 3:
-                setSearch({section: 'nowPlaying'})
+                setSearch({section: 'nowPlaying', page: '1'})
                 break
         }
     }else {
         switch (value) {
             case 0:
-                setSearch({section: 'topRated'})
+                setSearch({section: 'topRated', page: '1'})
                 break
             case 1:
-                setSearch({section: 'popular'})
+                setSearch({section: 'popular', page: '1'})
                 break
             case 2:
-                setSearch({section: 'onAir'})
+                setSearch({section: 'onAir', page: '1'})
                 break
         }
     }

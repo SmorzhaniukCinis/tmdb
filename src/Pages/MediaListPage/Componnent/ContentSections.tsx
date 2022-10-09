@@ -4,16 +4,17 @@ import Tab from "@mui/material/Tab";
 import ContentTab from "./ContentTab";
 import Box from "@mui/material/Box";
 import {useParams, useSearchParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {getValueFromURL, loadData} from "../MediaListFunc";
 import {
-    GetNowPlayingMovie, GetOnAirTVShow,
-    GetPopularMovie, GetPopularTVShow,
-    GetTopRatedMovie, GetTopRatedTVShow,
+    GetNowPlayingMovie,
+    GetOnAirTVShow,
+    GetPopularMovie,
+    GetPopularTVShow,
+    GetTopRatedMovie,
+    GetTopRatedTVShow,
     GetUpcomingMovie
 } from "../../../store/discoverMediaReducer";
-import {getIsLoading} from "../../../store/Selectors/discoverMediaSelectors";
-import {Loader} from "../../../Common/Components/Loader";
 
 
 function a11yProps(index: number) {
@@ -30,47 +31,48 @@ export const ContentSections = () => {
     const dispatch = useDispatch()
     const [search, setSearch] = useSearchParams();
     const section = search.get('section')
+    const page = Number(search.get('page'))
 
     useEffect(() => {
         setValue(getValueFromURL(section))
     }, [section])
 
-
     useEffect(() => {
         if (mediaType === 'movie') {
             switch (value) {
                 case 0:
-                    dispatch(GetTopRatedMovie(1))
+                    dispatch(GetTopRatedMovie(page))
                     break
                 case 1:
-                    dispatch(GetPopularMovie(1))
+                    dispatch(GetPopularMovie(page))
                     break
                 case 2:
-                    dispatch(GetUpcomingMovie(1))
+                    dispatch(GetUpcomingMovie(page))
                     break
                 case 3:
-                    dispatch(GetNowPlayingMovie(1))
+                    dispatch(GetNowPlayingMovie(page))
                     break
             }
         } else {
             switch (value) {
                 case 0:
-                    dispatch(GetTopRatedTVShow(1))
+                    dispatch(GetTopRatedTVShow(page))
                     break
                 case 1:
-                    dispatch(GetPopularTVShow(1))
+                    dispatch(GetPopularTVShow(page))
                     break
                 case 2:
-                    dispatch(GetOnAirTVShow(1))
+                    dispatch(GetOnAirTVShow(page))
                     break
             }
         }
-    }, [dispatch, mediaType, value])
+    }, [dispatch, mediaType, value, page])
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const changeTab = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
         loadData({mediaType, value: newValue, setSearch})
     };
+
 
     return (
         <Box
@@ -79,7 +81,7 @@ export const ContentSections = () => {
             <Tabs orientation="vertical"
                   variant="scrollable"
                   value={value}
-                  onChange={handleChange}
+                  onChange={changeTab}
                   aria-label="Vertical tabs example"
                   sx={{borderRight: 1, borderColor: 'divider', width: '9%'}}
             >
