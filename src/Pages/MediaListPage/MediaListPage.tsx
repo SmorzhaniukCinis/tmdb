@@ -11,9 +11,9 @@ import {
     GetPopularMovie, GetPopularTVShow,
     GetTopRatedMovie, GetTopRatedTVShow,
     GetUpcomingMovie
-} from "../../store/DiscoverMediaReducer";
+} from "../../store/discoverMediaReducer";
 import {useDispatch} from "react-redux";
-import {getValueFromURL, loadData} from "./Functions/MediaListFunc";
+import {getValueFromURL, loadData} from "./MediaListFunc";
 import {mediaType} from "../../Common/types";
 import {ContentSections} from "./Componnent/ContentSections";
 import {MediaTabs} from "./Componnent/MediaTabs";

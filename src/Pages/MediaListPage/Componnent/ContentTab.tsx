@@ -1,32 +1,23 @@
-import React, {useEffect} from 'react';
-import Box from "@mui/material/Box";
-import {useDispatch, useSelector} from "react-redux";
-import {getCurrentMedia} from "../../../store/Selectors/discoverMediaSelectors";
-import {
-    GetNowPlayingMovie,
-    GetOnAirTVShow,
-    GetPopularMovie,
-    GetPopularTVShow,
-    GetTopRatedMovie,
-    GetTopRatedTVShow,
-    GetUpcomingMovie
-} from "../../../store/DiscoverMediaReducer";
-import {useSearchParams} from "react-router-dom";
+import React from 'react';
+import {useSelector} from "react-redux";
+import {getCurrentMedia, getIsLoading} from "../../../store/Selectors/discoverMediaSelectors";
+import {SliderListItem} from "../../../Common/Components/SliderListItem/SliderListItem";
+import s from '../MediaListPage.module.css'
+import {Skeleton} from "@mui/material";
+import {createArray} from "../MediaListFunc";
 
 interface TabPanelProps {
     index: number;
     value: number;
-    contentType: string | undefined
 }
 
 export const ContentTab = (props: TabPanelProps) => {
 
-    const {value, index, contentType} = props;
-
+    const {value, index} = props;
     const currentMedia = useSelector(getCurrentMedia)
-
-
-
+    const isLoading = useSelector(getIsLoading)
+    const arrForSkeleton = createArray(20)
+    console.log(arrForSkeleton)
 
     return (
         <div
@@ -36,11 +27,12 @@ export const ContentTab = (props: TabPanelProps) => {
             aria-labelledby={`vertical-tab-${index}`}
         >
             {value === index && (
-                <Box sx={{p: 3}}>
-                    {
-                        currentMedia?.map(media => <div key={media.id}>{media.name}</div>)
+                <div className={s.contentWrapper}>
+                    {!isLoading
+                        ?currentMedia?.map(media => <SliderListItem key={media.id} media={media}/>)
+                        :arrForSkeleton.map(item => <Skeleton sx={{m:'3px', borderRadius: '5px'}} variant="rectangular" width={240} height={433} /> )
                     }
-                </Box>
+                </div>
             )}
         </div>
     );

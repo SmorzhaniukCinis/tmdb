@@ -1,4 +1,4 @@
-import {mediaType} from "../../../Common/types";
+import {mediaType} from "../../Common/types";
 
 export const getValueFromURL = (section:string | null) => {
     switch (section) {
@@ -46,4 +46,12 @@ export const loadData = ({mediaType, value, setSearch}:loadDataParams) => {
                 break
         }
     }
+}
+
+export const createArray = (size:number) => {
+    const array = []
+    for (let i = 1; i <= size; i++) {
+        array.push(i)
+    }
+    return array
 }

@@ -10,7 +10,7 @@ import {reviewActions, ReviewReducer} from "./ReviewReducer";
 import {tvActions, TVReducer} from "./TVReducer";
 import {mediaActions, MediaReducer} from "./mediaReducer";
 import {episodeActions, EpisodeReducer} from "./episodeReducer";
-import {discoverMediaActions, DiscoverMediaReducer} from "./DiscoverMediaReducer";
+import {discoverMediaActions, DiscoverMediaReducer} from "./discoverMediaReducer";
 
 
 const rootReducer = combineReducers({

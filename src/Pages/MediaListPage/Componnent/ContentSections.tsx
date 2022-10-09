@@ -4,14 +4,16 @@ import Tab from "@mui/material/Tab";
 import ContentTab from "./ContentTab";
 import Box from "@mui/material/Box";
 import {useParams, useSearchParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {getValueFromURL, loadData} from "../Functions/MediaListFunc";
+import {useDispatch, useSelector} from "react-redux";
+import {getValueFromURL, loadData} from "../MediaListFunc";
 import {
     GetNowPlayingMovie, GetOnAirTVShow,
     GetPopularMovie, GetPopularTVShow,
     GetTopRatedMovie, GetTopRatedTVShow,
     GetUpcomingMovie
-} from "../../../store/DiscoverMediaReducer";
+} from "../../../store/discoverMediaReducer";
+import {getIsLoading} from "../../../store/Selectors/discoverMediaSelectors";
+import {Loader} from "../../../Common/Components/Loader";
 
 
 function a11yProps(index: number) {
@@ -37,13 +39,17 @@ export const ContentSections = () => {
     useEffect(() => {
         if (mediaType === 'movie') {
             switch (value) {
-                case 0:dispatch(GetTopRatedMovie(1))
+                case 0:
+                    dispatch(GetTopRatedMovie(1))
                     break
-                case 1:dispatch(GetPopularMovie(1))
+                case 1:
+                    dispatch(GetPopularMovie(1))
                     break
-                case 2:dispatch(GetUpcomingMovie(1))
+                case 2:
+                    dispatch(GetUpcomingMovie(1))
                     break
-                case 3:dispatch(GetNowPlayingMovie(1))
+                case 3:
+                    dispatch(GetNowPlayingMovie(1))
                     break
             }
         } else {
@@ -51,9 +57,11 @@ export const ContentSections = () => {
                 case 0:
                     dispatch(GetTopRatedTVShow(1))
                     break
-                case 1:dispatch(GetPopularTVShow(1))
+                case 1:
+                    dispatch(GetPopularTVShow(1))
                     break
-                case 2:dispatch(GetOnAirTVShow(1))
+                case 2:
+                    dispatch(GetOnAirTVShow(1))
                     break
             }
         }
@@ -73,7 +81,7 @@ export const ContentSections = () => {
                   value={value}
                   onChange={handleChange}
                   aria-label="Vertical tabs example"
-                  sx={{borderRight: 1, borderColor: 'divider', width: '15%'}}
+                  sx={{borderRight: 1, borderColor: 'divider', width: '9%'}}
             >
                 <Tab label="Top Rated" {...a11yProps(0)} />
                 <Tab label="Popular" {...a11yProps(1)} />
@@ -86,10 +94,10 @@ export const ContentSections = () => {
                     : <Tab label="Now Playing" {...a11yProps(3)} />}
             </Tabs>
 
-            <ContentTab value={value} index={0} contentType={mediaType}/>
-            <ContentTab value={value} index={1} contentType={mediaType}/>
-            <ContentTab value={value} index={2} contentType={mediaType}/>
-            <ContentTab value={value} index={3} contentType={mediaType}/>
+            <ContentTab value={value} index={0}/>
+            <ContentTab value={value} index={1}/>
+            <ContentTab value={value} index={2}/>
+            <ContentTab value={value} index={3}/>
         </Box>
     );
 };
