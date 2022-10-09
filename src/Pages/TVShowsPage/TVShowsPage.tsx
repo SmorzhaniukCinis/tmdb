@@ -24,9 +24,9 @@ const TvShowsPage = () => {
     if(isLoading) return <Loader/>
     return (
         <div>
-            <MediaSlider title={'On The Air TV Shows'} content={onAirTVShows} mediaType={"tv"}/>
-            <MediaSlider title={'Popular TV Shows'} content={popularTV} mediaType={"tv"}/>
-            <MediaSlider title={'Top Rated TV Shows'} content={topRatedTV} mediaType={"tv"}/>
+            <MediaSlider title={'On The Air TV Shows'} content={onAirTVShows} mediaType={"tv"} linkParams={'onAir'}/>
+            <MediaSlider title={'Popular TV Shows'} content={popularTV} mediaType={"tv"} linkParams={'popular'}/>
+            <MediaSlider title={'Top Rated TV Shows'} content={topRatedTV} mediaType={"tv"} linkParams={'topRated'}/>
         </div>
     );
 };

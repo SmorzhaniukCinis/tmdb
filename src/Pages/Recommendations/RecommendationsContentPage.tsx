@@ -20,10 +20,10 @@ export const RecommendationsContentPage = () => {
 if (isLoading) return <Loader/>
     return (
         <div>
-            <MediaSlider title={'Popular TV Show'} content={popular.popularTV}/>
-            <MediaSlider title={'Popular Movie'} content={popular.popularMovie}/>
-            <MediaSlider title={'Top rated TV Show'} content={topRated.topRatedTV}/>
-            <MediaSlider title={'Top rated Movie'} content={topRated.topRatedMovie}/>
+            <MediaSlider title={'Popular TV Show'} content={popular.popularTV} linkParams={'popular'}/>
+            <MediaSlider title={'Popular Movie'} content={popular.popularMovie} linkParams={'popular'}/>
+            <MediaSlider title={'Top rated TV Show'} content={topRated.topRatedTV} linkParams={'topRated'}/>
+            <MediaSlider title={'Top rated Movie'} content={topRated.topRatedMovie} linkParams={'topRated'}/>
         </div>
     );
 };

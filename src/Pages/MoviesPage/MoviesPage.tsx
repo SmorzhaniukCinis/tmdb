@@ -26,10 +26,10 @@ export const MoviesPage = () => {
     if(isLoading) return <Loader/>
     return (
         <div>
-            <MediaSlider title={'Now Playing Movies'} content={nowPlayingMovies} mediaType={"movie"}/>
-            <MediaSlider title={'Upcoming Movies'} content={upcomingMovies} mediaType={"movie"}/>
-            <MediaSlider title={'Popular Movies'} content={popularMovie} mediaType={"movie"}/>
-            <MediaSlider title={'Top Rated Movies'} content={topRatedMovie} mediaType={"movie"}/>
+            <MediaSlider title={'Now Playing Movies'} content={nowPlayingMovies} mediaType={"movie"} linkParams={'nowPlaying'}/>
+            <MediaSlider title={'Upcoming Movies'} content={upcomingMovies} mediaType={"movie"} linkParams={'upcoming'}/>
+            <MediaSlider title={'Popular Movies'} content={popularMovie} mediaType={"movie"} linkParams={'popular'}/>
+            <MediaSlider title={'Top Rated Movies'} content={topRatedMovie} mediaType={"movie"} linkParams={'topRated'}/>
         </div>
     );
 };
