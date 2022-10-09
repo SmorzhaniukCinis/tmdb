@@ -51,7 +51,7 @@ export const GetUpcomingMovie = (page: number) =>
         dispatch(discoverMediaActions.setCurrentMedia(topRatedMovie))
         dispatch(discoverMediaActions.setLoading(false))
     }
-export const GetNawPlayingMovie = (page: number) =>
+export const GetNowPlayingMovie = (page: number) =>
     async (dispatch: Dispatch<ActionTypes>) => {
         dispatch(discoverMediaActions.setLoading(true))
         const topRatedMovie = await movieAPI.getNowPlayingMovie(page)
