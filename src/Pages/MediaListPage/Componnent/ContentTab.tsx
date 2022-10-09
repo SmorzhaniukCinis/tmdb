@@ -4,7 +4,7 @@ import {getCurrentMedia, getIsLoading} from "../../../store/Selectors/discoverMe
 import {SliderListItem} from "../../../Common/Components/SliderListItem/SliderListItem";
 import s from '../MediaListPage.module.css'
 import {Pagination, Skeleton} from "@mui/material";
-import {createArray} from "../MediaListFunc";
+import {createArray} from "../DiscoverPageFunctions";
 import {createSearchParams, useSearchParams} from "react-router-dom";
 
 interface TabPanelProps {
@@ -41,7 +41,7 @@ export const ContentTab = (props: TabPanelProps) => {
                 <div className={s.contentWrapper}>
                     {!isLoading
                         ? currentMedia.results?.map(media => <SliderListItem key={media.id} media={media}/>)
-                        : arrForSkeleton.map(item => <Skeleton sx={{m: '3px', borderRadius: '5px'}}
+                        : arrForSkeleton.map(item => <Skeleton key={item} sx={{m: '3px', borderRadius: '5px'}}
                                                                variant="rectangular" width={240} height={433}/>)
                     }
                 </div>

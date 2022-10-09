@@ -5,7 +5,7 @@ import ContentTab from "./ContentTab";
 import Box from "@mui/material/Box";
 import {useParams, useSearchParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {getValueFromURL, loadData} from "../MediaListFunc";
+import {getValueFromURL, loadData} from "../DiscoverPageFunctions";
 import {
     GetNowPlayingMovie,
     GetOnAirTVShow,

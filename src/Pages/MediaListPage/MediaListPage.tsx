@@ -13,7 +13,7 @@ import {
     GetUpcomingMovie
 } from "../../store/discoverMediaReducer";
 import {useDispatch} from "react-redux";
-import {getValueFromURL, loadData} from "./MediaListFunc";
+import {getValueFromURL, loadData} from "./DiscoverPageFunctions";
 import {mediaType} from "../../Common/types";
 import {ContentSections} from "./Componnent/ContentSections";
 import {MediaTabs} from "./Componnent/MediaTabs";
