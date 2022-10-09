@@ -11,7 +11,7 @@ export const tvAPI = {
         (`/tv/${tv_id}?append_to_response=content_ratings,credits,images,aggregate_credits,reviews,recommendations`)
         return data
     },
-    getTVSeason: async (tv_id: number,season_number: number): Promise<seasonDetails> => {
+    getTVSeason: async (tv_id: number, season_number: number): Promise<seasonDetails> => {
         const {data} = await instance.get<seasonDetails>
         (`/tv/${tv_id}/season/${season_number}?append_to_response=account_states,`)
         return data
@@ -30,17 +30,17 @@ export const tvAPI = {
             releaseDate: data.first_air_date
         }
     },
-    rateTVShow: async (tv_id: number, value:number, sessionId:string): Promise<rateTVRes> => {
+    rateTVShow: async (tv_id: number, value: number, sessionId: string): Promise<rateTVRes> => {
         const {data} = await instance.post<rateTVRes>(`/tv/${tv_id}/rating?session_id=${sessionId}`, {
             value
         })
         return data
     },
-    getTVShowStats: async (tv_id: number, sessionId:string): Promise<mediaStatsType> => {
+    getTVShowStats: async (tv_id: number, sessionId: string): Promise<mediaStatsType> => {
         const {data} = await instance.get<mediaStatsType>(`/tv/${tv_id}/account_states?session_id=${sessionId}`)
         return data
     },
-    deleteTVShowRating: async (tv_id: number, sessionId:string): Promise<rateTVRes> => {
+    deleteTVShowRating: async (tv_id: number, sessionId: string): Promise<rateTVRes> => {
         const {data} = await instance.delete<rateTVRes>(`/tv/${tv_id}/rating?session_id=${sessionId}`)
         return data
     },
@@ -48,21 +48,36 @@ export const tvAPI = {
         const {data} = await instance.get<commonMediaCredits>(`/tv/${tv_id}/credits`)
         return data
     },
-    getPopularTVShow: async (page:number): Promise<mediaCardType[]> => {
+    getPopularTVShow: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularTV>>(`/tv/popular?page=${page}`)
-        return data.results.map( tvShow => getTVShowMainInfo(tvShow))
+        return {
+            results: data.results.map(tvShow => getTVShowMainInfo(tvShow)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     },
-    getTopRatedTVShow: async (page:number): Promise<mediaCardType[]> => {
+    getTopRatedTVShow: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularTV>>(`/tv/top_rated?page=${page}`)
-        return data.results.map( tvShow => getTVShowMainInfo(tvShow))
+        return {
+            results: data.results.map(tvShow => getTVShowMainInfo(tvShow)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     },
-    getOnTheAirTVShow: async (page:number): Promise<mediaCardType[]> => {
+    getOnTheAirTVShow: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularTV>>(`/tv/on_the_air?page=${page}`)
-        return data.results.map( tvShow => getTVShowMainInfo(tvShow))
+        return {
+            results: data.results.map(tvShow => getTVShowMainInfo(tvShow)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     }
 }
 
-const getTVShowMainInfo = (TVShow:popularTV):mediaCardType => {
+const getTVShowMainInfo = (TVShow: popularTV): mediaCardType => {
     return {
         voteAverage: TVShow.vote_average,
         name: TVShow.name,

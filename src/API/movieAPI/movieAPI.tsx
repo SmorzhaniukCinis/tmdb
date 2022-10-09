@@ -43,21 +43,42 @@ export const movieAPI = {
         const {data} = await instance.get<commonMediaCredits>(`/movie/${tv_id}/credits`)
         return data
     },
-    getPopularMovie: async (page: number): Promise<mediaCardType[]> => {
+    getPopularMovie: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/popular?page=${page}`)
-        return  data.results.map( media => getMovieMainInfo(media))
+        return  {
+            results: data.results.map( media => getMovieMainInfo(media)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     },
-    getTopRatedMovie: async (page: number): Promise<mediaCardType[]> => {
+    getTopRatedMovie: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/top_rated?page=${page}`)
-        return  data.results.map( media => getMovieMainInfo(media))
+        console.log(data)
+        return  {
+            results: data.results.map( media => getMovieMainInfo(media)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     },
-    getUpcomingMovie: async (page: number): Promise<mediaCardType[]> => {
+    getUpcomingMovie: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/upcoming?page=${page}`)
-        return  data.results.map( media => getMovieMainInfo(media))
+        return  {
+            results: data.results.map( media => getMovieMainInfo(media)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     },
-    getNowPlayingMovie: async (page: number): Promise<mediaCardType[]> => {
+    getNowPlayingMovie: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/now_playing?page=${page}`)
-        return  data.results.map( media => getMovieMainInfo(media))
+        return  {
+            results: data.results.map( media => getMovieMainInfo(media)),
+            page: data.page,
+            total_pages: data.total_pages,
+            total_results: data.total_results
+        }
     },
 }
 
