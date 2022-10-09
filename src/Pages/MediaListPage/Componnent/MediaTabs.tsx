@@ -20,9 +20,9 @@ export const MediaTabs = () => {
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
         if(newValue === 0) {
-            navigate('/discover/movie')
+            navigate('/discover/movie?section=topRated&page=1')
         } else if (newValue === 1) {
-            navigate('/discover/tv')
+            navigate('/discover/tv?section=topRated&page=1')
         }
     };
 
