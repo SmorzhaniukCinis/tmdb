@@ -89,7 +89,7 @@ export const GetSeason = (TVid: number, seasonNumber: number) =>
     }
 export const GetOnTheAirTVShow = () => async (dispatch: Dispatch<ActionTypes>) => {
         dispatch(mediaActions.setLoading(true))
-        const result = await tvAPI.getOnTheAirTVShow()
+        const result = await tvAPI.getOnTheAirTVShow(1)
         dispatch(tvActions.setOnTheAirTVShow(result))
         dispatch(mediaActions.setLoading(false))
     }

@@ -103,15 +103,15 @@ export const getMediaImages = (mediaId: number, mediaType: mediaType) => async (
 }
 export const getPopularMedia = () => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    const popularTV = await tvAPI.getPopularTVShow()
-    const popularMovie = await movieAPI.getPopularMovie()
+    const popularTV = await tvAPI.getPopularTVShow(1)
+    const popularMovie = await movieAPI.getPopularMovie(1)
     dispatch(mediaActions.setPopularMedia(popularTV, popularMovie))
     dispatch(mediaActions.setLoading(false))
 }
 export const getTopRatedMedia = () => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    const popularTV = await tvAPI.getTopRatedTVShow()
-    const popularMovie = await movieAPI.getTopRatedMovie()
+    const popularTV = await tvAPI.getTopRatedTVShow(1)
+    const popularMovie = await movieAPI.getTopRatedMovie(1)
     dispatch(mediaActions.setTopRatedMedia(popularTV, popularMovie))
     dispatch(mediaActions.setLoading(false))
 }

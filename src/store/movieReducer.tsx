@@ -79,13 +79,13 @@ export const getMovieStats = (id: number) =>
     }
 export const getUpcomingMovies = () => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    const movie = await movieAPI.getUpcomingMovie()
+    const movie = await movieAPI.getUpcomingMovie(1)
     dispatch(movieActions.setUpcomingMovie(movie))
     dispatch(mediaActions.setLoading(false))
 }
 export const getNowPlayingMovie = () => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(mediaActions.setLoading(true))
-    const movie = await movieAPI.getNowPlayingMovie()
+    const movie = await movieAPI.getNowPlayingMovie(1)
     dispatch(movieActions.setNowPlayingMovie(movie))
     dispatch(mediaActions.setLoading(false))
 }

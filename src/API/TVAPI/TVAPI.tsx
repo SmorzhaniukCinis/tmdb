@@ -48,18 +48,18 @@ export const tvAPI = {
         const {data} = await instance.get<commonMediaCredits>(`/tv/${tv_id}/credits`)
         return data
     },
-    getPopularTVShow: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/popular`)
+    getPopularTVShow: async (page:number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/popular?page=${page}`)
         return data.results.map( tvShow => getTVShowMainInfo(tvShow))
     },
-    getTopRatedTVShow: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/top_rated`)
+    getTopRatedTVShow: async (page:number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/top_rated?page=${page}`)
         return data.results.map( tvShow => getTVShowMainInfo(tvShow))
     },
-    getOnTheAirTVShow: async (): Promise<mediaCardType[]> => {
-        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/on_the_air`)
+    getOnTheAirTVShow: async (page:number): Promise<mediaCardType[]> => {
+        const {data} = await instance.get<CommonResType<popularTV>>(`/tv/on_the_air?page=${page}`)
         return data.results.map( tvShow => getTVShowMainInfo(tvShow))
-    },
+    }
 }
 
 const getTVShowMainInfo = (TVShow:popularTV):mediaCardType => {

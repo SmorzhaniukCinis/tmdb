@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentMedia} from "../../../store/Selectors/discoverMediaSelectors";
-import {GetTopRatedMovie} from "../../../store/DiscoverMediaRedicer";
+import {GetTopRatedMovie} from "../../../store/DiscoverMediaReducer";
+import {tvAPI} from "../../../API/TVAPI/TVAPI";
 
 interface TabPanelProps {
     index: number;
