@@ -42,10 +42,13 @@ export const listAPI = {
         return data
 
     },
-    addListItem: async (itemId: number, listId: number, sessionId: string): Promise<addListItemRes> => {
+    addListItem: async (itemId: number, listId: number, mediaType:mediaType): Promise<addListItemRes> => {
         try {
-            const {data} = await instance.post<addListItemRes>(`/list/${listId}/add_item?session_id=${sessionId}`,
-                {media_id: itemId})
+            const {data} = await instanceV4.post<addListItemRes>(`/list/${listId}/items`,
+                {items: [{
+                            media_type: mediaType,
+                            media_id: itemId}
+                    ]})
             return data
         } catch (e: any) {
             return e.response.data

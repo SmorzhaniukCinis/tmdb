@@ -28,7 +28,7 @@ export const ListReducer = (state = initialState, action: ActionTypes): initialS
             return {
                 ...state, listDetails: {
                     ...state.listDetails, comments: {
-                        ...state.listDetails.comments , [`${action.mediaType}:${action.mediaId}`]: action.comment
+                        ...state.listDetails.comments, [`${action.mediaType}:${action.mediaId}`]: action.comment
                     }
                 }
             }
@@ -50,49 +50,51 @@ export const listActions = {
     setLoading: (isLoading: boolean) => ({type: SET_LOADING, isLoading} as const),
 }
 
-export const GetList = (id: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const GetList = (id: number) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(listActions.setLoading(true))
     const list = await listAPI.getList(id)
     dispatch(listActions.setList(list))
     dispatch(listActions.setLoading(false))
 }
-export const CreateList = (listDetails: createListData) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const CreateList = (listDetails: createListData) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(listActions.setLoading(true))
     const res = await listAPI.createList(listDetails)
     if (res.success) {
         dispatch(listActions.setLoading(false))
     }
 }
-export const EditList = (listDetails: editListData, id: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const EditList = (listDetails: editListData, id: number) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(listActions.setLoading(true))
     const res = await listAPI.editList(listDetails, id)
     if (res.success) {
         dispatch(listActions.setLoading(false))
     }
 }
-export const DeleteList = (id: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const DeleteList = (id: number) => async (dispatch: Dispatch<ActionTypes>) => {
     dispatch(listActions.setLoading(true))
     const res = await listAPI.deleteList(id)
     if (res.success) {
         dispatch(listActions.setLoading(false))
     }
 }
-export const addListItem = (ListId: number, itemId: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
-    const sessionId = getState().auth.sessionId
-    const res = await listAPI.addListItem(itemId, ListId, sessionId)
-    if (res.status_code === 8) {
+export const addListItem = (ListId: number, itemId: number, mediaType: mediaType) =>
+    async (dispatch: Dispatch<ActionTypes>) => {
+    const res = await listAPI.addListItem(itemId, ListId, mediaType)
+    if (res.status_code === 1 && !res.results[0].success) {
         dispatch(accountActions.setEventMessage("this item already exist in this list"))
         setTimeout(() => {
             dispatch(accountActions.deleteEventMessage())
         }, 5000)
-    } else if (res.status_code === 12) {
+    } else if (res.status_code === 1) {
         dispatch(accountActions.setEventMessage("Success"))
         setTimeout(() => {
             dispatch(accountActions.deleteEventMessage())
         }, 5000)
     }
 }
-export const deleteListItem = (listId: number, itemId: number) => async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
+export const deleteListItem = (listId: number, itemId: number) =>
+    async (dispatch: Dispatch<ActionTypes>, getState: () => RootStateType) => {
     const sessionId = getState().auth.sessionId
     const res = await listAPI.deleteListItem(itemId, listId, sessionId)
     if (res.status_code === 13) {

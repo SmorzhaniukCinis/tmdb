@@ -71,7 +71,7 @@ export const SearchItem: React.FC<props> = ({item, mediaType}: props) => {
                 </CardContent>
             </CardActionArea>
 
-            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={item.id}/>
+            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={item.id} mediaType={mediaType}/>
 
             <div className={s.speedMenu}>
                 <ActionMenu

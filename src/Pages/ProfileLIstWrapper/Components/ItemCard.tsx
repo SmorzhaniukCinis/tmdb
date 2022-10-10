@@ -119,7 +119,7 @@ export const ItemCard: React.FC<props> = (props: props) => {
                 />
             </Box>
 
-            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={props.id}/>
+            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={props.id} mediaType={props.type}/>
 
         </Card>
     );

@@ -54,7 +54,6 @@ export const movieAPI = {
     },
     getTopRatedMovie: async (page: number): Promise<CommonResType<mediaCardType>> => {
         const {data} = await instance.get<CommonResType<popularMovie>>(`/movie/top_rated?page=${page}`)
-        console.log(data)
         return  {
             results: data.results.map( media => getMovieMainInfo(media)),
             page: data.page,

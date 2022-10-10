@@ -63,7 +63,7 @@ export const SliderListItem:React.FC<props> = ({media}:props) => {
                             <CircleMediaRating voteCount={media.voteCount} voteAverage={media.voteAverage}/>
                         </div>
                         <div className={s.ratingWrapper}>
-                            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={media.id}/>
+                            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={media.id} mediaType={media.type}/>
                             <ActionMenu
                                 markAsFavorite={markAsFavorite}
                                 addToWatchListOnClick={addToWatchListOnClick}

@@ -42,7 +42,7 @@ export const MediaTools = ({voteCount, voteAverage, mediaId, mediaType}: props) 
 
             <MediaVotes voteCount={voteCount} voteAverage={voteAverage}/>
             <MediaRating mediaType={mediaType} TVStats={TVStats} movieStats={movieStats}/>
-            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={mediaId}/>
+            <ListMenu isOpen={open} setOpen={setOpen} lists={lists} mediaId={mediaId} mediaType={mediaType}/>
 
         </div>
     )

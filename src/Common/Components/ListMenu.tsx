@@ -7,6 +7,7 @@ import {CommonResType, createdList} from "../../API/accountAPI/accountTypes";
 import {addListItem} from "../../store/listReducer";
 import {accountActions} from "../../store/accountReducer";
 import {useParams} from "react-router-dom";
+import {mediaType} from "../types";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -28,24 +29,17 @@ type props = {
     setOpen: (isOpen: boolean) => void
     lists: CommonResType<createdList>
     mediaId: number
+    mediaType: mediaType
 }
 
-export const ListMenu: React.FC<props> = ({isOpen, setOpen, lists, mediaId}: props) => {
+export const ListMenu: React.FC<props> = ({isOpen, setOpen, lists, mediaId, mediaType}: props) => {
 
     const dispatch = useDispatch()
-    const {mediaType} = useParams()
 
     const closeListsMenu = () => setOpen(false);
 
     const addToList = (listId: number, itemId: number) => {
-        if (mediaType === 'tv') {
-            dispatch(accountActions.setEventMessage("Sorry, but adding to custom list is not available at the moment"))
-            setTimeout(() => {
-                dispatch(accountActions.deleteEventMessage())
-            }, 5000)
-        } else {
-            dispatch(addListItem(listId, itemId))
-        }
+        dispatch(addListItem(listId, itemId, mediaType ))
         setOpen(false)
     }
 
